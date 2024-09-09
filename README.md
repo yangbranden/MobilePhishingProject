@@ -1,1 +1,1 @@
-# BrowserStackPhishTest
+# MobilePhishingProject
