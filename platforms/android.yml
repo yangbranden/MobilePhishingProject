@@ -3,8 +3,18 @@
 # Platforms (Browsers / Devices to test)
 # =======================================
 platforms:
-  # - os: OS X
-  #   osVersion: Big Sur
-  #   browserName: Chrome
-  #   browserVersion: latest
-  # TODO
+  - browserName: samsung
+    osVersion: 13.0
+    deviceName: Samsung Galaxy S23
+  - browserName: chrome
+    osVersion: 13.0
+    deviceName: Samsung Galaxy S23
+  - browserName: samsung
+    osVersion: 12.0
+    deviceName: Samsung Galaxy S22
+  - browserName: chrome
+    osVersion: 12.0
+    deviceName: Samsung Galaxy S22
+  - browserName: chrome
+    osVersion: 14.0
+    deviceName: Google Pixel 9
