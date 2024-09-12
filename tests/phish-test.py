@@ -9,45 +9,24 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 
 
-NUM_URLS = 3 # The most recent number of URLs from phishtank.org
-target_urls = ['https://example.com']
+target_urls = ['https://example.com'] # can explicitly specify URLs here as well
+target_file = './targets/targets-9-12.txt'
 
-# Get updated list of phishing URLs from phishtank.org
-print("Retrieving updated list of phishing URLs from phishtank.org...")
-os.system("curl -L -s http://data.phishtank.com/data/online-valid.csv.gz -o online-valid.csv.gz")
-updated = os.system("gzip -d --force online-valid.csv.gz")
-if updated == 0: 
-    print("Success.")
-    with open('online-valid.csv', mode='r', encoding='latin-1', newline='') as file:
-        csv_reader = csv.reader(file)
-        # Skip header row
-        header = next(csv_reader)
+# FOR TXT FILE
+with open(target_file, 'r', encoding='latin-1') as f:
+    for url in f:
+        target_urls.append(url.strip())
 
-        for index, row in enumerate(csv_reader):
-            if index >= NUM_URLS-1:
-                break
-            target_urls.append(row[1])
-            print(f"Added URL to targets: {row[1]}")
-elif os.path.exists('online-valid.csv'):
-    print("Unable to update data from phishtank.org...")
-    os.system("rm online-valid.csv.gz")
-    with open('online-valid.csv', mode='r', encoding='latin-1', newline='') as file:
-        csv_reader = csv.reader(file)
-        # Skip header row
-        header = next(csv_reader)
-        for index, row in enumerate(csv_reader):
-            if index == 0:
-                print(f"Using last saved file from {row[3]}")
-            if index >= NUM_URLS-1:
-                break
-            target_urls.append(row[1])
-            print(f"Added URL to targets: {row[1]}")
-elif len(target_urls) != 0:
-    print("No previous file from phishtank.org found, using the manually specified URLs inputted.")
-else:
-    print("No previous file found. Please manually download the csv file from phishtank.org or manually specify target_urls in the script.")
-print("Target URLs specified:", target_urls)
+# FOR CSV FILE
+# with open(target_file, 'r', encoding='latin-1') as f:
+#     for url in f.read().strip().split(','):
+#         target_urls.append(url)
+# FOR JSON FILE
+# with open(target_file, 'r', encoding='latin-1') as f:
+#     for url in json.load(f):
+#         target_urls.append(url)
 
+print("TARGET URLs:", target_urls)
 
 # The webdriver management will be handled by the browserstack-sdk
 # so this will be overridden and tests will run browserstack -
@@ -63,8 +42,8 @@ try:
         WebDriverWait(driver, 10)
         # TODO: figure out an automated way of determining the results, rather than manually sifting through the output
         # Documentation for Selenium WebDriver here: https://selenium-python.readthedocs.io/api.html
-        driver.execute_script(
-            'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Page has been loaded successfully."}}')
+    driver.execute_script(
+        'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Page has been loaded successfully."}}')
 except NoSuchElementException as err:
     message = 'Exception: ' + str(err.__class__) + str(err.msg)
     driver.execute_script(
