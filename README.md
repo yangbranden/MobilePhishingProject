@@ -1,9 +1,8 @@
 # MobilePhishingProject
-Currently this is just a copy of the BrowserStack automated testing tutorial: https://automate.browserstack.com/dashboard/v2/quick-start/get-started
+See the BrowserStack automated testing tutorial: https://automate.browserstack.com/dashboard/v2/quick-start/get-started
 
-
-# python-selenium-browserstack
-Run python tests on browserstack using the SDK.
+# Getting BrowserStack (free with GitHub Student Developer Pack)
+https://www.browserstack.com/github-students
 
 ## Prerequisite
 ```
