@@ -33,6 +33,9 @@ pip3 install -r requirements.txt
     ```
     setx BROWSERSTACK_USERNAME "<browserstack-username>"
     setx BROWSERSTACK_ACCESS_KEY "<browserstack-access-key>"
+    ```
+    or
+    ```
     set BROWSERSTACK_USERNAME=<browserstack-username>
     set BROWSERSTACK_ACCESS_KEY=<browserstack-access-key>
     ```
