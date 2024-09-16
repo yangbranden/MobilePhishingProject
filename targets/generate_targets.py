@@ -6,6 +6,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 
+output_file = "ALL.yml"
+
 # Setup webdriver browser options
 options = ChromeOptions()
 # options.add_argument('--headless')  # Run headless mode (no GUI)
@@ -44,7 +46,7 @@ try:
             android_devices.append(device)
         vendor_index += 1
     print(android_devices)
-    # with open("output.txt", "w") as f:
+    # with open(output_file, "w") as f:
     #     f.write("ANDROID DEVICES\n")
 
     # SLEEP
