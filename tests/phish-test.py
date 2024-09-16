@@ -9,28 +9,28 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 
 
-target_urls = ['https://example.com'] # can explicitly specify URLs here as well
-# target_file = './targets/targets-9-12.txt'
+phishing_urls = ['https://example.com'] # can explicitly specify URLs here as well
+# urls_file = './urls/urls-9-12.txt'
 
 # FOR TXT FILE
-# with open(target_file, 'r', encoding='latin-1') as f:
+# with open(urls_file, 'r', encoding='latin-1') as f:
 #     for url in f:
-#         target_urls.append(url.strip())
+#         phishing_urls.append(url.strip())
 
 # FOR CSV FILE
-# with open(target_file, 'r', encoding='latin-1') as f:
+# with open(urls_file, 'r', encoding='latin-1') as f:
 #     for url in f.read().strip().split(','):
-#         target_urls.append(url)
+#         phishing_urls.append(url)
 # FOR JSON FILE
-# with open(target_file, 'r', encoding='latin-1') as f:
+# with open(urls_file, 'r', encoding='latin-1') as f:
 #     for url in json.load(f):
-#         target_urls.append(url)
+#         phishing_urls.append(url)
 
-print("TARGET URLs:", target_urls)
+print("PHISHING URLs:", phishing_urls)
 
-# Output will be list of length target_urls
+# Output will be list of length phishing_urls
 outcomes = {}
-for url in target_urls:
+for url in phishing_urls:
     outcomes[url] = ['Not tested yet']
 
 # The webdriver management will be handled by the browserstack-sdk
@@ -41,7 +41,7 @@ options.set_capability('sessionName', 'Phishing Project Test')
 driver = webdriver.Chrome(options=options) 
 
 try:
-    for url in target_urls:
+    for url in phishing_urls:
         print(f"Testing {url}...")
         # Navigate to the URL
         driver.get(url) 

@@ -26,29 +26,14 @@ buildIdentifier: '#${BUILD_NUMBER} (${DATE_TIME})' # Supports strings along with
 # =======================================
 # Platforms object contains all the browser / device combinations you want to test on.
 # Entire list available here -> (https://www.browserstack.com/list-of-browsers-and-platforms/automate)
+# NOTE: We have saved various combinations of browsers and devices in the targets/ folder; simply copy-paste to here
 platforms:
-  - browserName: chrome
-    browserVersion: latest - 1
-    osVersion: 11.0
-    deviceName: Xiaomi Redmi Note 11
-    realMobile: true
-  - browserName: chrome
-    browserVersion: latest - 1
-    osVersion: 11.0
-    deviceName: Oppo Reno 6
-    realMobile: true
-  # - browserName: chrome
-  #   osVersion: 13.0
-  #   deviceName: Samsung Galaxy S23
-  # - browserName: samsung
-  #   osVersion: 12.0
-  #   deviceName: Samsung Galaxy S22
-  # - browserName: chrome
-  #   osVersion: 12.0
-  #   deviceName: Samsung Galaxy S22
-  # - browserName: chrome
-  #   osVersion: 14.0
-  #   deviceName: Google Pixel 9
+- browser: samsung
+  browser_version: null
+  device: Samsung Galaxy S23 Ultra
+  os: android
+  os_version: '13.0'
+  real_mobile: true
 
 # ==========================================
 # BrowserStack Local
