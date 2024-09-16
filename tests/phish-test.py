@@ -1,6 +1,7 @@
 import json
 import csv
 import os
+import time
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -47,7 +48,7 @@ try:
         driver.get(url) 
 
         # Wait for the page to load
-        WebDriverWait(driver, 10)
+        time.sleep(3)
         
         # Currently working on figuring out an automated way of determining the results, rather than manually sifting through the output
         # Documentation for Selenium WebDriver here: https://selenium-python.readthedocs.io/api.html
