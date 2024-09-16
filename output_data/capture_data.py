@@ -3,17 +3,21 @@ import os
 import json
 
 # WORK IN PROGRESS
-build_id = "072258cb2bc28d2fbfc5b0f7a694864bce89ca67"
-# session_id = "49c7ef77ffa758424fc2f54f0b6534b7700c9edc"
+build_id = "fd1874b5027a360593f840398eb20cdc77a21802"
+session_id = "f9d342106d42c897d712cbab39249f5623e4ed79"
 
 s = requests.Session()
 s.auth = (os.environ.get("BROWSERSTACK_USERNAME"), os.environ.get("BROWSERSTACK_ACCESS_KEY"))
 
-r = s.get(f"https://api.browserstack.com/automate/builds/{build_id}/sessions.json")
+r = s.get(f"https://api.browserstack.com/automate/builds/{build_id}/sessions/{session_id}/networklogs")
 output = json.loads(r.text)
 
-with open("tmp.json", "w") as f:
-    f.write(json.dumps(output))
+# List all URLs visited during session
+for index, log in enumerate(output["log"]["entries"]):
+    print(index, log["request"]["url"])
 
-# For example; getting the video URL
-print(output[0]["automation_session"]["video_url"])
+with open("tmp.json", "w") as f:
+    f.write(json.dumps(output["log"]["entries"], indent=2))
+
+# # For example; getting the video URL
+# print(output[0]["automation_session"]["selenium_logs_url"])
