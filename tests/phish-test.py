@@ -9,8 +9,8 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 
 
-target_urls = ['https://www.shorturl.at/IgPRs'] # can explicitly specify URLs here as well
-target_file = './targets/targets-9-12.txt'
+target_urls = ['https://example.com'] # can explicitly specify URLs here as well
+# target_file = './targets/targets-9-12.txt'
 
 # FOR TXT FILE
 # with open(target_file, 'r', encoding='latin-1') as f:
