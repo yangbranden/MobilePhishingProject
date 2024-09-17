@@ -11,9 +11,9 @@ accessKey: ${BROWSERSTACK_ACCESS_KEY}
 # ======================
 # The following capabilities are used to set up reporting on BrowserStack:
 # Set 'projectName' to the name of your project. Example, Marketing Website
-projectName: Mobile Phishing Project 
+projectName: Mobile Phishing Project
 # Set `buildName` as the name of the job / testsuite being run
-buildName: InitialTest
+buildName: Example Test
 # `buildIdentifier` is a unique id to differentiate every execution that gets appended to
 # buildName. Choose your buildIdentifier format from the available expressions:
 # ${BUILD_NUMBER} (Default): Generates an incremental counter with every execution
@@ -28,10 +28,17 @@ buildIdentifier: '#${BUILD_NUMBER} (${DATE_TIME})' # Supports strings along with
 # Entire list available here -> (https://www.browserstack.com/list-of-browsers-and-platforms/automate)
 # NOTE: We have saved various combinations of browsers and devices in the targets/ folder; simply copy-paste to here
 platforms:
-- browser: opera
-  browser_version: '12.15'
-  os: Windows
-  os_version: XP
+- os: OS X
+  osVersion: Big Sur
+  browserName: Chrome
+  browserVersion: latest
+- os: Windows
+  osVersion: 10
+  browserName: Edge
+  browserVersion: latest
+- deviceName: Samsung Galaxy S22 Ultra
+  browserName: chrome
+  osVersion: 12.0
 
 # ==========================================
 # BrowserStack Local
@@ -55,3 +62,4 @@ debug: true # <boolean> # Set to true if you need screenshots for every selenium
 networkLogs: true # <boolean> Set to true to enable HAR logs capturing
 consoleLogs: errors # <string> Remote browser's console debug levels to be printed (Default: errors)
 # Available options are `disable`, `errors`, `warnings`, `info`, `verbose` (Default: errors)
+idleTimeout: 30 # Supposed to set the timeout time, but I haven't noticed any difference

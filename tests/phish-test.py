@@ -10,7 +10,7 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 
 
-phishing_urls = ['https://example.com'] # can explicitly specify URLs here as well
+phishing_urls = [] # can explicitly specify URLs here as well
 urls_file = './urls/urls_2024-09-16.txt'
 
 # FOR TXT FILE
