@@ -14,15 +14,15 @@ class Output(Enum):
 OUTPUT_MODE = Output.ALL
 
 if OUTPUT_MODE == Output.ALL:
-    output_file = "all_targets.yml"
+    output_file = "./targets/all_targets.yml"
 elif OUTPUT_MODE == Output.ANDROID:
-    output_file = "android.yml"
+    output_file = "./targets/android.yml"
 elif OUTPUT_MODE == Output.IOS:
-    output_file = "ios.yml"
+    output_file = "./targets/ios.yml"
 elif OUTPUT_MODE == Output.WINDOWS:
-    output_file = "windows.yml"
+    output_file = "./targets/windows.yml"
 elif OUTPUT_MODE == Output.MACOSX:
-    output_file = "macosx.yml"
+    output_file = "./targets/macosx.yml"
 
 # OK WAIT I didn't realize this API was available
 s = requests.Session()
@@ -32,6 +32,13 @@ r = s.get("https://api.browserstack.com/automate/browsers.json")
 output = json.loads(r.text)
 
 selective_output = []
+
+# Quick fix: fields cannot have value of null (skip if null)
+for item in output:
+    null_fields = [field for field in item if item[field] is None]
+    for n in null_fields:
+        item.pop(n)
+
 if OUTPUT_MODE == Output.ANDROID:
     for item in output:
         if item["os"] == "android":
@@ -44,7 +51,7 @@ elif OUTPUT_MODE == Output.IOS:
     output = selective_output
 elif OUTPUT_MODE == Output.WINDOWS:
     for item in output:
-        if item["os"] == "windows":
+        if item["os"] == "Windows":
             selective_output.append(item)
     output = selective_output
 elif OUTPUT_MODE == Output.MACOSX:

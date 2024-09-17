@@ -11,12 +11,12 @@ from selenium.webdriver.chrome.options import Options as ChromeOptions
 
 
 phishing_urls = ['https://example.com'] # can explicitly specify URLs here as well
-# urls_file = './urls/urls-9-12.txt'
+urls_file = './urls/urls_2024-09-16.txt'
 
 # FOR TXT FILE
-# with open(urls_file, 'r', encoding='latin-1') as f:
-#     for url in f:
-#         phishing_urls.append(url.strip())
+with open(urls_file, 'r', encoding='latin-1') as f:
+    for url in f:
+        phishing_urls.append(url.strip())
 
 # FOR CSV FILE
 # with open(urls_file, 'r', encoding='latin-1') as f:
@@ -32,14 +32,13 @@ print("PHISHING URLs:", phishing_urls)
 # Output will be list of length phishing_urls
 outcomes = {}
 for url in phishing_urls:
-    outcomes[url] = ['Not tested yet']
+    outcomes[url] = ['TBD'] # WILL EDIT THIS LATER (once we have identified possible outcomes)
 
 # The webdriver management will be handled by the browserstack-sdk
 # so this will be overridden and tests will run browserstack -
 # without any changes to the test files!
 options = ChromeOptions()
-options.set_capability('sessionName', 'Phishing Project Test')
-driver = webdriver.Chrome(options=options) 
+driver = webdriver.Chrome(options=options)
 
 try:
     for url in phishing_urls:
@@ -47,7 +46,7 @@ try:
         # Navigate to the URL
         driver.get(url) 
 
-        # Wait for the page to load
+        # Pause on the page for a few seconds
         time.sleep(3)
         
         # Currently working on figuring out an automated way of determining the results, rather than manually sifting through the output
@@ -62,8 +61,8 @@ try:
         # TODO
 
         # ADDITIONAL OUTCOME: redirected URL
-        if url not in driver.current_url:
-            outcomes[url].append('Redirected URL')
+        # if url not in driver.current_url:
+        #     outcomes[url].append('Redirected URL')
         
     driver.execute_script(
         'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test has completed without issues", "outcomes": ' + json.dumps(outcomes) + ' }}')

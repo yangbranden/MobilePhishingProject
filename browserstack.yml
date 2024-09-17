@@ -13,7 +13,7 @@ accessKey: ${BROWSERSTACK_ACCESS_KEY}
 # Set 'projectName' to the name of your project. Example, Marketing Website
 projectName: Mobile Phishing Project 
 # Set `buildName` as the name of the job / testsuite being run
-buildName: Testing
+buildName: InitialTest
 # `buildIdentifier` is a unique id to differentiate every execution that gets appended to
 # buildName. Choose your buildIdentifier format from the available expressions:
 # ${BUILD_NUMBER} (Default): Generates an incremental counter with every execution
@@ -28,12 +28,10 @@ buildIdentifier: '#${BUILD_NUMBER} (${DATE_TIME})' # Supports strings along with
 # Entire list available here -> (https://www.browserstack.com/list-of-browsers-and-platforms/automate)
 # NOTE: We have saved various combinations of browsers and devices in the targets/ folder; simply copy-paste to here
 platforms:
-- browser: samsung
-  browser_version: null
-  device: Samsung Galaxy S23 Ultra
-  os: android
-  os_version: '13.0'
-  real_mobile: true
+- browser: opera
+  browser_version: '12.15'
+  os: Windows
+  os_version: XP
 
 # ==========================================
 # BrowserStack Local
