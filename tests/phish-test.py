@@ -6,7 +6,7 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, WebDriverException
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 
 
@@ -40,15 +40,15 @@ for url in phishing_urls:
 options = ChromeOptions()
 driver = webdriver.Chrome(options=options)
 
-try:
-    for url in phishing_urls:
-        print(f"Testing {url}...")
+for url in phishing_urls:
+    print(f"Testing {url}...")
+    try:
         # Navigate to the URL
         driver.get(url) 
 
         # Pause on the page for a few seconds
         time.sleep(3)
-        
+            
         # Currently working on figuring out an automated way of determining the results, rather than manually sifting through the output
         # Documentation for Selenium WebDriver here: https://selenium-python.readthedocs.io/api.html
         # OUTCOME #1: blocked by browser
@@ -64,16 +64,31 @@ try:
         # if url not in driver.current_url:
         #     outcomes[url].append('Redirected URL')
         
-    driver.execute_script(
-        'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Test has completed without issues", "outcomes": ' + json.dumps(outcomes) + ' }}')
-except NoSuchElementException as err:
-    message = 'Exception: ' + str(err.__class__) + str(err.msg)
-    driver.execute_script(
-        'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
-except Exception as err:
-    message = 'Exception: ' + str(err.__class__) + str(err.msg)
-    driver.execute_script(
-        'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
-finally:
-    # Stop the driver
-    driver.quit()
+        
+        # check if page has '/html/body/div[1]/div/div[2]/h1 (Microsoft Edge's: This site has been reported as unsafe)'  
+        if len(driver.find_elements(By.XPATH, '/html/body/div[1]/div/div[2]/h1')) > 0:
+                print(f"Found Microsoft Edge 'This site has been reported as unsafe' element on {url}")
+                driver.execute_script(
+                'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": "Page blocked by Microsoft Edge."}}')
+        else:
+                driver.execute_script(
+                'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Page loaded successfully."}}')
+
+    except NoSuchElementException as err:
+        message = f'Exception: {err.__class__} {err.msg}'
+        print(message)
+        driver.execute_script(
+            'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
+    except WebDriverException as err: # Site Unreachable
+        message = f'Exception: {err.__class__} {err.msg}'
+        print(message)
+        driver.execute_script(
+            'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
+    except Exception as err:
+        message = f'Exception: {err.__class__} {err.msg}'
+        print(message)
+        driver.execute_script(
+            'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": ' + json.dumps(message) + '}}')
+
+# Stop the driver
+driver.quit()
