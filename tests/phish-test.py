@@ -11,7 +11,7 @@ from selenium.webdriver.chrome.options import Options as ChromeOptions
 
 
 phishing_urls = [] # can explicitly specify URLs here as well
-urls_file = './urls/urls_2024-09-16.txt'
+urls_file = './urls/urls_2024-09-18.txt'
 
 # FOR TXT FILE
 with open(urls_file, 'r', encoding='latin-1') as f:
