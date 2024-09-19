@@ -72,5 +72,16 @@ pip3 install -r requirements.txt
     browserstack-sdk ./tests/local-test.py
     ``` 
 
+Additionally, we have a custom script in the main directory, `run_tests.py`, that will call the `browserstack-sdk` executable program with our Selenium test script on specified sets of targets in the `targets/` directory. So, we can simply run:
+```
+python run_tests.py
+```
+
+
 ## Collecting and Recording Data
-See our Google Doc for instructions on this part. Short recap here:
+We have a script `output_data/capture_data.py` that can be used to view the various logs attached to the session:
+```
+python ./output_data/capture_data.py
+```
+
+(WIP)

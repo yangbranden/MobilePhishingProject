@@ -9,6 +9,13 @@ session_id = "f9d342106d42c897d712cbab39249f5623e4ed79"
 s = requests.Session()
 s.auth = (os.environ.get("BROWSERSTACK_USERNAME"), os.environ.get("BROWSERSTACK_ACCESS_KEY"))
 
+# Relevant API requests:
+# /sessions/{session_id}/logs
+# /sessions/{session_id}/networklogs
+# /sessions/{session_id}/consolelogs
+# /sessions/{session_id}/seleniumlogs (doesn't work I think)
+# /sessions/{session_id}/appiumlogs
+# /sessions/{session_id}/telemetrylogs
 r = s.get(f"https://api.browserstack.com/automate/builds/{build_id}/sessions/{session_id}/networklogs")
 output = json.loads(r.text)
 
