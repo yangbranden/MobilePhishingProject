@@ -2,12 +2,41 @@ import json
 import csv
 import os
 import time
+import requests # to get raw logs and network logs
+import yaml # to get username and access key
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException, WebDriverException
 from selenium.webdriver.chrome.options import Options as ChromeOptions
+
+
+def get_text_logs(username, access_key, build_id, session_id):
+    get_text_logs_url = f"https://www.browserstack.com/automate/builds/{build_id}/sessions/{session_id}/logs"
+    response = requests.get(get_text_logs_url, auth=(username, access_key))
+    
+    return response.text
+    
+    
+    
+def get_network_logs(username, access_key, build_id, session_id):
+    get_network_logs_url = f"https://www.browserstack.com/automate/builds/{build_id}/sessions/{session_id}/networklogs"
+    response = requests.get(get_network_logs_url, auth=(username, access_key))
+    
+    return response.text
+
+# get the username and access key from the browserstack.yml file
+with open('./browserstack.yml', 'r') as file:
+    config = yaml.safe_load(file)
+
+username = config['userName']
+access_key = config['accessKey']
+
+if username == "${BROWSERSTACK_USERNAME}":
+    username = os.getenv('BROWSERSTACK_USERNAME')
+if access_key == "${BROWSERSTACK_ACCESS_KEY}":
+    access_key = os.getenv('BROWSERSTACK_ACCESS_KEY')
 
 
 phishing_urls = [] # can explicitly specify URLs here as well
