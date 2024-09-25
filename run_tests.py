@@ -5,6 +5,10 @@ import requests
 import json
 yaml = ruamel.yaml.YAML() # using this version of yaml to preserve comments
 
+# This is if for some reason the test is interrupted and we need to continue from a specific point
+INTERRUPTED = False # Set to True if need to continue from the below CONTINUE_POINT file
+CONTINUE_POINT = "598.yml"
+
 test_script = "./tests/phish-test.py"
 test_dirs = {
     'All Targets': './targets/all_targets', 
@@ -18,9 +22,21 @@ test_dirs = {
 with open("browserstack.yml", "r") as f:
     original_config = yaml.load(f)
 
+found = False
 current_config = None
 for test_dir in test_dirs:
-    for file in os.listdir(test_dirs[test_dir]):
+    files = os.listdir(test_dirs[test_dir])
+    sorted_files = sorted(files, key=lambda x: int(x.split('.')[0]))
+    
+    for file in sorted_files:
+        if INTERRUPTED:
+            if found is False and file != CONTINUE_POINT:
+                print("skipping...")
+                continue 
+            
+            print("Continuing from", file)
+            found = True
+        
         # get the current config
         with open("browserstack.yml", "r") as f:
             current_config = yaml.load(f)
@@ -45,7 +61,7 @@ for test_dir in test_dirs:
         s = requests.Session()
         s.auth = (os.environ.get("BROWSERSTACK_USERNAME"), os.environ.get("BROWSERSTACK_ACCESS_KEY"))
         r = s.get("https://api.browserstack.com/automate/plan.json")
-        output = json.loads(r.text)
+        output = json.loads(r.text)  
         sleep_counter = 0
         while output["parallel_sessions_running"] != 0:
             print(f"Waiting for parallel session to finish ({sleep_counter})...")
