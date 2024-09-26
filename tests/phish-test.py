@@ -40,7 +40,7 @@ if access_key == "${BROWSERSTACK_ACCESS_KEY}":
 
 
 phishing_urls = [] # can explicitly specify URLs here as well
-urls_file = './urls/urls_2024-09-18.txt'
+urls_file = './urls/urls_2024-09-25.txt'
 
 # FOR TXT FILE
 with open(urls_file, 'r', encoding='latin-1') as f:

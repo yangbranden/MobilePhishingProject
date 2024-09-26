@@ -7,12 +7,12 @@ yaml = ruamel.yaml.YAML() # using this version of yaml to preserve comments
 
 # This is if for some reason the test is interrupted and we need to continue from a specific point
 INTERRUPTED = False # Set to True if need to continue from the below CONTINUE_POINT file
-CONTINUE_POINT = "598.yml"
+CONTINUE_POINT = "0.yml"
 
 test_script = "./tests/phish-test.py"
 test_dirs = {
-    'All Targets': './targets/all_targets', 
-    # 'Android Targets': './targets/android',
+    # 'All Targets': './targets/all_targets', 
+    'Android Targets': './targets/android',
     # 'iOS Targets': './targets/ios',
     # 'Windows Targets': './targets/windows',
     # 'OS X Targets': './targets/macosx'
