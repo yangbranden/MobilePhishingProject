@@ -2,3 +2,4 @@ browserstack-local >= 1.2.3
 selenium
 browserstack-sdk
 ruamel.yaml
+user_agents
