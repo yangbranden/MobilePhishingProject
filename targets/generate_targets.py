@@ -12,7 +12,7 @@ class Output(Enum):
     WINDOWS = 3
     MACOSX = 4
 
-OUTPUT_MODE = Output.MACOSX
+OUTPUT_MODE = Output.ALL
 CUSTOM_OFILE = None # "./targets/test"
 SINGLE_FILE = True
 ENTRIES_PER_FILE = 6 # my limit with 1 parallel thread is 6 (1 + 5 queued); see https://www.browserstack.com/docs/automate/selenium/queue-tests

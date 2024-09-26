@@ -12,8 +12,8 @@ CONTINUE_POINT = "0.yml"
 test_script = "./tests/phish-test.py"
 test_dirs = {
     # 'All Targets': './targets/all_targets', 
-    'Android Targets': './targets/android',
-    # 'iOS Targets': './targets/ios',
+    # 'Android Targets': './targets/android',
+    'iOS Targets': './targets/ios',
     # 'Windows Targets': './targets/windows',
     # 'OS X Targets': './targets/macosx'
 }
