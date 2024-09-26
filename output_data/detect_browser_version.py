@@ -9,14 +9,15 @@ import json
 
 build_ids = []
 session_ids = []
-build_name_str_identifier = "All Targets"
-save_file = "./output_data/saved_session_hashes.txt"
+build_name_str_identifier = "Android Targets"
+hash_save_file = "./output_data/saved_session_hashes.txt"
+header_save_file = "./output_data/saved_useragent_headers.txt"
 
 user_agents = []
-saved_data = False
 
-if os.path.exists(save_file):
-    with open(save_file, "r") as f:
+saved_data = False
+if os.path.exists(hash_save_file):
+    with open(hash_save_file, "r") as f:
         for hash in f:
             session_ids.append(hash)
     saved_data = True
@@ -47,7 +48,7 @@ if not saved_data:
             session_ids.append(session["hashed_id"])
     
     # save to file
-    with open(save_file, "w") as f:
+    with open(hash_save_file, "w") as f:
         for session_id in session_ids:
             f.write(session_id + "\n")
 print("Total # of session ids:", len(session_ids))
@@ -56,7 +57,11 @@ print("Total # of session ids:", len(session_ids))
 for session_id in session_ids:
     session_id = session_id.strip()
     r = s.get(f"https://api.browserstack.com/automate/sessions/{session_id}/networklogs")
-    output = json.loads(r.text)
+    try:
+        output = json.loads(r.text)
+    except Exception as e:
+        print(e)
+        continue
     logs = output["log"]["entries"]
     user_agent = None
     for log in logs:
@@ -83,5 +88,6 @@ for session_id in session_ids:
     print(len(user_agents), "Adding User-Agent:", header)
     user_agents.append(user_agent)
 
-# for entry in log_headers:
-#     print(entry)
+with open(header_save_file, "w") as f:
+    for user_agent in user_agents:
+        f.write(user_agent + "\n")
