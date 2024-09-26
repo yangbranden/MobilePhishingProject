@@ -1,0 +1,8 @@
+Samsung Internet 21.0
+Chrome Mobile 108.0.0
+Chrome 127.0.0
+Chrome Mobile 127.0.0
+Chrome Mobile 114.0.0
+Chrome Mobile 117.0.0
+Samsung Internet 25.0
+Chrome Mobile 123.0.0

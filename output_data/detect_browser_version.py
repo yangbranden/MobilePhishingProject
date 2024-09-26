@@ -6,15 +6,30 @@
 import requests
 import os
 import json
-import httpagentparser # this doesn't detect samsung browser; look for different parser library
+from user_agents import parse
+from enum import Enum
+
+class Output(Enum):
+    ANDROID = 0
+    IOS = 1
+
+OUTPUT_MODE = Output.IOS
+
+if OUTPUT_MODE == Output.ANDROID:
+    build_name_str_identifier = "Android Targets"
+    hash_save_file = "./output_data/tmp/android_session_hashes.txt"
+    headers_save_file = "./output_data/tmp/android_useragent_headers.txt"
+    final_output_file = "./output_data/android_browser_versions.txt"
+elif OUTPUT_MODE == Output.IOS:
+    build_name_str_identifier = "iOS Targets"
+    hash_save_file = "./output_data/tmp/ios_session_hashes.txt"
+    headers_save_file = "./output_data/tmp/ios_useragent_headers.txt"
+    final_output_file = "./output_data/ios_browser_versions.txt"
 
 build_ids = []
 session_ids = []
-build_name_str_identifier = "iOS Targets"
-hash_save_file = "./output_data/android_session_hashes.txt"
-headers_save_file = "./output_data/android_useragent_headers2.txt"
-
 user_agents = set() # use set so there are no duplicates
+browser_versions = set()
 
 hashes_saved = False
 if os.path.exists(hash_save_file):
@@ -58,7 +73,7 @@ if not hashes_saved:
     with open(hash_save_file, "w") as f:
         for session_id in session_ids:
             f.write(session_id + "\n")
-print("Total # of session ids:", len(session_ids))
+    print("Total # of session ids:", len(session_ids))
 
 if not headers_saved:
     # check the network logs and save the User-Agent headers, which we can use to check the browser version
@@ -98,10 +113,22 @@ if not headers_saved:
 
     with open(headers_save_file, "w") as f:
         for user_agent in user_agents:
+            if user_agent is None:
+                continue
             f.write(user_agent + "\n")
 
-# analyze the headers
+# collect browser version from the headers
+
 with open(headers_save_file, "r") as user_agents:
     for user_agent in user_agents:
         # print(user_agent)
-        print(httpagentparser.detect(user_agent))
+        # print(parse(user_agent).browser)
+        browser_family = parse(user_agent).browser.family
+        browser_version_str = parse(user_agent).browser.version_string
+        browser_version = browser_family + " " + browser_version_str
+        browser_versions.add(browser_version)
+
+with open(final_output_file, "w") as f:
+    for browser_version in browser_versions:
+        f.write(browser_version + "\n")
+    print(f"Browser versions for {build_name_str_identifier} saved in {final_output_file}; {len(browser_versions)} unique browser versions detected.")
