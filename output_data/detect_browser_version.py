@@ -15,13 +15,14 @@ class Output(Enum):
 
 OUTPUT_MODE = Output.IOS
 
+build_name_uniq_str = "09_26"
 if OUTPUT_MODE == Output.ANDROID:
-    build_name_str_identifier = "Android Targets"
+    build_name_str_identifier = f"{build_name_uniq_str}_Android_Targets"
     hash_save_file = "./output_data/tmp/android_session_hashes.txt"
     headers_save_file = "./output_data/tmp/android_useragent_headers.txt"
     final_output_file = "./output_data/android_browser_versions.txt"
 elif OUTPUT_MODE == Output.IOS:
-    build_name_str_identifier = "iOS Targets"
+    build_name_str_identifier = f"{build_name_uniq_str}_iOS_Targets"
     hash_save_file = "./output_data/tmp/ios_session_hashes.txt"
     headers_save_file = "./output_data/tmp/ios_useragent_headers.txt"
     final_output_file = "./output_data/ios_browser_versions.txt"

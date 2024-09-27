@@ -3,6 +3,7 @@ import time
 import os
 import requests
 import json
+import datetime
 yaml = ruamel.yaml.YAML() # using this version of yaml to preserve comments
 
 # This is if for some reason the test is interrupted and we need to continue from a specific point
@@ -10,12 +11,13 @@ INTERRUPTED = False # Set to True if need to continue from the below CONTINUE_PO
 CONTINUE_POINT = "0.yml"
 
 test_script = "./tests/phish-test.py"
+build_name_uniq_str = datetime.datetime.now().strftime("%m_%d")
 test_dirs = {
-    # 'All Targets': './targets/all_targets', 
-    # 'Android Targets': './targets/android',
-    'iOS Targets': './targets/ios',
-    # 'Windows Targets': './targets/windows',
-    # 'OS X Targets': './targets/macosx'
+    # f'{build_name_uniq_str}_All_Targets': './targets/all_targets', 
+    # f'{build_name_uniq_str}_Android_Targets': './targets/android',
+    f'{build_name_uniq_str}_iOS_Targets': './targets/ios',
+    # f'{build_name_uniq_str}_Windows_Targets': './targets/windows',
+    # f'{build_name_uniq_str}_OSX_Targets': './targets/macosx'
 }
 
 # save the original config

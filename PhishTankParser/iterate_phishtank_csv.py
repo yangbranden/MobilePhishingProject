@@ -2,9 +2,26 @@
 
 import csv
 import datetime
+import sys
+import os
+import yaml
 
-NUM_URLS = 10 # The most recent 'n' of URLs from phishtank.org
+# The most recent 'n' of URLs from phishtank.org
+NUM_URLS = 10 if len(sys.argv) < 2 else int(sys.argv[1]) 
 target_urls = []
+
+# use our script to update phishtank sources
+# os.system("sh PhishTankParser/fetch_phishtank.sh")
+
+# if we already have a 'latest.yml' file containing our URLs, we want to read it and move it (change its name)
+last_updated = None
+if os.path.exists("./urls/latest.yml"):
+    with open("./urls/latest.yml", "r") as f:
+        urls_file = yaml.safe_load(f)
+        last_updated = urls_file["last_updated"]
+    if not os.path.exists("./urls/old"):
+        os.mkdir("./urls/old")
+    os.system(f"mv ./urls/latest.yml ./urls/old/urls_{last_updated}.yml")
 
 with open('./urls/online-valid.csv', mode='r', encoding='latin-1', newline='') as file:
     csv_reader = csv.reader(file)
@@ -18,7 +35,10 @@ with open('./urls/online-valid.csv', mode='r', encoding='latin-1', newline='') a
         target_urls.append(row[1])
         # print(f"Added URL to urls: {row[1]}")
 
-with open(f'./urls/urls_{datetime.datetime.today().strftime("%Y-%m-%d")}.txt', "w") as f:
-    for url in target_urls:
-        f.write(url + "\n")
-        print(url)
+with open('./urls/latest.yml', "w") as f:
+    last_updated = datetime.datetime.today().strftime("%Y_%m_%d_%H_%M_%S")
+    data = {
+        'last_updated': last_updated,
+        'urls': target_urls
+    }
+    yaml.dump(data, f)

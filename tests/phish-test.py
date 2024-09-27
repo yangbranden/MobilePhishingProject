@@ -1,6 +1,6 @@
 import json
-import csv
 import os
+import sys
 import time
 import requests # to get raw logs and network logs
 import yaml # to get username and access key
@@ -40,21 +40,13 @@ if access_key == "${BROWSERSTACK_ACCESS_KEY}":
 
 
 phishing_urls = [] # can explicitly specify URLs here as well
-urls_file = './urls/urls_2024-09-25.txt'
+urls_file = './urls/latest.yml' if len(sys.argv) < 2 else sys.argv[1]
 
-# FOR TXT FILE
+# Read our specified set of phishing URLs
 with open(urls_file, 'r', encoding='latin-1') as f:
-    for url in f:
-        phishing_urls.append(url.strip())
-
-# FOR CSV FILE
-# with open(urls_file, 'r', encoding='latin-1') as f:
-#     for url in f.read().strip().split(','):
-#         phishing_urls.append(url)
-# FOR JSON FILE
-# with open(urls_file, 'r', encoding='latin-1') as f:
-#     for url in json.load(f):
-#         phishing_urls.append(url)
+    data = yaml.safe_load(f)
+    phishing_urls = data["urls"]
+    print(phishing_urls)
 
 print("PHISHING URLs:", phishing_urls)
 
