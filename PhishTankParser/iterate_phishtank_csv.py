@@ -11,7 +11,7 @@ NUM_URLS = 10 if len(sys.argv) < 2 else int(sys.argv[1])
 target_urls = []
 
 # use our script to update phishtank sources
-# os.system("sh PhishTankParser/fetch_phishtank.sh")
+os.system("sh PhishTankParser/fetch_phishtank.sh")
 
 # if we already have a 'latest.yml' file containing our URLs, we want to read it and move it (change its name)
 last_updated = None
