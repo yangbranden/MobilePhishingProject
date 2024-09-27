@@ -11,6 +11,7 @@ INTERRUPTED = False # Set to True if need to continue from the below CONTINUE_PO
 CONTINUE_POINT = "0.yml"
 
 test_script = "./tests/phish-test.py"
+urls_file = "./urls/latest.yml"
 build_name_uniq_str = datetime.datetime.now().strftime("%m_%d")
 test_dirs = {
     # f'{build_name_uniq_str}_All_Targets': './targets/all_targets', 
@@ -68,7 +69,7 @@ for test_dir in test_dirs:
             sleep_counter += 1
         
         # run the test
-        os.system(f"browserstack-sdk {test_script} {current_config["urlsFile"]}")
+        os.system(f"browserstack-sdk {test_script} {urls_file}")
 
 # Reset back to the original config
 with open("browserstack.yml", "w") as f:

@@ -63,4 +63,3 @@ networkLogs: true # <boolean> Set to true to enable HAR logs capturing
 consoleLogs: errors # <string> Remote browser's console debug levels to be printed (Default: errors)
 # Available options are `disable`, `errors`, `warnings`, `info`, `verbose` (Default: errors)
 idleTimeout: 30 # Supposed to set the timeout time, but I haven't noticed any difference
-urlsFile: ./urls/latest.yml
