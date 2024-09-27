@@ -56,7 +56,7 @@ for test_dir in test_dirs:
             yaml.dump(current_config, f)
 
         # run the test
-        os.system(f"browserstack-sdk {test_script}")
+        os.system(f"browserstack-sdk {test_script} {current_config["urlsFile"]}")
         
         # if parallel_sessions_running == 0 then we can continue testing
         # https://api.browserstack.com/automate/plan.json
