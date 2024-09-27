@@ -43,7 +43,7 @@ for test_dir in test_dirs:
         with open("browserstack.yml", "r") as f:
             current_config = yaml.load(f)
 
-        # open the file with the set of targets
+        # open the file that contains the phishing URLs we want to test
         with open(os.path.join(test_dirs[test_dir], file), "r") as target_set:
             platforms = yaml.load(target_set)
         
@@ -55,20 +55,20 @@ for test_dir in test_dirs:
         with open("browserstack.yml", "w") as f:
             yaml.dump(current_config, f)
 
-        # run the test
-        os.system(f"browserstack-sdk {test_script} {current_config["urlsFile"]}")
-        
         # if parallel_sessions_running == 0 then we can continue testing
         # https://api.browserstack.com/automate/plan.json
         s = requests.Session()
         s.auth = (os.environ.get("BROWSERSTACK_USERNAME"), os.environ.get("BROWSERSTACK_ACCESS_KEY"))
         r = s.get("https://api.browserstack.com/automate/plan.json")
-        output = json.loads(r.text)  
+        output = json.loads(r.text)
         sleep_counter = 0
         while output["parallel_sessions_running"] != 0:
             print(f"Waiting for parallel session to finish ({sleep_counter})...")
             time.sleep(1)
             sleep_counter += 1
+        
+        # run the test
+        os.system(f"browserstack-sdk {test_script} {current_config["urlsFile"]}")
 
 # Reset back to the original config
 with open("browserstack.yml", "w") as f:
