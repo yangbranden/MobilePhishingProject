@@ -4,3 +4,4 @@ online-valid.csv
 online-valid.json
 online-valid.xml
 browserstack.err
+output_data/tmp/*

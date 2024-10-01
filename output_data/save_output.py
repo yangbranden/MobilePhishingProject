@@ -12,7 +12,7 @@ with open("./urls/latest.yml") as f:
     y = yaml.safe_load(f)
     phishing_urls = y["urls"]
 
-print(phishing_urls)
+# print(phishing_urls)
 
 s = requests.Session()
 s.auth = (os.environ.get("BROWSERSTACK_USERNAME"), os.environ.get("BROWSERSTACK_ACCESS_KEY"))
@@ -21,7 +21,7 @@ r = s.get(f"https://api.browserstack.com/automate/sessions/{session_id}/logs")
 lines = r.text.splitlines()
 # print(lines)
 
-with open("./output_data/tmp.json", "w") as f:
+with open("./output_data/tmp/tmp.json", "w") as f:
     for line in lines:
         f.write(r.text)
 
@@ -48,8 +48,12 @@ for line in lines:
     except json.JSONDecodeError:
         print(f"Last segment is not valid JSON: {json_str}")
 
-with open("./output_data/output.json", "w") as f:
+
+if not os.path.exists(f"./output_data/outcomes/{session_id}"):
+    os.makedirs(f"./output_data/outcomes/{session_id}")
+
+with open(f"./output_data/outcomes/{session_id}/output.json", "w") as f:
     json.dump(output, f, indent=4)
 
 print(output)
-print("Check output.json for cleaner view of output.")
+print("\nCheck output_data/outcomes/{session_id}/output.json for cleaner view of output.")

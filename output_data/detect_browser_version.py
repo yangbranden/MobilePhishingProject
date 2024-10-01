@@ -20,12 +20,12 @@ if OUTPUT_MODE == Output.ANDROID:
     build_name_str_identifier = f"{build_name_uniq_str}_Android_Targets"
     hash_save_file = "./output_data/tmp/android_session_hashes.txt"
     headers_save_file = "./output_data/tmp/android_useragent_headers.txt"
-    final_output_file = "./output_data/android_browser_versions.txt"
+    final_output_file = "./output_data/outcomes/android_browser_versions.txt"
 elif OUTPUT_MODE == Output.IOS:
     build_name_str_identifier = f"{build_name_uniq_str}_iOS_Targets"
     hash_save_file = "./output_data/tmp/ios_session_hashes.txt"
     headers_save_file = "./output_data/tmp/ios_useragent_headers.txt"
-    final_output_file = "./output_data/ios_browser_versions.txt"
+    final_output_file = "./output_data/outcomes/ios_browser_versions.txt"
 
 build_ids = []
 session_ids = []
