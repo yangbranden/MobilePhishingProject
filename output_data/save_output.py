@@ -8,7 +8,7 @@ session_id = "b4e4f28a449224a6586f55930e2ba56ebf03f28d"
 urls_visited = []
 phishing_urls = []
 
-with open("./urls/latest.yml") as f:
+with open("./urls/latest.yml", "r") as f:
     y = yaml.safe_load(f)
     phishing_urls = y["urls"]
 

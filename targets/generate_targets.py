@@ -13,6 +13,7 @@ class Output(Enum):
     MACOSX = 4
 
 OUTPUT_MODE = Output.ALL
+SCOPE_BROWSER_VERSIONS = True
 CUSTOM_OFILE = None # "./targets/test"
 SINGLE_FILE = True
 ENTRIES_PER_FILE = 6 # my limit with 1 parallel thread is 6 (1 + 5 queued); see https://www.browserstack.com/docs/automate/selenium/queue-tests
@@ -31,7 +32,17 @@ elif OUTPUT_MODE == Output.MACOSX:
 if CUSTOM_OFILE is not None:
     output_location = CUSTOM_OFILE
 
-# OK WAIT I didn't realize this API was available
+# Load selective browser versions from file
+if SCOPE_BROWSER_VERSIONS:
+    with open("./targets/browser_versions.yml", "r") as f:
+        browser_versions = yaml.safe_load(f)
+        firefox_versions_range = browser_versions["firefox_versions"]
+        chrome_versions_range = browser_versions["chrome_versions"]
+        edge_versions_range = browser_versions["edge_versions"]
+        safari_versions_range = browser_versions["safari_versions"]
+        opera_versions_range = browser_versions["opera_versions"]
+
+# Use API to get all possible combinations of browser versions
 s = requests.Session()
 s.auth = (os.environ.get("BROWSERSTACK_USERNAME"), os.environ.get("BROWSERSTACK_ACCESS_KEY"))
 
@@ -46,6 +57,7 @@ for item in output:
     for n in null_fields:
         item.pop(n)
 
+# filter by operating system
 if OUTPUT_MODE == Output.ANDROID:
     for item in output:
         if item["os"] == "android":
@@ -65,6 +77,27 @@ elif OUTPUT_MODE == Output.MACOSX:
     for item in output:
         if item["os"] == "OS X":
             selective_output.append(item)
+    output = selective_output
+
+# filter by browser versions
+if SCOPE_BROWSER_VERSIONS:
+    selective_output = []
+    for item in output:
+        if item["browser"] == "firefox":
+            if int(item["browser_version"]) in firefox_versions_range:
+                selective_output.append(item)
+        elif item["browser"] == "chrome":
+            if int(item["browser_version"]) in chrome_versions_range:
+                selective_output.append(item)
+        elif item["browser"] == "edge":
+            if int(item["browser_version"]) in edge_versions_range:
+                selective_output.append(item)
+        elif item["browser"] == "safari":
+            if int(item["browser_version"]) in safari_versions_range:
+                selective_output.append(item)
+        elif item["browser"] == "opera":
+            if int(item["browser_version"]) in opera_versions_range:
+                selective_output.append(item)
     output = selective_output
 
 # create the output directory; if it already exists, remove
