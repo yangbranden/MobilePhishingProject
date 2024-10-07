@@ -15,7 +15,7 @@ class Output(Enum):
 OUTPUT_MODE = Output.ALL
 SCOPE_BROWSER_VERSIONS = True
 CUSTOM_OFILE = None # "./targets/test"
-SINGLE_FILE = True
+SINGLE_FILE = False
 ENTRIES_PER_FILE = 6 # my limit with 1 parallel thread is 6 (1 + 5 queued); see https://www.browserstack.com/docs/automate/selenium/queue-tests
 
 if OUTPUT_MODE == Output.ALL:
@@ -105,7 +105,7 @@ if SCOPE_BROWSER_VERSIONS:
                 if detected_version in opera_versions_range:
                     selective_output.append(item)
         except Exception as e:
-            print(e)
+            # print(e)
             continue
     output = selective_output
 
