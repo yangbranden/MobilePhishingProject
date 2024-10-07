@@ -83,21 +83,30 @@ elif OUTPUT_MODE == Output.MACOSX:
 if SCOPE_BROWSER_VERSIONS:
     selective_output = []
     for item in output:
-        if item["browser"] == "firefox":
-            if int(item["browser_version"]) in firefox_versions_range:
-                selective_output.append(item)
-        elif item["browser"] == "chrome":
-            if int(item["browser_version"]) in chrome_versions_range:
-                selective_output.append(item)
-        elif item["browser"] == "edge":
-            if int(item["browser_version"]) in edge_versions_range:
-                selective_output.append(item)
-        elif item["browser"] == "safari":
-            if int(item["browser_version"]) in safari_versions_range:
-                selective_output.append(item)
-        elif item["browser"] == "opera":
-            if int(item["browser_version"]) in opera_versions_range:
-                selective_output.append(item)
+        # just add the mobile devices; we are unable to specify browser versions
+        if item["os"] == "android" or item["os"] == "ios":
+            selective_output.append(item)
+            continue
+        try:
+            detected_version = float(item["browser_version"])
+            if item["browser"] == "firefox":
+                if detected_version in firefox_versions_range:
+                    selective_output.append(item)
+            elif item["browser"] == "chrome":
+                if detected_version in chrome_versions_range:
+                    selective_output.append(item)
+            elif item["browser"] == "edge":
+                if detected_version in edge_versions_range:
+                    selective_output.append(item)
+            elif item["browser"] == "safari":
+                if detected_version in safari_versions_range:
+                    selective_output.append(item)
+            elif item["browser"] == "opera":
+                if detected_version in opera_versions_range:
+                    selective_output.append(item)
+        except Exception as e:
+            print(e)
+            continue
     output = selective_output
 
 # create the output directory; if it already exists, remove
