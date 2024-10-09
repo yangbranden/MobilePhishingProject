@@ -11,6 +11,32 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException, WebDriverException
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 
+windows_browsers_xpaths = { # deprecated
+    "Microsoft Edge": '//*[@id="Wrapper"]/div/div[2]/h1',
+    "Google Chrome": '/html/body/div/div[1]/div[2]/p/a',
+    "Mozilla Firefox": '//*[@id="errorPageContainer"]',
+    "Opera": '//*[@id="body"]/div/div[3]/h1'    
+}
+
+browsers_blocked_message = {
+    "Microsoft Edge": 'This site has been reported as unsafe',
+    
+    "Mozilla Firefox (1)": 'Firefox blocked this page because it may trick you into doing something dangerous like installing software or revealing personal information like passwords or credit cards.', # Deceptive site ahead
+    "Mozilla Firefox (2)": 'The page you are trying to view cannot be shown because the authenticity of the received data could not be verified.', # Secure Connection Failed
+    "Mozilla Firefox (3)": 'Deceptive site issue', # Android Firefox
+    
+    "Google Chrome (1)": 'Attackers might be trying to steal your information from', # Your connection is not private
+    "Google Chrome (2)": 'Deceptive site ahead',
+    
+    # Safari does not loads up any page when site is blocked.
+    # driver.page_source remains at the previously visited page. So this method does not work for Safari.
+    # need to figure out how to fix this. maybe checking previously_visited_url == driver.current_url ??
+    
+    "Safari (1)": "to steal your personal or financial information.", # This Connection Is Not Private
+    "Safari (2)": "Deceptive Website Warning",
+
+    "Samsung Browser": "Attackers might be trying to steal your information from" # Your connection is not private
+}
 
 def get_text_logs(username, access_key, build_id, session_id):
     get_text_logs_url = f"https://www.browserstack.com/automate/builds/{build_id}/sessions/{session_id}/logs"
@@ -62,6 +88,7 @@ options = ChromeOptions()
 driver = webdriver.Chrome(options=options)
 
 for url in phishing_urls:
+    isBlocked = False
     print(f"Testing {url}...")
     try:
         # Navigate to the URL
@@ -86,13 +113,29 @@ for url in phishing_urls:
         #     outcomes[url].append('Redirected URL')
         
         
-        # check if page has '/html/body/div[1]/div/div[2]/h1 (Microsoft Edge's: This site has been reported as unsafe)'  
-        if len(driver.find_elements(By.XPATH, '/html/body/div[1]/div/div[2]/h1')) > 0:
-                print(f"Found Microsoft Edge 'This site has been reported as unsafe' element on {url}")
+        # for browser in windows_browsers_xpaths:
+        #     if len(driver.find_elements(By.XPATH, windows_browsers_xpaths[browser])) > 0:
+        #         print(f"{browser} has blocked element on {url}")
+        #         driver.execute_script(
+        #         'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": "Page blocked by ' + browser + '"}}')
+        #         isBlocked = True
+        #         break
+        # deprecated
+        
+        page_source = driver.page_source # accessing driver.page_source takes resource each time
+            
+        for browser in browsers_blocked_message:
+            if browsers_blocked_message[browser] in page_source:
+                print(f"{browser} has blocked {url}")
                 driver.execute_script(
-                'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": "Page blocked by Microsoft Edge."}}')
-        else:
-                driver.execute_script(
+                'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": "Page blocked by ' + browser + '"}}')
+                isBlocked = True
+                break      
+            
+        if (isBlocked == True):
+            continue
+        
+        driver.execute_script(
                 'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Page loaded successfully."}}')
 
     except NoSuchElementException as err:
