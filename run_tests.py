@@ -14,9 +14,9 @@ test_script = "./tests/phish-test.py"
 urls_file = "./urls/latest.yml"
 build_name_uniq_str = datetime.datetime.now().strftime("%m_%d")
 test_dirs = {
-    # f'{build_name_uniq_str}_All_Targets': './targets/all_targets', 
+    f'{build_name_uniq_str}_All_Targets': './targets/all_targets', 
     # f'{build_name_uniq_str}_Android_Targets': './targets/android',
-    f'{build_name_uniq_str}_iOS_Targets': './targets/ios',
+    # f'{build_name_uniq_str}_iOS_Targets': './targets/ios',
     # f'{build_name_uniq_str}_Windows_Targets': './targets/windows',
     # f'{build_name_uniq_str}_OSX_Targets': './targets/macosx'
 }
@@ -44,7 +44,7 @@ for test_dir in test_dirs:
         with open("browserstack.yml", "r") as f:
             current_config = yaml.load(f)
 
-        # open the file that contains the phishing URLs we want to test
+        # open the file that contains the platforms we want to test on
         with open(os.path.join(test_dirs[test_dir], file), "r") as target_set:
             platforms = yaml.load(target_set)
         
