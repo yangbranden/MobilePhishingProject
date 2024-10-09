@@ -3,3 +3,4 @@ selenium
 browserstack-sdk
 ruamel.yaml
 user_agents
+omegaconf
