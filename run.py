@@ -8,7 +8,7 @@ from src.browserstack.browserstack_runner import BrowserstackRunner
 
 CONFIG_FILE = "config.yml"
 
-def browserstack_runner():
+def browserstack_runner(args):
     config = OmegaConf.load(CONFIG_FILE)
     x = BrowserstackRunner(config=config)
     x.run_browserstack()
