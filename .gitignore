@@ -6,3 +6,4 @@ online-valid.xml
 browserstack.err
 output_data/tmp/*
 __pycache__/
+*.pyc
