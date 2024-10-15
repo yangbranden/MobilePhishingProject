@@ -95,7 +95,7 @@ for url in phishing_urls:
         driver.get(url) 
 
         # Pause on the page for a few seconds
-        time.sleep(3)
+        # time.sleep(3) # This slows down the tests significantly, so we can remove this if time constraint is an issue
         
         # for browser in windows_browsers_xpaths:
         #     if len(driver.find_elements(By.XPATH, windows_browsers_xpaths[browser])) > 0:

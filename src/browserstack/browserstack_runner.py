@@ -12,6 +12,11 @@ from omegaconf import DictConfig, ListConfig
 from src.platforms import Platforms
 from src.util import write_file_source_header
 
+# BrowserstackRunner class:
+# - run_browserstack (actually runs browserstack)
+# - generate_targets (interacts with browserstack API to get list of targets)
+# - scope_browser_versions (interacts with browserstack API to get list of browser versions for our scope)
+
 @dataclass
 class BrowserstackRunner:
     config: DictConfig | ListConfig # return type of OmegaConf.load()
