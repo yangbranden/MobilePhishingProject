@@ -29,6 +29,9 @@ class PhishtankFetcher:
             with open(self.config.phishtank_fetcher.output_path, 'wb') as f_out:
                 shutil.copyfileobj(f_in, f_out)
         
+        # Remove the zip file after we've extracted it
+        os.remove(self.config.phishtank_fetcher.gzip_path)
+
         # If we already have a 'latest.yml' file containing our URLs, we want to read it and move it (change its name)
         last_updated = None
         if os.path.exists(f"{base_dir}/latest.yml"):

@@ -47,7 +47,7 @@ def main():
     # Parse the arguments and call the appropriate function
     args = parser.parse_args()
 
-    if args.module == 'browserstack' or args.module == 'target_generator' or args.module == 'phishtank_fetcher':
+    if args.module in list(subparsers.choices.keys()):
         args.func(args)
     else:
         print(f"Unknown module: {args.module}")
