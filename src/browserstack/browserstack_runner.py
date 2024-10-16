@@ -73,7 +73,7 @@ class BrowserstackRunner:
                 print(f"Waiting for parallel session to finish ({sleep_counter})...")
                 time.sleep(1)
                 sleep_counter += 1
-            
+
             # run the test
             os.system(f"browserstack-sdk {test_script} {urls_file}")
 

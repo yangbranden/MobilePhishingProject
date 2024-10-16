@@ -2,12 +2,12 @@ browserstack_runner:
   build_name: "All_Targets" # Name for the browserstack build
   test_script: "./src/browserstack/tests/phish-test.py" # Test script to run
   urls_file: "./urls/latest.yml" # Phishing URLs to test on the devices 
-  targets_src: "./targets/all_targets" # Either the single file or directory of files containing the list of devices/configurations to test on
+  targets_src: "./src/browserstack/targets/all_targets" # Either the single file or directory of files containing the list of devices/configurations to test on
   interrupted: False
   continue_point: "0.yml" # If the test was interrupted (specify in above boolean), can continue from a specific file
   target_generator:
     targets_directory: "./src/browserstack/targets"
-    output_as_file: True # Can either output as a single file (True) or collection of files in directory (False)
+    output_as_file: False # Can either output as a single file (True) or collection of files in directory (False)
     custom_outfile: null # If outputting as single file, can specify custom file name (otherwise null)
     browser_versions_file: "./src/browserstack/targets/browser_versions.yml" # File containing desktop browser versions to limit the test to
     entries_per_file: 6 # My limit with 1 parallel thread is 6 (1 + 5 queued); see https://www.browserstack.com/docs/automate/selenium/queue-tests
