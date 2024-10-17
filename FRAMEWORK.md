@@ -43,3 +43,6 @@ The options for `browserstack` are:
     - `custom_outfile`: can specify a custom output file or directory (depending on the value of `output_as_file`); leave null to use the default output locations.
     - `browser_versions_file`: should be the YAML file containing the desktop browser versions to limit the test to, if we want to manually specify them.
     - `entries_per_file`: the number of entries to limit each "build" in browserstack to; this is important to specify because otherwise some tests or "sessions" will be lost
+
+- `output_analyzer`: used to view the outcome of a browserstack test; can specify either a single `session_id` or a `unique_id` (randomly generated 8 character string to identify your run)
+    - `output_directory`: the base output directory (outcomes will be stored under this directory + `outcomes/`) 
