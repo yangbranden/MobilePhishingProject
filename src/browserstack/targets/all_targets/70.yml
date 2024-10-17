@@ -4,30 +4,30 @@
 - os: android
   os_version: '10.0'
   browser: android
-  device: Samsung Galaxy S20
-  real_mobile: true
-- os: android
-  os_version: '10.0'
-  browser: samsung
-  device: Samsung Galaxy S20 Plus
+  device: Xiaomi Redmi Note 9
   real_mobile: true
 - os: android
   os_version: '10.0'
   browser: android
-  device: Samsung Galaxy S20 Plus
-  real_mobile: true
-- os: android
-  os_version: '10.0'
-  browser: samsung
-  device: Samsung Galaxy S20 Ultra
+  device: Vivo Y50
   real_mobile: true
 - os: android
   os_version: '10.0'
   browser: android
-  device: Samsung Galaxy S20 Ultra
+  device: Oppo Reno 3 Pro
   real_mobile: true
 - os: android
   os_version: '10.0'
   browser: samsung
-  device: Samsung Galaxy Note 20 Ultra
+  device: Samsung Galaxy Tab S7
+  real_mobile: true
+- os: android
+  os_version: '10.0'
+  browser: android
+  device: Samsung Galaxy Tab S7
+  real_mobile: true
+- os: android
+  os_version: '14.0'
+  browser: samsung
+  device: Samsung Galaxy S24 Ultra
   real_mobile: true

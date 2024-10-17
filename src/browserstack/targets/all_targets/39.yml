@@ -3,25 +3,30 @@
 # =======================================
 - os: OS X
   os_version: Sequoia
-  browser: edge
-  browser_version: '123.0'
-- os: OS X
-  os_version: Sequoia
-  browser: edge
-  browser_version: '124.0'
-- os: OS X
-  os_version: Sequoia
-  browser: edge
-  browser_version: '125.0'
-- os: OS X
-  os_version: Sequoia
-  browser: edge
-  browser_version: '126.0'
-- os: OS X
-  os_version: Sequoia
-  browser: edge
-  browser_version: '127.0'
-- os: OS X
-  os_version: Sequoia
-  browser: edge
-  browser_version: '128.0'
+  browser: firefox
+  browser_version: '130.0'
+- os: ios
+  os_version: '17'
+  browser: chromium
+  device: iPhone 15 Pro Max
+  real_mobile: true
+- os: ios
+  os_version: '17'
+  browser: iphone
+  device: iPhone 15 Pro Max
+  real_mobile: true
+- os: ios
+  os_version: '17'
+  browser: chromium
+  device: iPhone 15 Pro
+  real_mobile: true
+- os: ios
+  os_version: '17'
+  browser: iphone
+  device: iPhone 15 Pro
+  real_mobile: true
+- os: ios
+  os_version: '17'
+  browser: chromium
+  device: iPhone 15 Plus
+  real_mobile: true

@@ -203,7 +203,7 @@ class BrowserstackRunner:
             targets_dir = os.path.dirname(output_location)
             if not os.path.exists(targets_dir):
                 os.makedirs(targets_dir)
-            if SINGLE_FILE:
+            if not SINGLE_FILE:
                 if os.path.exists(output_location):
                     for root, dirs, files in os.walk(output_location, topdown=False):
                         for file in files:
@@ -295,6 +295,7 @@ class BrowserstackRunner:
             write_file_source_header("scope_browser_versions (browserstack_runner.py)", f)
             yaml.dump(data, f)
 
+    # TODO: Change to unique_id
     def save_output(self, session_id):
         print(session_id)
         base_output_dir = self.config.browserstack_runner.output_analyzer.output_directory

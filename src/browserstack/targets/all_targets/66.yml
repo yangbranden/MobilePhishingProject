@@ -3,31 +3,31 @@
 # =======================================
 - os: android
   os_version: '11.0'
-  browser: samsung
-  device: Samsung Galaxy S21 Ultra
+  browser: android
+  device: Vivo Y21
   real_mobile: true
 - os: android
   os_version: '11.0'
   browser: android
-  device: Samsung Galaxy S21 Ultra
-  real_mobile: true
-- os: android
-  os_version: '11.0'
-  browser: samsung
-  device: Samsung Galaxy S21
+  device: Vivo V21
   real_mobile: true
 - os: android
   os_version: '11.0'
   browser: android
-  device: Samsung Galaxy S21
-  real_mobile: true
-- os: android
-  os_version: '11.0'
-  browser: samsung
-  device: Samsung Galaxy S21 Plus
+  device: Oppo Reno 6
   real_mobile: true
 - os: android
   os_version: '11.0'
   browser: android
-  device: Samsung Galaxy S21 Plus
+  device: Oppo A96
+  real_mobile: true
+- os: android
+  os_version: '11.0'
+  browser: samsung
+  device: Samsung Galaxy Tab S7
+  real_mobile: true
+- os: android
+  os_version: '11.0'
+  browser: android
+  device: Samsung Galaxy Tab S7
   real_mobile: true

@@ -3,31 +3,31 @@
 # =======================================
 - os: ios
   os_version: '17'
-  browser: chromium
-  device: iPhone 15 Pro Max
-  real_mobile: true
-- os: ios
-  os_version: '17'
-  browser: iphone
-  device: iPhone 15 Pro Max
+  browser: ipad
+  device: iPad Pro 12.9 2021
   real_mobile: true
 - os: ios
   os_version: '17'
   browser: chromium
-  device: iPhone 15 Pro
+  device: iPad Pro 11 2024
   real_mobile: true
 - os: ios
   os_version: '17'
-  browser: iphone
-  device: iPhone 15 Pro
+  browser: ipad
+  device: iPad Pro 11 2024
   real_mobile: true
 - os: ios
   os_version: '17'
   browser: chromium
-  device: iPhone 15 Plus
+  device: iPad Air 6
   real_mobile: true
 - os: ios
   os_version: '17'
-  browser: iphone
-  device: iPhone 15 Plus
+  browser: ipad
+  device: iPad Air 6
+  real_mobile: true
+- os: ios
+  os_version: '18'
+  browser: chromium
+  device: iPhone 14
   real_mobile: true

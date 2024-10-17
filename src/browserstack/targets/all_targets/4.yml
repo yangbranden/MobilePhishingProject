@@ -3,25 +3,25 @@
 # =======================================
 - os: Windows
   os_version: '10'
-  browser: edge
+  browser: firefox
+  browser_version: '125.0'
+- os: Windows
+  os_version: '10'
+  browser: firefox
   browser_version: '126.0'
 - os: Windows
   os_version: '10'
-  browser: edge
+  browser: firefox
   browser_version: '127.0'
 - os: Windows
   os_version: '10'
-  browser: edge
+  browser: firefox
   browser_version: '128.0'
 - os: Windows
   os_version: '10'
-  browser: edge
+  browser: firefox
   browser_version: '129.0'
 - os: Windows
   os_version: '10'
   browser: firefox
-  browser_version: '121.0'
-- os: Windows
-  os_version: '10'
-  browser: firefox
-  browser_version: '122.0'
+  browser_version: '130.0'
