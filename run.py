@@ -17,6 +17,11 @@ def target_generator(args):
     x = BrowserstackRunner(config=config)
     x.generate_targets(args.platform)
 
+def save_output(args):
+    config = OmegaConf.load(CONFIG_FILE)
+    x = BrowserstackRunner(config=config)
+    x.save_output(args.session_id)
+
 def phishtank_fetcher(args):
     config = OmegaConf.load(CONFIG_FILE)
     x = PhishtankFetcher(config=config)
@@ -30,14 +35,18 @@ def main():
     # Subparser for browserstack
     browserstack_parser = subparsers.add_parser("browserstack", help="Use browserstack submodule")
     browserstack_subparsers = browserstack_parser.add_subparsers(dest="browserstack_module", required=True, help="Browserstack submodule to run")
-    # Subsubparser for generating browserstack targets
-    browserstack_generate_targets = browserstack_subparsers.add_parser("generate_targets", help="Generate target list to be used by browserstack")
-    browserstack_generate_targets.add_argument("-p", "--platform", choices=['all', 'android', 'ios', 'windows', 'macosx'], default='all', required=True, help="Value must be among [all, android, ios, windows, macosx]")
-    browserstack_generate_targets.set_defaults(func=target_generator)
     # Subsubparser for running browserstack
     browserstack_exec = browserstack_subparsers.add_parser("exec", help="Execute browserstack using the configuration in the config.yml file")
     # other options for this module should be specified in config.yml
     browserstack_exec.set_defaults(func=browserstack_runner)
+    # Subsubparser for generating browserstack targets
+    browserstack_generate_targets = browserstack_subparsers.add_parser("generate_targets", help="Generate target list to be used by browserstack")
+    browserstack_generate_targets.add_argument("-p", "--platform", choices=['all', 'android', 'ios', 'windows', 'macosx'], default='all', required=True, help="Value must be among [all, android, ios, windows, macosx]")
+    browserstack_generate_targets.set_defaults(func=target_generator)
+    # Subsubparser for saving browserstack output
+    browserstack_save_output = browserstack_subparsers.add_parser("save_output", help="Save and analyze output of a completed browserstack session")
+    browserstack_save_output.add_argument("-s", "--session_id", required=True, help="The session ID of the completed browserstack session")
+    browserstack_save_output.set_defaults(func=save_output)
 
     # Subparser for phishtank_fetcher
     phishtank_fetcher_parser = subparsers.add_parser("phishtank_fetcher", help="Use phishtank_fetcher submodule")

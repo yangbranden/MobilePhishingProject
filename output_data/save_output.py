@@ -3,7 +3,7 @@ import os
 import json
 import yaml
 
-session_id = "b4e4f28a449224a6586f55930e2ba56ebf03f28d"
+session_id = "cca5193cbb09406fd9be95ddcf362d394db85477"
 
 urls_visited = []
 phishing_urls = []
@@ -23,7 +23,7 @@ lines = r.text.splitlines()
 
 with open("./output_data/tmp/tmp.json", "w") as f:
     for line in lines:
-        f.write(r.text)
+        f.write(line + "\n")
 
 output = dict()
 current_entry = dict()
@@ -36,18 +36,15 @@ for line in lines:
     # Attempt to parse as JSON
     try:
         json_data = json.loads(json_str)
-        # print(json_data)
         if "/url" in line:
             current_entry["url"] = json_data["url"]
-        elif "/elements" in line:
-            current_entry["using"] = json_data["using"]
         elif "/execute/sync" in line:
             result = json.loads(json_data["script"].split("browserstack_executor:")[-1])
             current_entry["script"] = result["arguments"]
             output[current_entry["url"]] = current_entry["script"]
+            current_entry = dict() # reset current entry, just to be safe
     except json.JSONDecodeError:
         print(f"Last segment is not valid JSON: {json_str}")
-
 
 if not os.path.exists(f"./output_data/outcomes/{session_id}"):
     os.makedirs(f"./output_data/outcomes/{session_id}")

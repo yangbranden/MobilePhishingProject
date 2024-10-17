@@ -1,1 +1,0 @@
-# TODO: create modular version of detect_browser_version.py script
