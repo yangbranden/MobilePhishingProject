@@ -1,5 +1,8 @@
 # Place any useful snippets of code that we re-use a lot in here
 
+import string
+import secrets
+
 def write_file_source_header(source: str, f=None):
     try:
         f.write("# =======================================\n")
@@ -7,3 +10,7 @@ def write_file_source_header(source: str, f=None):
         f.write("# =======================================\n")
     except Exception as e:
         print(f"Error in write_file_source_header: {e}")
+
+def generate_unique_str(length=8):
+    alphabet = string.ascii_letters + string.digits  # A-Z, a-z, 0-9
+    return ''.join(secrets.choice(alphabet) for _ in range(length))

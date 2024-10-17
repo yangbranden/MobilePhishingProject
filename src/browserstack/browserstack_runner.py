@@ -11,6 +11,7 @@ from omegaconf import DictConfig, ListConfig
 
 from src.platforms import Platforms
 from src.util import write_file_source_header
+from src.util import generate_unique_str
 
 # BrowserstackRunner class:
 # - run_browserstack (actually runs browserstack)
@@ -25,7 +26,8 @@ class BrowserstackRunner:
         test_script = self.config.browserstack_runner.test_script
         urls_file = self.config.browserstack_runner.urls_file
         targets_src = self.config.browserstack_runner.targets_src
-        build_name = f"{datetime.now().strftime("%m_%d")}_{self.config.browserstack_runner.build_name}"
+        # build_name = f"{datetime.now().strftime("%m_%d")}_{self.config.browserstack_runner.build_name}"
+        build_name = f"{generate_unique_str()}_{self.config.browserstack_runner.build_name}"
 
         # Save the original config to restore later
         with open("browserstack.yml", "r") as f:
