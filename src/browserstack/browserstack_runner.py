@@ -83,6 +83,7 @@ class BrowserstackRunner:
         with open("browserstack.yml", "w") as f:
             yaml.dump(original_config, f)
     
+
     def generate_targets(self, output_mode):
         if output_mode == "all":
             output_mode = Platforms.ALL
@@ -226,6 +227,7 @@ class BrowserstackRunner:
                         write_file_source_header("generate_targets (browserstack_runner.py)", f)
                         yaml.dump(batch, f)
 
+
     # TODO: This currently does not perform any sort of useful analysis; 
     # plan was to use this to programmatically go through the browser changelogs and make a list of versions
     # that have significant security updates
@@ -295,9 +297,40 @@ class BrowserstackRunner:
             write_file_source_header("scope_browser_versions (browserstack_runner.py)", f)
             yaml.dump(data, f)
 
-    # TODO: Change to unique_id
-    def save_output(self, session_id):
-        print(session_id)
+
+    # Gather all relevant session-ids based on a unique identifier in the title of the associated build(s)
+    def scrape_session_ids(self, unique_id):
+        s = requests.Session()
+        s.auth = (os.environ.get("BROWSERSTACK_USERNAME"), os.environ.get("BROWSERSTACK_ACCESS_KEY"))
+
+        r = s.get(f"https://api.browserstack.com/automate/builds.json?limit=100")
+        builds = json.loads(r.text)
+
+        # Save all build IDs with the specified unique_id
+        build_ids = []
+        for build in builds:
+            # print("build:", build)
+            if unique_id in build['automation_build']['name']:
+                build_ids.append(build['automation_build']['hashed_id'])
+
+        # print(build_ids)
+
+        # Save all relevant session IDs
+        session_ids = []
+        for build_id in build_ids:
+            r = s.get(f"https://api.browserstack.com/automate/builds/{build_id}/sessions.json")
+            sessions = json.loads(r.text)
+            for session in sessions:
+                # print("session:", session)
+                session_ids.append(session['automation_session']['hashed_id'])
+
+        # print(session_ids)
+        return session_ids
+
+
+    # Save the output of our tests based on a session-id
+    def save_outcome_session_id(self, session_id):
+        print(f'Gathering information about session_id "{session_id}"...')
         base_output_dir = self.config.browserstack_runner.output_analyzer.output_directory
 
         s = requests.Session()
@@ -347,6 +380,62 @@ class BrowserstackRunner:
             json.dump(output, f, indent=4)
 
         print(output)
-        print(f"\nCheck {base_output_dir}/outcomes/{session_id}/output.json for cleaner view of the output.")
+        print(f"\nCheck {base_output_dir}/outcomes/{session_id}/output.json for a cleaner view of the output.")
 
-        # Future TODO: Implement system for unique string as test title so that we can search by unique ID instead of platform-specific (in this case, browserstack) session ID
+    
+    # Save the output of our tests based on a unique string ID in the title of the relevant builds
+    def save_outcome_unique_id(self, unique_id):
+        print(f'Gathering information about builds with unique identifier "{unique_id}"...')
+        base_output_dir = self.config.browserstack_runner.output_analyzer.output_directory
+
+        print("Scraping all relevant BrowserStack session ids...")
+        session_ids = self.scrape_session_ids(unique_id)
+
+        s = requests.Session()
+        s.auth = (os.environ.get("BROWSERSTACK_USERNAME"), os.environ.get("BROWSERSTACK_ACCESS_KEY"))
+
+        for session_id in session_ids:
+            # Check if session ID is valid
+            try:
+                r = s.get(f"https://api.browserstack.com/automate/sessions/{session_id}/logs")
+                response_lines = r.text.splitlines()
+            except Exception as e:
+                print(f"Invalid session id; Error: {e}")
+                # Save full output to tmp.json for debugging purposes
+                with open(f"{base_output_dir}/tmp/tmp.json", "w") as f:
+                    for line in response_lines:
+                        f.write(line + "\n")
+                continue
+
+            # Log format:
+            # REQUEST for /url
+            # REQUEST for whatever the script asks for (e.g. we ask for /source in phish-test.py)
+            # REQUEST for the outcome we send using driver.execute_script (in phish-test.py)
+            output = dict() # Contains output for all URLs
+            current_entry = dict() # used to record the current url
+            for line in response_lines:
+                if "REQUEST" not in line:
+                    continue
+                segments = line.split(' ')
+                json_str = ''.join(segments[7:])
+                
+                # Attempt to parse as JSON
+                try:
+                    json_data = json.loads(json_str)
+                    if "/url" in line: # Parses the URL we are requesting
+                        current_entry["url"] = json_data["url"]
+                    elif "/execute/sync" in line: # Parses the response we are sending
+                        result = json.loads(json_data["script"].split("browserstack_executor:")[-1])
+                        current_entry["script"] = result["arguments"]
+                        output[current_entry["url"]] = current_entry["script"]
+                except json.JSONDecodeError:
+                    print(f"Last segment is not valid JSON: {json_str}")
+
+            if not os.path.exists(f"./output_data/outcomes/{unique_id}"):
+                os.makedirs(f"{base_output_dir}/outcomes/{unique_id}")
+
+            with open(f"{base_output_dir}/outcomes/{unique_id}/{session_id}.json", "w") as f:
+                json.dump(output, f, indent=4)
+
+            print(output)
+            print(f"\nCheck {base_output_dir}/outcomes/{unique_id}/{session_id}.json for a cleaner view of the output.\n")
