@@ -4,6 +4,7 @@ import os
 import requests
 import json
 from datetime import datetime
+from user_agents import parse
 yaml = ruamel.yaml.YAML() # using this version of yaml to preserve comments
 
 from dataclasses import dataclass
@@ -328,6 +329,44 @@ class BrowserstackRunner:
         return session_ids
 
 
+    # Parse the relevant User-Agent header to detect the browser version
+    def detect_mobile_browser_version(self, session_id):
+        s = requests.Session()
+        s.auth = (os.environ.get("BROWSERSTACK_USERNAME"), os.environ.get("BROWSERSTACK_ACCESS_KEY"))
+
+        r = s.get(f"https://api.browserstack.com/automate/sessions/{session_id}/networklogs")
+        try:
+            output = json.loads(r.text)
+        except Exception as e:
+            print(e)
+        logs = output["log"]["entries"]
+        user_agent = None
+        for log in logs:
+            found = False
+            log_headers = log["request"]["headers"]
+            for header in log_headers:
+                # printing host for visibility
+                # if header["name"] == "Host":
+                #     print(header)
+                if header["name"] == "User-Agent":
+                    # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent
+                    # "Mozilla/5.0 is the general token that says that the browser is Mozilla-compatible. 
+                    # For historical reasons, almost every browser today sends it"
+                    if "Mozilla/5.0" not in header["value"]:
+                        # print("skipping", header["value"])
+                        continue
+                    else:
+                        user_agent = header["value"]
+                        found = True
+                        break
+            if found:
+                break
+
+        browser_family = parse(user_agent).browser.family
+        browser_version_str = parse(user_agent).browser.version_string
+        browser_version = browser_family + " " + browser_version_str
+        return browser_version
+
     # Save the output of our tests based on a session-id
     def save_outcome_session_id(self, session_id):
         print(f'Gathering information about session_id "{session_id}"...')
@@ -349,29 +388,48 @@ class BrowserstackRunner:
             for line in response_lines:
                 f.write(line + "\n")
 
-        # Log format:
+        # We are detecting the following fields from the logs:
         # REQUEST for /url
-        # REQUEST for whatever the script asks for (e.g. we ask for /source in phish-test.py)
-        # REQUEST for the outcome we send using driver.execute_script (in phish-test.py)
+        # RESPONSE from the /execute/sync REQUEST
         output = dict() # Contains output for all URLs
         current_entry = dict() # used to record the current url
+        execute_sync_req_detected = False
         for line in response_lines:
-            if "REQUEST" not in line:
-                continue
-            segments = line.split(' ')
-            json_str = ''.join(segments[7:])
+            if "REQUEST" in line:
+                segments = line.split(' ')
+                json_str = ' '.join(segments[7:])
+                
+                # Detect the REQUEST for /url
+                if "/url" in line: 
+                    try: 
+                        json_data = json.loads(json_str)
+                        current_entry["url"] = json_data["url"]
+                    except Exception as e:
+                        print(f"Exception: {e}")
+                        continue
+                # Detect the REQUEST for /execute/sync (the outcome we are sending to BrowserStack)
+                elif "/execute/sync" in line:
+                    execute_sync_req_detected = True # indicates that the next RESPONSE should be interpreted as important (containing the outcome)
             
-            # Attempt to parse as JSON
-            try:
-                json_data = json.loads(json_str)
-                if "/url" in line: # Parses the URL we are requesting
-                    current_entry["url"] = json_data["url"]
-                elif "/execute/sync" in line: # Parses the response we are sending
-                    result = json.loads(json_data["script"].split("browserstack_executor:")[-1])
-                    current_entry["script"] = result["arguments"]
-                    output[current_entry["url"]] = current_entry["script"]
-            except json.JSONDecodeError:
-                print(f"Last segment is not valid JSON: {json_str}")
+            elif "RESPONSE" in line:
+                segments = line.split(' ')
+                json_str = ' '.join(segments[3:])
+
+                # Detect the RESPONSE after the /execute/sync request
+                if execute_sync_req_detected:
+                    try:
+                        json_data = json.loads(json_str)
+                        automation_session = json.loads(json_data['value'].split('"automation_session":')[-1][:-1])
+                        # print(automation_session)
+
+                        current_entry["outcome"] = {
+                            "status": automation_session["status"],
+                            "reason": automation_session["reason"]
+                        }
+                    except Exception as e:
+                        print(f"Exception: {e}")
+                        continue
+                    execute_sync_req_detected = False
 
         if not os.path.exists(f"./output_data/outcomes/{session_id}"):
             os.makedirs(f"{base_output_dir}/outcomes/{session_id}")
@@ -390,11 +448,12 @@ class BrowserstackRunner:
 
         print("Scraping all relevant BrowserStack session ids...")
         session_ids = self.scrape_session_ids(unique_id)
+        print(f"Total of {len(session_ids)} session ids found.")
 
         s = requests.Session()
         s.auth = (os.environ.get("BROWSERSTACK_USERNAME"), os.environ.get("BROWSERSTACK_ACCESS_KEY"))
 
-        for session_id in session_ids:
+        for count, session_id in enumerate(session_ids):
             # Check if session ID is valid
             try:
                 r = s.get(f"https://api.browserstack.com/automate/sessions/{session_id}/logs")
@@ -407,29 +466,61 @@ class BrowserstackRunner:
                         f.write(line + "\n")
                 continue
 
-            # Log format:
+            # We are detecting the following fields from the logs:
             # REQUEST for /url
-            # REQUEST for whatever the script asks for (e.g. we ask for /source in phish-test.py)
-            # REQUEST for the outcome we send using driver.execute_script (in phish-test.py)
-            output = dict() # Contains output for all URLs
+            # RESPONSE from the /execute/sync REQUEST
+            output = dict() # Contains output for all URLs (for the current session)
             current_entry = dict() # used to record the current url
+            device_info = dict() # contains information about the device
+            execute_sync_req_detected = False
+            header_recorded = False
             for line in response_lines:
-                if "REQUEST" not in line:
-                    continue
-                segments = line.split(' ')
-                json_str = ''.join(segments[7:])
-                
-                # Attempt to parse as JSON
-                try:
-                    json_data = json.loads(json_str)
-                    if "/url" in line: # Parses the URL we are requesting
-                        current_entry["url"] = json_data["url"]
-                    elif "/execute/sync" in line: # Parses the response we are sending
-                        result = json.loads(json_data["script"].split("browserstack_executor:")[-1])
-                        current_entry["script"] = result["arguments"]
-                        output[current_entry["url"]] = current_entry["script"]
-                except json.JSONDecodeError:
-                    print(f"Last segment is not valid JSON: {json_str}")
+                if "REQUEST" in line:
+                    segments = line.split(' ')
+                    json_str = ' '.join(segments[7:])
+                    
+                    # Detect the REQUEST for /url
+                    if "/url" in line: 
+                        try: 
+                            json_data = json.loads(json_str)
+                            current_entry["url"] = json_data["url"]
+                        except Exception as e:
+                            print(f"Exception: {e}")
+                            continue
+                    # Detect the REQUEST for /execute/sync (the outcome we are sending to BrowserStack)
+                    elif "/execute/sync" in line:
+                        execute_sync_req_detected = True # indicates that the next RESPONSE should be interpreted as important (containing the outcome)
+
+                elif "RESPONSE" in line:
+                    segments = line.split(' ')
+                    json_str = ' '.join(segments[3:])
+
+                    # Detect the RESPONSE after the /execute/sync request
+                    if execute_sync_req_detected:
+                        try:
+                            json_data = json.loads(json_str)
+                            automation_session = json.loads(json_data['value'].split('"automation_session":')[-1][:-1])
+                            # print(automation_session)
+
+                            if not header_recorded:
+                                device_info["device"] = automation_session["device"]
+                                device_info["os"] = automation_session["os"]
+                                device_info["os_version"] = automation_session["os_version"]
+                                device_info["browser"] = automation_session["browser"]
+                                device_info["browser_version"] = automation_session["browser_version"]
+                                if device_info["browser_version"] is None:
+                                    device_info["browser_version"] = self.detect_mobile_browser_version(session_id)
+                                output["device_info"] = device_info
+                                header_recorded = True
+                            current_entry["outcome"] = {
+                                "status": automation_session["status"],
+                                "reason": automation_session["reason"]
+                            }
+                            output[current_entry["url"]] = current_entry["outcome"]
+                        except Exception as e:
+                            print(f"Exception: {e}")
+                            continue
+                        execute_sync_req_detected = False
 
             if not os.path.exists(f"./output_data/outcomes/{unique_id}"):
                 os.makedirs(f"{base_output_dir}/outcomes/{unique_id}")
@@ -437,5 +528,5 @@ class BrowserstackRunner:
             with open(f"{base_output_dir}/outcomes/{unique_id}/{session_id}.json", "w") as f:
                 json.dump(output, f, indent=4)
 
-            print(output)
-            print(f"\nCheck {base_output_dir}/outcomes/{unique_id}/{session_id}.json for a cleaner view of the output.\n")
+            # print(output)
+            print(f"Completed {count+1}/{len(session_ids)}; Check {base_output_dir}/outcomes/{unique_id}/{session_id}.json for output.")
