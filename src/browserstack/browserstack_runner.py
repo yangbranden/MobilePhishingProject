@@ -326,7 +326,17 @@ class BrowserstackRunner:
                 session_ids.append(session['automation_session']['hashed_id'])
 
         # print(session_ids)
-        return session_ids
+        
+        public_urls = []
+        for session_id in session_ids:
+            r = s.get(f"https://api.browserstack.com/automate/sessions/{session_id}.json")
+            response = json.loads(r.text)
+
+            public_urls.append(response['automation_session']['public_url'])
+        
+        # print(public_urls)
+
+        return session_ids, public_urls
 
 
     # Parse the relevant User-Agent header to detect the browser version
@@ -447,7 +457,7 @@ class BrowserstackRunner:
         base_output_dir = self.config.browserstack_runner.output_analyzer.output_directory
 
         print("Scraping all relevant BrowserStack session ids...")
-        session_ids = self.scrape_session_ids(unique_id)
+        session_ids, public_urls = self.scrape_session_ids(unique_id)
         print(f"Total of {len(session_ids)} session ids found.")
 
         s = requests.Session()
@@ -474,6 +484,10 @@ class BrowserstackRunner:
             device_info = dict() # contains information about the device
             execute_sync_req_detected = False
             header_recorded = False
+            
+            # Save the session's public url
+            output["public_url"] = public_urls[count]
+            
             for line in response_lines:
                 if "REQUEST" in line:
                     segments = line.split(' ')
