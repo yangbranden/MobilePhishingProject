@@ -4,19 +4,19 @@ from omegaconf import OmegaConf
 
 from src.fetch_phishtank import PhishtankFetcher
 from src.browserstack.browserstack_runner import BrowserstackRunner
+from src.url_checker.url_checker import URLChecker
 
 CONFIG_FILE = "config.yml"
 
+# BROWSERSTACK FUNCTIONS
 def browserstack_runner(args):
     config = OmegaConf.load(CONFIG_FILE)
     x = BrowserstackRunner(config=config)
     x.run_browserstack()
-
 def target_generator(args):
     config = OmegaConf.load(CONFIG_FILE)
     x = BrowserstackRunner(config=config)
     x.generate_targets(args.platform)
-
 def save_outcome(args):
     config = OmegaConf.load(CONFIG_FILE)
     x = BrowserstackRunner(config=config)
@@ -25,11 +25,26 @@ def save_outcome(args):
     elif args.unique_id:
         x.save_outcome_unique_id(args.unique_id)
 
+# PHISHTANK FUNCTIONS
 def phishtank_fetcher(args):
     config = OmegaConf.load(CONFIG_FILE)
     x = PhishtankFetcher(config=config)
     x.fetch_phishtank(args.num_urls)
 
+# URL CHECKER FUNCTIONS
+def url_checker(args):
+    config = OmegaConf.load(CONFIG_FILE)
+    x = URLChecker(config=config)
+    if args.mode == 'all':
+        x.check_all(args.url)
+    elif args.mode == 'google_safebrowsing':
+        x.check_google_safebrowsing(args.url)
+    elif args.mode == 'phishtank':
+        x.check_phishtank(args.url)
+    elif args.mode == 'check_ocsp':
+        x.check_ocsp(args.url)
+    elif args.mode == 'check_crl':
+        x.check_crl(args.url)
 
 def main():
     parser = argparse.ArgumentParser(description="Mobile Phishing framework")
@@ -57,6 +72,13 @@ def main():
     phishtank_fetcher_parser = subparsers.add_parser("phishtank_fetcher", help="Use phishtank_fetcher submodule")
     phishtank_fetcher_parser.add_argument("-n", "--num_urls", type=int, required=False, help="The number of phishing URLs to fetch from PhishTank")
     phishtank_fetcher_parser.set_defaults(func=phishtank_fetcher)
+
+    url_checker_parser = subparsers.add_parser("url_checker", help="Use url_checker submodule")
+    src_mutex_group = url_checker_parser.add_mutually_exclusive_group(required=True)
+    src_mutex_group.add_argument("-u", "--url", help="The URL to check")
+    src_mutex_group.add_argument("-f", "--file", help="The set of URLs to check, in a CSV formatted file") # TODO: add support for other filetypes
+    url_checker_parser.add_argument("-m", "--mode", choices=['all', 'google_safebrowsing', 'phishtank', 'ocsp', 'crl'], default='all', help="Value must be among [all, google_safebrowsing, phishtank, ocsp, crl]")
+    url_checker_parser.set_defaults(func=url_checker)
 
     # Parse the arguments and call the appropriate function
     args = parser.parse_args()

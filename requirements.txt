@@ -4,3 +4,5 @@ browserstack-sdk
 ruamel.yaml
 user_agents
 omegaconf
+cryptography
+ocspbuilder

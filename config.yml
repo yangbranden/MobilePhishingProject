@@ -16,7 +16,5 @@ browserstack_runner:
 
 phishtank_fetcher:
   urls_directory: "./urls"
-  phishtank_src: 'https://data.phishtank.com/data/online-valid.csv.gz'
-  gzip_path: './urls/online-valid.csv.gz'
-  output_path: './urls/online-valid.csv'
+  source_csv: './urls/online-valid.csv'
   num_urls: 10 # Number of URLs to fetch from phishtank (argparse argument has precedence over this value)
