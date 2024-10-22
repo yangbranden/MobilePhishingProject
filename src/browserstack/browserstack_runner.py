@@ -10,7 +10,7 @@ yaml = ruamel.yaml.YAML() # using this version of yaml to preserve comments
 from dataclasses import dataclass
 from omegaconf import DictConfig, ListConfig
 
-from src.platforms import Platforms
+from src.util import Platforms
 from src.util import write_file_source_header
 from src.util import generate_unique_str
 from src.util import remove_empty_lines
@@ -242,7 +242,7 @@ class BrowserstackRunner:
         r = s.get("https://api.browserstack.com/automate/browsers.json")
         output = json.loads(r.text)
 
-        # Find the latest version
+        # Find the latest versions of each browser
         latest_versions = {
             'firefox': 0.0,
             'chrome': 0.0,
@@ -288,6 +288,7 @@ class BrowserstackRunner:
                     continue
         print("Latest versions:\n", latest_versions)
 
+        # TEMPORARY: get latest 10 versions of each (except Opera because there's only 2 available and they're on Windows XP lol)
         data = {
             'firefox_versions': [latest_versions["firefox"] - i for i in range(10)],
             'chrome_versions': [latest_versions["chrome"] - i for i in range(10)],

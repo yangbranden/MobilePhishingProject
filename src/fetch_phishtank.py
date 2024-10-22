@@ -9,7 +9,7 @@ import shutil
 from dataclasses import dataclass
 from omegaconf import DictConfig, ListConfig
 
-from src.platforms import Platforms
+from src.util import Platforms
 from src.util import write_file_source_header
 
 @dataclass

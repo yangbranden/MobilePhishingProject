@@ -2,6 +2,14 @@
 
 import string
 import secrets
+from enum import Enum
+
+class Platforms(Enum):
+    ALL = 0
+    ANDROID = 1
+    IOS = 2
+    WINDOWS = 3
+    MACOSX = 4
 
 def write_file_source_header(source: str, f=None):
     try:
