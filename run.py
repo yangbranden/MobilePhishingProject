@@ -48,9 +48,9 @@ def url_checker(args):
         x.check_google_safebrowsing(args.url)
     elif args.mode == 'phishtank':
         x.check_phishtank(args.url)
-    elif args.mode == 'check_ocsp':
+    elif args.mode == 'ocsp':
         x.check_ocsp(args.url)
-    elif args.mode == 'check_crl':
+    elif args.mode == 'crl':
         x.check_crl(args.url)
 
 def main():

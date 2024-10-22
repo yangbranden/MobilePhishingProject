@@ -8,6 +8,8 @@ from cryptography import x509
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import hashes
 from cryptography.x509.ocsp import OCSPRequestBuilder
+from cryptography.hazmat.primitives import serialization
+from cryptography.x509.oid import ExtensionOID
 
 from dataclasses import dataclass
 from omegaconf import DictConfig, ListConfig
@@ -104,14 +106,22 @@ class URLChecker:
             print("No OCSP URL found.")
             return False
 
+        # Get the issuer cert
+        issuer_cert_url = None
+        aia = cert.extensions.get_extension_for_oid(ExtensionOID.AUTHORITY_INFORMATION_ACCESS).value
+        for access_description in aia:
+            if access_description.access_method == x509.AuthorityInformationAccessOID.CA_ISSUERS:
+                issuer_cert_url = access_description.access_location.value
+        issuer_cert = self.get_certificate(issuer_cert_url)
+
         # Create the OCSP request
         builder = OCSPRequestBuilder()
-        builder = builder.add_certificate(cert, cert, hashes.SHA1()) # TODO: FIGURE OUT HOW TO GET THE ISSUER CERT
+        builder = builder.add_certificate(cert, issuer_cert, hashes.SHA1()) # TODO: FIGURE OUT HOW TO GET THE ISSUER CERT
         ocsp_req = builder.build()
 
         # Send the OCSP request
         headers = {'Content-Type': 'application/ocsp-request'}
-        response = requests.post(ocsp_url, data=ocsp_req.public_bytes("PEM"), headers=headers) # TODO: ENCODING NEEDS TO BE SPECIFIED
+        response = requests.post(ocsp_url, data=ocsp_req.public_bytes(serialization.Encoding.DER), headers=headers)
 
         # Parse the OCSP response
         ocsp_response = x509.ocsp.load_der_ocsp_response(response.content)
