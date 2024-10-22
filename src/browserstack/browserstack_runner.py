@@ -71,9 +71,10 @@ class BrowserstackRunner:
             s = requests.Session()
             s.auth = (os.environ.get("BROWSERSTACK_USERNAME"), os.environ.get("BROWSERSTACK_ACCESS_KEY"))
             r = s.get("https://api.browserstack.com/automate/plan.json")
-            output = json.loads(r.text)
+            response = json.loads(r.text)
+
             sleep_counter = 0
-            while output["parallel_sessions_running"] != 0:
+            while response["parallel_sessions_running"] != 0:
                 print(f"Waiting for parallel session to finish ({sleep_counter})...")
                 time.sleep(1)
                 sleep_counter += 1
@@ -334,36 +335,40 @@ class BrowserstackRunner:
         s = requests.Session()
         s.auth = (os.environ.get("BROWSERSTACK_USERNAME"), os.environ.get("BROWSERSTACK_ACCESS_KEY"))
 
-        r = s.get(f"https://api.browserstack.com/automate/sessions/{session_id}/networklogs")
-        response = json.loads(r.text)
-        assert response is not None, "Response received is None"
+        try:
+            r = s.get(f"https://api.browserstack.com/automate/sessions/{session_id}/networklogs")
+            response = json.loads(r.text)
 
-        logs = response["log"]["entries"]
-        user_agent = None
-        for log in logs:
-            found = False
-            log_headers = log["request"]["headers"]
-            for header in log_headers:
-                # printing host for visibility
-                # if header["name"] == "Host":
-                #     print(header)
-                if header["name"] == "User-Agent":
-                    # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent
-                    # "Mozilla/5.0 is the general token that says that the browser is Mozilla-compatible. 
-                    # For historical reasons, almost every browser today sends it"
-                    if "Mozilla/5.0" not in header["value"]:
-                        # print("skipping", header["value"])
-                        continue
-                    else:
-                        user_agent = header["value"]
-                        found = True
-                        break
-            if found:
-                break
-        browser_family = parse(user_agent).browser.family
-        browser_version_str = parse(user_agent).browser.version_string
-        browser_version = browser_family + " " + browser_version_str
-        return browser_version
+            logs = response["log"]["entries"]
+            user_agent = None
+            for log in logs:
+                found = False
+                log_headers = log["request"]["headers"]
+                for header in log_headers:
+                    # printing host for visibility
+                    # if header["name"] == "Host":
+                    #     print(header)
+                    if header["name"] == "User-Agent":
+                        # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent
+                        # "Mozilla/5.0 is the general token that says that the browser is Mozilla-compatible. 
+                        # For historical reasons, almost every browser today sends it"
+                        if "Mozilla/5.0" not in header["value"]:
+                            # print("skipping", header["value"])
+                            continue
+                        else:
+                            user_agent = header["value"]
+                            found = True
+                            break
+                if found:
+                    break
+            browser_family = parse(user_agent).browser.family
+            browser_version_str = parse(user_agent).browser.version_string
+            browser_version = browser_family + " " + browser_version_str
+            return browser_version
+        except Exception as e:
+            print(f"Exception (detect_mobile_browser_version): {e}")
+        return None
+
 
     # Get the output directory for the build
     def get_build_dir(self, session_id):
@@ -371,11 +376,15 @@ class BrowserstackRunner:
 
         s = requests.Session()
         s.auth = (os.environ.get("BROWSERSTACK_USERNAME"), os.environ.get("BROWSERSTACK_ACCESS_KEY"))
-        r = s.get(f"https://api.browserstack.com/automate/sessions/{session_id}.json")
-        response = json.loads(r.text)
-        assert response is not None, "Response received is None"
+        
+        try:
+            r = s.get(f"https://api.browserstack.com/automate/sessions/{session_id}.json")
+            response = json.loads(r.text)
 
-        build_name = response['automation_session']['build_name'].split(' ')[0]
+            build_name = response['automation_session']['build_name'].split(' ')[0]
+        except Exception as e:
+            print(f"Exception (get_build_dir); {e}")
+
         return f"{base_dir}/{build_name}"
     
 
@@ -396,9 +405,12 @@ class BrowserstackRunner:
         s = requests.Session()
         s.auth = (os.environ.get("BROWSERSTACK_USERNAME"), os.environ.get("BROWSERSTACK_ACCESS_KEY"))
 
-        r = s.get(f"https://api.browserstack.com/automate/sessions/{session_id}.json")
-        response = json.loads(r.text)
-        assert response is not None, "Response received is None"
+        try:
+            r = s.get(f"https://api.browserstack.com/automate/sessions/{session_id}.json")
+            response = json.loads(r.text)
+        except Exception as e:
+            print(f"Bad response (save_session_info): {e}")
+        
         automation_session = response['automation_session']
 
         output = dict()
@@ -437,9 +449,7 @@ class BrowserstackRunner:
 
         # Check if session ID is valid
         r = s.get(f"https://api.browserstack.com/automate/sessions/{session_id}/logs")
-        response = r.text
-        assert response is not None, "Response received is None"
-        response_lines = response.splitlines()
+        response_lines = r.text.splitlines()
 
         # Add basic session info if we haven't already
         session_info_dir = f"{build_dir}/{session_id}/session.json"
@@ -463,7 +473,7 @@ class BrowserstackRunner:
                         json_data = json.loads(json_str)
                         current_entry["url"] = json_data["url"]
                     except Exception as e:
-                        print(f"Exception in REQUEST: {e}")
+                        print(f"Exception in REQUEST (save_outcome_session_id): {e}")
                         continue
                 # Detect the REQUEST for /execute/sync (the outcome we are sending to BrowserStack)
                 elif "/execute/sync" in line:
@@ -484,7 +494,7 @@ class BrowserstackRunner:
                         }
                         output[current_entry["url"]] = current_entry["outcome"]
                     except Exception as e:
-                        print(f"Exception in RESPONSE: {e}")
+                        print(f"Exception in RESPONSE (save_outcome_session_id): {e}")
                         continue
                     execute_sync_req_detected = False
 
