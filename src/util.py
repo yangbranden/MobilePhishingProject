@@ -11,6 +11,11 @@ def write_file_source_header(source: str, f=None):
     except Exception as e:
         print(f"Error in write_file_source_header: {e}")
 
+def remove_empty_lines(content):
+    # Split the content into lines, filter out empty lines, and join them back
+    non_empty_lines = [line for line in content.splitlines() if line.strip()]
+    return "\n".join(non_empty_lines)
+
 def generate_unique_str(length=8):
     alphabet = string.ascii_letters + string.digits  # A-Z, a-z, 0-9
     return ''.join(secrets.choice(alphabet) for _ in range(length))

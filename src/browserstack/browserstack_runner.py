@@ -13,6 +13,7 @@ from omegaconf import DictConfig, ListConfig
 from src.platforms import Platforms
 from src.util import write_file_source_header
 from src.util import generate_unique_str
+from src.util import remove_empty_lines
 
 # BrowserstackRunner class:
 # - run_browserstack (actually runs browserstack)
@@ -299,7 +300,7 @@ class BrowserstackRunner:
             yaml.dump(data, f)
 
 
-    # Gather all relevant session-ids based on a unique identifier in the title of the associated build(s)
+    # Gather all relevant session ids based on a unique identifier in the title of the associated build(s)
     def scrape_session_ids(self, unique_id):
         s = requests.Session()
         s.auth = (os.environ.get("BROWSERSTACK_USERNAME"), os.environ.get("BROWSERSTACK_ACCESS_KEY"))
@@ -313,7 +314,6 @@ class BrowserstackRunner:
             # print("build:", build)
             if unique_id in build['automation_build']['name']:
                 build_ids.append(build['automation_build']['hashed_id'])
-
         # print(build_ids)
 
         # Save all relevant session IDs
@@ -324,19 +324,9 @@ class BrowserstackRunner:
             for session in sessions:
                 # print("session:", session)
                 session_ids.append(session['automation_session']['hashed_id'])
-
         # print(session_ids)
-        
-        public_urls = []
-        for session_id in session_ids:
-            r = s.get(f"https://api.browserstack.com/automate/sessions/{session_id}.json")
-            response = json.loads(r.text)
 
-            public_urls.append(response['automation_session']['public_url'])
-        
-        # print(public_urls)
-
-        return session_ids, public_urls
+        return session_ids
 
 
     # Parse the relevant User-Agent header to detect the browser version
@@ -377,10 +367,59 @@ class BrowserstackRunner:
         browser_version = browser_family + " " + browser_version_str
         return browser_version
 
-    # Save the output of our tests based on a session-id
+
+    # Get the output directory for the build
+    def get_build_dir(self, session_id):
+        base_dir = self.config.browserstack_runner.output_analyzer.output_directory
+
+        s = requests.Session()
+        s.auth = (os.environ.get("BROWSERSTACK_USERNAME"), os.environ.get("BROWSERSTACK_ACCESS_KEY"))
+        r = s.get(f"https://api.browserstack.com/automate/sessions/{session_id}.json")
+        response = json.loads(r.text)
+        build_name = response['automation_session']['build_name'].split(' ')[0]
+
+        return f"{base_dir}/{build_name}"
+
+    # Save information about a session
+    def save_session_info(self, session_id):
+        s = requests.Session()
+        s.auth = (os.environ.get("BROWSERSTACK_USERNAME"), os.environ.get("BROWSERSTACK_ACCESS_KEY"))
+
+        r = s.get(f"https://api.browserstack.com/automate/sessions/{session_id}.json")
+        automation_session = json.loads(r.text)['automation_session']
+
+        # Shortened build name for folder name purposes
+        build_name = automation_session['build_name'].split(' ')[0]
+
+        output = dict()
+        output['build_name'] = automation_session['build_name']
+        output['public_url'] = automation_session['public_url']
+        output['created_at'] = automation_session['created_at']
+        output['duration'] = automation_session['duration']
+
+        # contains information about the device
+        device_info = dict() 
+        device_info["device"] = automation_session["device"]
+        device_info["os"] = automation_session["os"]
+        device_info["os_version"] = automation_session["os_version"]
+        device_info["browser"] = automation_session["browser"]
+        device_info["browser_version"] = automation_session["browser_version"]
+        if device_info["browser_version"] is None:
+            device_info["browser_version"] = self.detect_mobile_browser_version(session_id)
+        output["device_info"] = device_info
+
+        build_dir = self.get_build_dir(session_id)
+        output_dir = f"{build_dir}/{session_id}"
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
+
+        with open(f"{output_dir}/session.json", "w") as f:
+            json.dump(output, f, indent=4)
+    
+
+    # Save the outcome of our tests based on a session-id
     def save_outcome_session_id(self, session_id):
         print(f'Gathering information about session_id "{session_id}"...')
-        base_output_dir = self.config.browserstack_runner.output_analyzer.output_directory
 
         s = requests.Session()
         s.auth = (os.environ.get("BROWSERSTACK_USERNAME"), os.environ.get("BROWSERSTACK_ACCESS_KEY"))
@@ -393,22 +432,17 @@ class BrowserstackRunner:
             print(f"Invalid session id; Error: {e}")
             return
 
-        # Save full output to tmp.json for debugging purposes
-        with open(f"{base_output_dir}/tmp/tmp.json", "w") as f:
-            for line in response_lines:
-                f.write(line + "\n")
-
         # We are detecting the following fields from the logs:
         # REQUEST for /url
         # RESPONSE from the /execute/sync REQUEST
         output = dict() # Contains output for all URLs
-        current_entry = dict() # used to record the current url
         execute_sync_req_detected = False
+
         for line in response_lines:
+            current_entry = dict() # used to record the current url
             if "REQUEST" in line:
                 segments = line.split(' ')
                 json_str = ' '.join(segments[7:])
-                
                 # Detect the REQUEST for /url
                 if "/url" in line: 
                     try: 
@@ -424,123 +458,113 @@ class BrowserstackRunner:
             elif "RESPONSE" in line:
                 segments = line.split(' ')
                 json_str = ' '.join(segments[3:])
-
                 # Detect the RESPONSE after the /execute/sync request
                 if execute_sync_req_detected:
                     try:
                         json_data = json.loads(json_str)
                         automation_session = json.loads(json_data['value'].split('"automation_session":')[-1][:-1])
                         # print(automation_session)
-
                         current_entry["outcome"] = {
                             "status": automation_session["status"],
                             "reason": automation_session["reason"]
                         }
+                        output[current_entry["url"]] = current_entry["outcome"]
                     except Exception as e:
                         print(f"Exception: {e}")
                         continue
                     execute_sync_req_detected = False
 
-        if not os.path.exists(f"./output_data/outcomes/{session_id}"):
-            os.makedirs(f"{base_output_dir}/outcomes/{session_id}")
+        # Create directories if they do not exist
+        build_dir = self.get_build_dir(session_id)
+        output_dir = f"{build_dir}/{session_id}"
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
 
-        with open(f"{base_output_dir}/outcomes/{session_id}/output.json", "w") as f:
+        with open(f"{output_dir}/outcomes.json", "w") as f:
             json.dump(output, f, indent=4)
 
-        print(output)
-        print(f"\nCheck {base_output_dir}/outcomes/{session_id}/output.json for a cleaner view of the output.")
+        # print(output)
+        print(f"Check {output_dir}/outcomes.json for the output.")
 
     
-    # Save the output of our tests based on a unique string ID in the title of the relevant builds
+    # Save the outcome of our tests based on a unique string ID in the title of the relevant builds
     def save_outcome_unique_id(self, unique_id):
         print(f'Gathering information about builds with unique identifier "{unique_id}"...')
-        base_output_dir = self.config.browserstack_runner.output_analyzer.output_directory
 
         print("Scraping all relevant BrowserStack session ids...")
-        session_ids, public_urls = self.scrape_session_ids(unique_id)
+        session_ids = self.scrape_session_ids(unique_id)
         print(f"Total of {len(session_ids)} session ids found.")
 
         s = requests.Session()
         s.auth = (os.environ.get("BROWSERSTACK_USERNAME"), os.environ.get("BROWSERSTACK_ACCESS_KEY"))
 
         for count, session_id in enumerate(session_ids):
-            # Check if session ID is valid
-            try:
-                r = s.get(f"https://api.browserstack.com/automate/sessions/{session_id}/logs")
-                response_lines = r.text.splitlines()
-            except Exception as e:
-                print(f"Invalid session id; Error: {e}")
-                # Save full output to tmp.json for debugging purposes
-                with open(f"{base_output_dir}/tmp/tmp.json", "w") as f:
-                    for line in response_lines:
-                        f.write(line + "\n")
-                continue
+            print(f"{count+1}/{len(session_ids)}", end='')
+            self.save_outcome_session_id(session_id)
+    
+    
+    # Save all logs based on session id
+    def save_logs_session_id(self, session_id):
+        # Create the directory for the session
+        build_dir = self.get_build_dir(session_id)
+        output_dir = f"{build_dir}/{session_id}"
+        if not os.path.exists(f"{output_dir}"):
+            os.makedirs(f"{output_dir}")
 
-            # We are detecting the following fields from the logs:
-            # REQUEST for /url
-            # RESPONSE from the /execute/sync REQUEST
-            output = dict() # Contains output for all URLs (for the current session)
-            current_entry = dict() # used to record the current url
-            device_info = dict() # contains information about the device
-            execute_sync_req_detected = False
-            header_recorded = False
-            
-            # Save the session's public url
-            output["public_url"] = public_urls[count]
-            
-            for line in response_lines:
-                if "REQUEST" in line:
-                    segments = line.split(' ')
-                    json_str = ' '.join(segments[7:])
-                    
-                    # Detect the REQUEST for /url
-                    if "/url" in line: 
-                        try: 
-                            json_data = json.loads(json_str)
-                            current_entry["url"] = json_data["url"]
-                        except Exception as e:
-                            print(f"Exception: {e}")
-                            continue
-                    # Detect the REQUEST for /execute/sync (the outcome we are sending to BrowserStack)
-                    elif "/execute/sync" in line:
-                        execute_sync_req_detected = True # indicates that the next RESPONSE should be interpreted as important (containing the outcome)
+        s = requests.Session()
+        s.auth = (os.environ.get("BROWSERSTACK_USERNAME"), os.environ.get("BROWSERSTACK_ACCESS_KEY"))
 
-                elif "RESPONSE" in line:
-                    segments = line.split(' ')
-                    json_str = ' '.join(segments[3:])
+        r = s.get(f"https://api.browserstack.com/automate/sessions/{session_id}.json")
+        response = json.loads(r.text)
 
-                    # Detect the RESPONSE after the /execute/sync request
-                    if execute_sync_req_detected:
-                        try:
-                            json_data = json.loads(json_str)
-                            automation_session = json.loads(json_data['value'].split('"automation_session":')[-1][:-1])
-                            # print(automation_session)
+        text_logs_url = response['automation_session']['logs']
+        network_logs_url = response['automation_session']['har_logs_url']
+        console_logs_url = response['automation_session']['browser_console_logs_url']
 
-                            if not header_recorded:
-                                device_info["device"] = automation_session["device"]
-                                device_info["os"] = automation_session["os"]
-                                device_info["os_version"] = automation_session["os_version"]
-                                device_info["browser"] = automation_session["browser"]
-                                device_info["browser_version"] = automation_session["browser_version"]
-                                if device_info["browser_version"] is None:
-                                    device_info["browser_version"] = self.detect_mobile_browser_version(session_id)
-                                output["device_info"] = device_info
-                                header_recorded = True
-                            current_entry["outcome"] = {
-                                "status": automation_session["status"],
-                                "reason": automation_session["reason"]
-                            }
-                            output[current_entry["url"]] = current_entry["outcome"]
-                        except Exception as e:
-                            print(f"Exception: {e}")
-                            continue
-                        execute_sync_req_detected = False
+        r = s.get(text_logs_url)
+        # Text logs will occasionally return a 502 error; make sure the request succeeds
+        while r.status_code != 200:
+            print("RETURN CODE:", r.status_code)
+            r = s.get(text_logs_url)
+        # Save text logs
+        with open(f"{output_dir}/text_logs.txt", "w", encoding='utf-8') as f:
+            content = remove_empty_lines(r.text)
+            f.write(content)
 
-            if not os.path.exists(f"./output_data/outcomes/{unique_id}"):
-                os.makedirs(f"{base_output_dir}/outcomes/{unique_id}")
+        r = requests.get(network_logs_url)
+        # Ensure request succeeds
+        while r.status_code != 200:
+            print("RETURN CODE:", r.status_code)
+            r = s.get(network_logs_url)
+        # Save network logs
+        with open(f"{output_dir}/network_logs.txt", "w", encoding='utf-8') as f:
+            content = remove_empty_lines(r.text)
+            f.write(content)
 
-            with open(f"{base_output_dir}/outcomes/{unique_id}/{session_id}.json", "w") as f:
-                json.dump(output, f, indent=4)
+        r = requests.get(console_logs_url)
+        # Ensure request succeeds
+        while r.status_code != 200:
+            print("RETURN CODE:", r.status_code)
+            r = s.get(console_logs_url)
+        # Save console logs
+        with open(f"{output_dir}/console_logs.txt", "w", encoding='utf-8') as f:
+            content = remove_empty_lines(r.text)
+            f.write(content)
+        
+        print(f"Check {output_dir}/ for saved output.")
 
-            # print(output)
-            print(f"Completed {count+1}/{len(session_ids)}; Check {base_output_dir}/outcomes/{unique_id}/{session_id}.json for output.")
+
+    # Save all logs based on unique id
+    def save_logs_unique_id(self, unique_id):
+        print(f'Gathering information about builds with unique identifier "{unique_id}"...')
+
+        print("Scraping all relevant BrowserStack session ids...")
+        session_ids = self.scrape_session_ids(unique_id)
+        print(f"Total of {len(session_ids)} session ids found.")
+
+        s = requests.Session()
+        s.auth = (os.environ.get("BROWSERSTACK_USERNAME"), os.environ.get("BROWSERSTACK_ACCESS_KEY"))
+
+        for count, session_id in enumerate(session_ids):
+            print(f"{count+1}/{len(session_ids)}", end='')
+            self.save_logs_session_id(session_id)
