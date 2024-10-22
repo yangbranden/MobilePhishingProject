@@ -334,41 +334,36 @@ class BrowserstackRunner:
         s = requests.Session()
         s.auth = (os.environ.get("BROWSERSTACK_USERNAME"), os.environ.get("BROWSERSTACK_ACCESS_KEY"))
 
-        try:
-            r = s.get(f"https://api.browserstack.com/automate/sessions/{session_id}/networklogs")
-            response = json.loads(r.text)
+        r = s.get(f"https://api.browserstack.com/automate/sessions/{session_id}/networklogs")
+        response = json.loads(r.text)
+        assert response is not None, "Response received is None"
 
-            logs = response["log"]["entries"]
-            user_agent = None
-            for log in logs:
-                found = False
-                log_headers = log["request"]["headers"]
-                for header in log_headers:
-                    # printing host for visibility
-                    # if header["name"] == "Host":
-                    #     print(header)
-                    if header["name"] == "User-Agent":
-                        # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent
-                        # "Mozilla/5.0 is the general token that says that the browser is Mozilla-compatible. 
-                        # For historical reasons, almost every browser today sends it"
-                        if "Mozilla/5.0" not in header["value"]:
-                            # print("skipping", header["value"])
-                            continue
-                        else:
-                            user_agent = header["value"]
-                            found = True
-                            break
-                if found:
-                    break
-            browser_family = parse(user_agent).browser.family
-            browser_version_str = parse(user_agent).browser.version_string
-            browser_version = browser_family + " " + browser_version_str
-            return browser_version
-        except Exception as e:
-            print(f"Exception: {e}")
-
-        # This should hopefully never get here
-        return None
+        logs = response["log"]["entries"]
+        user_agent = None
+        for log in logs:
+            found = False
+            log_headers = log["request"]["headers"]
+            for header in log_headers:
+                # printing host for visibility
+                # if header["name"] == "Host":
+                #     print(header)
+                if header["name"] == "User-Agent":
+                    # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent
+                    # "Mozilla/5.0 is the general token that says that the browser is Mozilla-compatible. 
+                    # For historical reasons, almost every browser today sends it"
+                    if "Mozilla/5.0" not in header["value"]:
+                        # print("skipping", header["value"])
+                        continue
+                    else:
+                        user_agent = header["value"]
+                        found = True
+                        break
+            if found:
+                break
+        browser_family = parse(user_agent).browser.family
+        browser_version_str = parse(user_agent).browser.version_string
+        browser_version = browser_family + " " + browser_version_str
+        return browser_version
 
     # Get the output directory for the build
     def get_build_dir(self, session_id):
@@ -378,8 +373,9 @@ class BrowserstackRunner:
         s.auth = (os.environ.get("BROWSERSTACK_USERNAME"), os.environ.get("BROWSERSTACK_ACCESS_KEY"))
         r = s.get(f"https://api.browserstack.com/automate/sessions/{session_id}.json")
         response = json.loads(r.text)
-        build_name = response['automation_session']['build_name'].split(' ')[0]
+        assert response is not None, "Response received is None"
 
+        build_name = response['automation_session']['build_name'].split(' ')[0]
         return f"{base_dir}/{build_name}"
     
 
@@ -401,7 +397,9 @@ class BrowserstackRunner:
         s.auth = (os.environ.get("BROWSERSTACK_USERNAME"), os.environ.get("BROWSERSTACK_ACCESS_KEY"))
 
         r = s.get(f"https://api.browserstack.com/automate/sessions/{session_id}.json")
-        automation_session = json.loads(r.text)['automation_session']
+        response = json.loads(r.text)
+        assert response is not None, "Response received is None"
+        automation_session = response['automation_session']
 
         output = dict()
         output['build_name'] = automation_session['build_name']
@@ -438,12 +436,10 @@ class BrowserstackRunner:
         s.auth = (os.environ.get("BROWSERSTACK_USERNAME"), os.environ.get("BROWSERSTACK_ACCESS_KEY"))
 
         # Check if session ID is valid
-        try:
-            r = s.get(f"https://api.browserstack.com/automate/sessions/{session_id}/logs")
-            response_lines = r.text.splitlines()
-        except Exception as e:
-            print(f"Invalid session id; Error: {e}")
-            return
+        r = s.get(f"https://api.browserstack.com/automate/sessions/{session_id}/logs")
+        response = r.text
+        assert response is not None, "Response received is None"
+        response_lines = response.splitlines()
 
         # Add basic session info if we haven't already
         session_info_dir = f"{build_dir}/{session_id}/session.json"
@@ -455,9 +451,9 @@ class BrowserstackRunner:
         # RESPONSE from the /execute/sync REQUEST
         output = dict() # Contains output for all URLs
         current_entry = dict() # used to record the current url
+        execute_sync_req_detected = False
 
         for line in response_lines:
-            execute_sync_req_detected = False
             if "REQUEST" in line:
                 # Detect the REQUEST for /url
                 if "/url" in line: 
@@ -511,9 +507,6 @@ class BrowserstackRunner:
         print("Scraping all relevant BrowserStack session ids...")
         session_ids = self.scrape_session_ids(unique_id)
         print(f"Total of {len(session_ids)} session ids found.")
-
-        s = requests.Session()
-        s.auth = (os.environ.get("BROWSERSTACK_USERNAME"), os.environ.get("BROWSERSTACK_ACCESS_KEY"))
 
         for count, session_id in enumerate(session_ids):
             print(f"({count+1}/{len(session_ids)}) ", end='')
@@ -611,9 +604,6 @@ class BrowserstackRunner:
         print("Scraping all relevant BrowserStack session ids...")
         session_ids = self.scrape_session_ids(unique_id)
         print(f"Total of {len(session_ids)} session ids found.")
-
-        s = requests.Session()
-        s.auth = (os.environ.get("BROWSERSTACK_USERNAME"), os.environ.get("BROWSERSTACK_ACCESS_KEY"))
 
         for count, session_id in enumerate(session_ids):
             print(f"({count+1}/{len(session_ids)}) ", end='')
