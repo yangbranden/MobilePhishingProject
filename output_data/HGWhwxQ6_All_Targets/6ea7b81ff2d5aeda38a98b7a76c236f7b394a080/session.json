@@ -1,0 +1,13 @@
+{
+    "build_name": "HGWhwxQ6_All_Targets  48  17-Oct-01:14",
+    "public_url": "https://automate.browserstack.com/builds/fff8b9bbc3d8561c69849ea1b04ea9cfc650974f/sessions/6ea7b81ff2d5aeda38a98b7a76c236f7b394a080?auth_token=7c6b31b6d66f6bf03f75b6c17e3bdf940f7ad7a99b6db8e733fe2dd688ce5095",
+    "created_at": "2024-10-17T08:17:21.000Z",
+    "duration": 66,
+    "device_info": {
+        "device": "iPhone 12 Pro Max",
+        "os": "ios",
+        "os_version": "16.0",
+        "browser": "iphone",
+        "browser_version": "Mobile Safari 16.0"
+    }
+}

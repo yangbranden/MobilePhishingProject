@@ -1,0 +1,13 @@
+{
+    "build_name": "HGWhwxQ6_All_Targets  72  17-Oct-03:09",
+    "public_url": "https://automate.browserstack.com/builds/54586286ff08c557a856cf039332c86326a72d46/sessions/067eebeb04958a34be161279afa776f6d1d72e44?auth_token=3458b0fc4389fe0ad0e8e0afa5e79f0178cf445ef93dc653eb21fa3211966747",
+    "created_at": "2024-10-17T10:11:36.000Z",
+    "duration": 33,
+    "device_info": {
+        "device": "Samsung Galaxy S24",
+        "os": "android",
+        "os_version": "14.0",
+        "browser": "samsung",
+        "browser_version": "Samsung Internet 25.0"
+    }
+}

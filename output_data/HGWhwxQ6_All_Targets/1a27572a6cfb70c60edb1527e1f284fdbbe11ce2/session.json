@@ -1,0 +1,13 @@
+{
+    "build_name": "HGWhwxQ6_All_Targets  64  17-Oct-02:27",
+    "public_url": "https://automate.browserstack.com/builds/c6eac3a6ed35e77a486a2963e523c192ef1b8d34/sessions/1a27572a6cfb70c60edb1527e1f284fdbbe11ce2?auth_token=3c0acfb8da54e35e201d1d3f50072fb5a882d3197eb33b48ebcacde021192d9d",
+    "created_at": "2024-10-17T09:27:38.000Z",
+    "duration": 25,
+    "device_info": {
+        "device": "Samsung Galaxy Tab S8",
+        "os": "android",
+        "os_version": "12.0",
+        "browser": "chrome_android",
+        "browser_version": "Chrome 127.0.0"
+    }
+}

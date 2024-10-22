@@ -1,0 +1,13 @@
+{
+    "build_name": "HGWhwxQ6_All_Targets  55  17-Oct-01:50",
+    "public_url": "https://automate.browserstack.com/builds/f5d3b2bc070478f24be7e8d7229f5d167b04c760/sessions/8f1b5fcfe28bb840504fbe3bfb8c78c2ce931719?auth_token=01705511d292b150414b488713a328fdf64bf8c74f9f0285c79268e2ff9bee54",
+    "created_at": "2024-10-17T08:52:03.000Z",
+    "duration": 38,
+    "device_info": {
+        "device": "iPhone 12 Mini",
+        "os": "ios",
+        "os_version": "14.6",
+        "browser": "iphone",
+        "browser_version": "Mobile Safari 14.1.1"
+    }
+}

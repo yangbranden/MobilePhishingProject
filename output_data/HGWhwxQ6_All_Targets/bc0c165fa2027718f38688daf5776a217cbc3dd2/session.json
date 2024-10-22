@@ -1,0 +1,13 @@
+{
+    "build_name": "HGWhwxQ6_All_Targets  72  17-Oct-03:09",
+    "public_url": "https://automate.browserstack.com/builds/54586286ff08c557a856cf039332c86326a72d46/sessions/bc0c165fa2027718f38688daf5776a217cbc3dd2?auth_token=4ea46d95325e1bf896616284384faeac16ae37abf40514b35052ac6b12b063af",
+    "created_at": "2024-10-17T10:10:23.000Z",
+    "duration": 25,
+    "device_info": {
+        "device": "Google Pixel 8 Pro",
+        "os": "android",
+        "os_version": "14.0",
+        "browser": "chrome_android",
+        "browser_version": "Chrome Mobile 127.0.0"
+    }
+}

@@ -1,0 +1,13 @@
+{
+    "build_name": "HGWhwxQ6_All_Targets  14  16-Oct-23:26",
+    "public_url": "https://automate.browserstack.com/builds/f105cee4bf34370158fe807f026697039f3b596c/sessions/d4a9f419ec7c68fdfdf02d7d7ec7acc0f7612519?auth_token=7c5dafa4903ca5347a08c596db76d6522a08c308d914eaaf3d61fb38eefada6e",
+    "created_at": "2024-10-17T06:27:52.000Z",
+    "duration": 32,
+    "device_info": {
+        "device": null,
+        "os": "OS X",
+        "os_version": "Catalina",
+        "browser": "firefox",
+        "browser_version": "121.0"
+    }
+}

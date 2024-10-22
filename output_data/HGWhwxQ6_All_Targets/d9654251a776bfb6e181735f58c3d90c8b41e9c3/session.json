@@ -1,0 +1,13 @@
+{
+    "build_name": "HGWhwxQ6_All_Targets  53  17-Oct-01:38",
+    "public_url": "https://automate.browserstack.com/builds/daf3daf94034cd5a700e028743e2ceef0854d521/sessions/d9654251a776bfb6e181735f58c3d90c8b41e9c3?auth_token=d6446aa5eb81ee544065f6bbbe2df2739b353d55f8ba2ea935757773f6b6424b",
+    "created_at": "2024-10-17T08:42:58.000Z",
+    "duration": 46,
+    "device_info": {
+        "device": "iPhone SE 2022",
+        "os": "ios",
+        "os_version": "15.4",
+        "browser": "chromium_iphone",
+        "browser_version": "Chrome Mobile iOS 125.0.6422"
+    }
+}

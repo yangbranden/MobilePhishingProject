@@ -1,0 +1,13 @@
+{
+    "build_name": "HGWhwxQ6_All_Targets  56  17-Oct-01:54",
+    "public_url": "https://automate.browserstack.com/builds/1c42cd09e4f873c9a67b3d9f06ea43e1583cd2be/sessions/57acb26216fac7dfa1af26647decfa4417c8e861?auth_token=93968937c27f05d333ebed86bfd159153c68a83dd65dce7750ac93dad9fae864",
+    "created_at": "2024-10-17T08:58:18.000Z",
+    "duration": 40,
+    "device_info": {
+        "device": "iPad Air 4",
+        "os": "ios",
+        "os_version": "14.1",
+        "browser": "chromium_ipad",
+        "browser_version": "Chrome Mobile iOS 111.0.5563"
+    }
+}

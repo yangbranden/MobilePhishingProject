@@ -1,0 +1,13 @@
+{
+    "build_name": "HGWhwxQ6_All_Targets  58  17-Oct-02:03",
+    "public_url": "https://automate.browserstack.com/builds/80b62e264da7127d67927866038451fb1d57b7a4/sessions/af356471d7f019aa043642b499cd3215a6c3e527?auth_token=c9a93301b264c81139be9b2c111d63e2977f63c8196afcde41e2c88a232edf68",
+    "created_at": "2024-10-17T09:04:52.000Z",
+    "duration": 41,
+    "device_info": {
+        "device": "iPhone SE 2020",
+        "os": "ios",
+        "os_version": "13.4",
+        "browser": "iphone",
+        "browser_version": "Mobile Safari 13.1"
+    }
+}

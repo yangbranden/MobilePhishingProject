@@ -1,0 +1,13 @@
+{
+    "build_name": "HGWhwxQ6_All_Targets  74  17-Oct-03:16",
+    "public_url": "https://automate.browserstack.com/builds/e9463c6672961d8738c153d74a298defd388d900/sessions/b00b36bfa14dec6419cb9c4271b4174f9efe458f?auth_token=2a337afdae81b8615969bab98a82bb5dbd9435ce50661152c9cbda933fee9942",
+    "created_at": "2024-10-17T10:18:47.000Z",
+    "duration": 37,
+    "device_info": {
+        "device": "Motorola Moto G7 Play",
+        "os": "android",
+        "os_version": "9.0",
+        "browser": "chrome_android",
+        "browser_version": "Chrome Mobile 127.0.0"
+    }
+}

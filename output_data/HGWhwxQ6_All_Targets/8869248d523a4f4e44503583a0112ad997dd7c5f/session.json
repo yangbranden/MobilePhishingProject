@@ -1,0 +1,13 @@
+{
+    "build_name": "HGWhwxQ6_All_Targets  47  17-Oct-01:09",
+    "public_url": "https://automate.browserstack.com/builds/32107a5dedc50bcd7b8e993d118cb3866a053a3e/sessions/8869248d523a4f4e44503583a0112ad997dd7c5f?auth_token=ab1e8bca55516a1af48f8e1ce744d5bddfc1064f864c4fa487fc09e28269a29f",
+    "created_at": "2024-10-17T08:12:40.000Z",
+    "duration": 42,
+    "device_info": {
+        "device": "iPhone 14 Pro",
+        "os": "ios",
+        "os_version": "16.3",
+        "browser": "iphone",
+        "browser_version": "Mobile Safari 16.3"
+    }
+}

@@ -1,0 +1,13 @@
+{
+    "build_name": "HGWhwxQ6_All_Targets  2  16-Oct-22:48",
+    "public_url": "https://automate.browserstack.com/builds/4a365682b2ced1483c4cbdbb9e0cc483711b4914/sessions/3c26b1976dbc86fc55d69ac91dd502b1433e7022?auth_token=603c1e97e91eee2ec77b952f0af8b7634ec14d6c4f5aadd3f86c9411854bc530",
+    "created_at": "2024-10-17T05:49:22.000Z",
+    "duration": 22,
+    "device_info": {
+        "device": null,
+        "os": "Windows",
+        "os_version": "10",
+        "browser": "edge",
+        "browser_version": "121.0"
+    }
+}

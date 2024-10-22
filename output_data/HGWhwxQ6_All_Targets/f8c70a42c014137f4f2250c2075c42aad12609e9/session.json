@@ -1,0 +1,13 @@
+{
+    "build_name": "HGWhwxQ6_All_Targets  33  17-Oct-00:12",
+    "public_url": "https://automate.browserstack.com/builds/6d3b74e12b6d763d971035e4f2975ceaa0d13d12/sessions/f8c70a42c014137f4f2250c2075c42aad12609e9?auth_token=6ae8bf507abc61537508f9ab4ffa75475d62810ad3ece82b27c6a4eabecefba4",
+    "created_at": "2024-10-17T07:13:27.000Z",
+    "duration": 14,
+    "device_info": {
+        "device": null,
+        "os": "OS X",
+        "os_version": "Sonoma",
+        "browser": "edge",
+        "browser_version": "125.0"
+    }
+}

@@ -1,0 +1,13 @@
+{
+    "build_name": "HGWhwxQ6_All_Targets  48  17-Oct-01:14",
+    "public_url": "https://automate.browserstack.com/builds/fff8b9bbc3d8561c69849ea1b04ea9cfc650974f/sessions/dccafe3c2aaeb30473a1719bb51b72cd81b6b141?auth_token=395bba0b83fd1bf045268304afb968bd5e633246279c78356f214fc6f0dfec2a",
+    "created_at": "2024-10-17T08:18:28.000Z",
+    "duration": 44,
+    "device_info": {
+        "device": "iPhone 13",
+        "os": "ios",
+        "os_version": "16.3",
+        "browser": "iphone",
+        "browser_version": "Mobile Safari 16.3"
+    }
+}

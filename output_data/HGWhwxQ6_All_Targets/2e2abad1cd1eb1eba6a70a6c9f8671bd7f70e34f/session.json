@@ -1,0 +1,13 @@
+{
+    "build_name": "HGWhwxQ6_All_Targets  57  17-Oct-01:58",
+    "public_url": "https://automate.browserstack.com/builds/e60ab90a98339a2153990162239ee3dea2e09f75/sessions/2e2abad1cd1eb1eba6a70a6c9f8671bd7f70e34f?auth_token=5e5ee6e02e968d5c8da44c3de73bcf4bf2a0c2c67fad94d70e2fa5d689a955d5",
+    "created_at": "2024-10-17T09:01:55.000Z",
+    "duration": 39,
+    "device_info": {
+        "device": "iPad Pro 11 2021",
+        "os": "ios",
+        "os_version": "14.5",
+        "browser": "chromium_ipad",
+        "browser_version": "Chrome Mobile iOS 111.0.5563"
+    }
+}

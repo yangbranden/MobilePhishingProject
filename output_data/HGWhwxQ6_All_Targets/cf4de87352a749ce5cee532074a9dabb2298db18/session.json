@@ -1,0 +1,13 @@
+{
+    "build_name": "HGWhwxQ6_All_Targets  67  17-Oct-02:51",
+    "public_url": "https://automate.browserstack.com/builds/f644e0c09be211327da964fd305c729d5f0290c8/sessions/cf4de87352a749ce5cee532074a9dabb2298db18?auth_token=969788cf3fe0b39b890028abbb64fb69dcf2e226a4a3b40ae1cb90660cd11dc5",
+    "created_at": "2024-10-17T09:53:01.000Z",
+    "duration": 26,
+    "device_info": {
+        "device": "Oppo Reno 6",
+        "os": "android",
+        "os_version": "11.0",
+        "browser": "chrome_android",
+        "browser_version": "Chrome Mobile 127.0.0"
+    }
+}

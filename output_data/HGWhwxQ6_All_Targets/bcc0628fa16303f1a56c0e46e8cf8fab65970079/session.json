@@ -1,0 +1,13 @@
+{
+    "build_name": "HGWhwxQ6_All_Targets  50  17-Oct-01:24",
+    "public_url": "https://automate.browserstack.com/builds/348408037c80dfe1bd565c42903c739d84366328/sessions/bcc0628fa16303f1a56c0e46e8cf8fab65970079?auth_token=740352b78dc2de8af2ba76f0308f862b611553061fda26a7a77846bf0725dce8",
+    "created_at": "2024-10-17T08:26:20.000Z",
+    "duration": 47,
+    "device_info": {
+        "device": "iPad 10th",
+        "os": "ios",
+        "os_version": "16.0",
+        "browser": "ipad",
+        "browser_version": "Safari 16.0"
+    }
+}

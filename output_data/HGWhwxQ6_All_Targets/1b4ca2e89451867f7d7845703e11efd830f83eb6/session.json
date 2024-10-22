@@ -1,0 +1,13 @@
+{
+    "build_name": "HGWhwxQ6_All_Targets  53  17-Oct-01:38",
+    "public_url": "https://automate.browserstack.com/builds/daf3daf94034cd5a700e028743e2ceef0854d521/sessions/1b4ca2e89451867f7d7845703e11efd830f83eb6?auth_token=7b922728d2e5c997e71dca5f62c0ddf43ac3a1c8c08bd4278d21207dafbb2fb5",
+    "created_at": "2024-10-17T08:41:13.000Z",
+    "duration": 104,
+    "device_info": {
+        "device": "iPhone XR",
+        "os": "ios",
+        "os_version": "15.4",
+        "browser": "chromium_iphone",
+        "browser_version": "Chrome Mobile iOS 125.0.6422"
+    }
+}

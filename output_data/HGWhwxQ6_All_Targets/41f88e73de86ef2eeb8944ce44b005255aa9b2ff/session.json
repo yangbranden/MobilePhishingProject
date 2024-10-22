@@ -1,0 +1,13 @@
+{
+    "build_name": "HGWhwxQ6_All_Targets  73  17-Oct-03:12",
+    "public_url": "https://automate.browserstack.com/builds/c6b94a3acf15caaebd3223929d12d496e46c9199/sessions/41f88e73de86ef2eeb8944ce44b005255aa9b2ff?auth_token=a783d80c324ce64004ed12cf06531df8def6092125310090ec281872a1b35d80",
+    "created_at": "2024-10-17T10:14:24.000Z",
+    "duration": 41,
+    "device_info": {
+        "device": "Samsung Galaxy Tab A9 Plus",
+        "os": "android",
+        "os_version": "14.0",
+        "browser": "samsung",
+        "browser_version": "Chrome 128.0.0"
+    }
+}

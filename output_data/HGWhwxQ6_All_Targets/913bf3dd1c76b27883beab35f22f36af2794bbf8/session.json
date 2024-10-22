@@ -1,0 +1,13 @@
+{
+    "build_name": "HGWhwxQ6_All_Targets  67  17-Oct-02:51",
+    "public_url": "https://automate.browserstack.com/builds/f644e0c09be211327da964fd305c729d5f0290c8/sessions/913bf3dd1c76b27883beab35f22f36af2794bbf8?auth_token=7f251ebc3af90dae98163372636bad601903b6f6f5665d0dfabb76c435af0c4c",
+    "created_at": "2024-10-17T09:52:02.000Z",
+    "duration": 28,
+    "device_info": {
+        "device": "Samsung Galaxy Tab S7",
+        "os": "android",
+        "os_version": "11.0",
+        "browser": "samsung",
+        "browser_version": "Samsung Internet 25.0"
+    }
+}

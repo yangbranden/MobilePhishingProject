@@ -1,0 +1,12 @@
+1729146607201:SEVERE:https://mtgovokta8.wixsite.com/ - Failed to load resource: the server responded with a status of 404 ()
+1729146607620:SEVERE:https://mtgovokta8.wixsite.com/ - Refused to execute script from 'https://www.wix.com/_api/wix-laboratory-server/laboratory/conductAllInScope?scope=error-pages&accept=jsonp&callback=setExperimentsSync' because its MIME type ('application/jsonp') is not executable, and strict MIME type checking is enabled.
+1729146609782:SEVERE:https://bafkreic73cwiszlzfyym5yow4ndbxgkzk5dwtt3aye5u4t63hgoimvf7nu.ipfs.dweb.link/favicon.ico - Failed to load resource: the server responded with a status of 404 ()
+1729146610323:SEVERE:https://fwebserver-106018.weeblysite.com/ - Failed to load resource: the server responded with a status of 404 ()
+1729146611715:SEVERE:https://keepo.io/goodgood/ - Failed to load resource: the server responded with a status of 404 ()
+1729146612642:SEVERE:chrome-extension://invalid/ - Failed to load resource: net::ERR_FAILED
+1729146613999:SEVERE:chrome-extension://invalid/ - Failed to load resource: net::ERR_FAILED
+1729146615347:SEVERE:https://evrios.help/ - Failed to load resource: the server responded with a status of 403 (Forbidden)
+1729146615799:SEVERE:http://evrios.help.x.405beaa3033d40492d0994d035bcace819a2.d043db8a.id.opendns.com/s/phish.opendns.com/?X-OpenDNS-Session=aa51dc5c0ccc5aad4_405beaa3033d40492d0994d035bcace819a2_a39caaf0de3d2cf4d08ea08f79d0c0c1cff2f024_url=evrios.help&server=pao2&prefs=&tagging=&nref - Failed to load resource: the server responded with a status of 502 (No data received from server or forwarder)
+1729146616059:SEVERE:http://evrios.help.x.405beaa3033d40492d0994d035bcace819a2.d043db8a.id.opendns.com/favicon.ico - Failed to load resource: the server responded with a status of 502 (No data received from server or forwarder)
+1729146616494:SEVERE:https://attmaicomeback001.webflow.io/ - Failed to load resource: the server responded with a status of 404 ()
+1729146617465:SEVERE:chrome-extension://invalid/ - Failed to load resource: net::ERR_FAILED

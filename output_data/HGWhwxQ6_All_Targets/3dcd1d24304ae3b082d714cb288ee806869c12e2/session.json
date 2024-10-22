@@ -1,0 +1,13 @@
+{
+    "build_name": "HGWhwxQ6_All_Targets  61  17-Oct-02:16",
+    "public_url": "https://automate.browserstack.com/builds/4540bba15f9f8d98230820351b6dfbd1570a3aac/sessions/3dcd1d24304ae3b082d714cb288ee806869c12e2?auth_token=345fef0abdcd2d5046dabf934e0fe3d6d715ad76694327864b45b8acddb7a89d",
+    "created_at": "2024-10-17T09:18:36.000Z",
+    "duration": 29,
+    "device_info": {
+        "device": "Samsung Galaxy Tab S9",
+        "os": "android",
+        "os_version": "13.0",
+        "browser": "chrome_android",
+        "browser_version": "Chrome 127.0.0"
+    }
+}

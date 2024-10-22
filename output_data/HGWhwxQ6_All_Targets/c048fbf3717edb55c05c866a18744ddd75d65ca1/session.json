@@ -1,0 +1,13 @@
+{
+    "build_name": "HGWhwxQ6_All_Targets  50  17-Oct-01:24",
+    "public_url": "https://automate.browserstack.com/builds/348408037c80dfe1bd565c42903c739d84366328/sessions/c048fbf3717edb55c05c866a18744ddd75d65ca1?auth_token=3979c00f3dc0348ad3183fb2f9ebe1015a5deaec066181f7325dd10b9121b48b",
+    "created_at": "2024-10-17T08:24:50.000Z",
+    "duration": 42,
+    "device_info": {
+        "device": "iPad Pro 12.9 2020",
+        "os": "ios",
+        "os_version": "16.2",
+        "browser": "ipad",
+        "browser_version": "Safari 16.2"
+    }
+}

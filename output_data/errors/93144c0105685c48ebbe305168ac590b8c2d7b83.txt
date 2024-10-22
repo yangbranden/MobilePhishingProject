@@ -1,0 +1,3 @@
+2024-10-22 10:51:17.980415 ERROR: Unable to get text logs for session 93144c0105685c48ebbe305168ac590b8c2d7b83
+2024-10-22 10:51:20.066902 ERROR: Unable to get network logs for session 93144c0105685c48ebbe305168ac590b8c2d7b83
+2024-10-22 10:51:22.265724 ERROR: Unable to get console logs for session 93144c0105685c48ebbe305168ac590b8c2d7b83

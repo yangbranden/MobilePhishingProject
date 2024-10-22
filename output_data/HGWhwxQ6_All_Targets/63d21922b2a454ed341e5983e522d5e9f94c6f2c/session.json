@@ -1,0 +1,13 @@
+{
+    "build_name": "HGWhwxQ6_All_Targets  76  17-Oct-03:25",
+    "public_url": "https://automate.browserstack.com/builds/68c172a0c069304f171adc46b623fe0453535f76/sessions/63d21922b2a454ed341e5983e522d5e9f94c6f2c?auth_token=a49dfd8b3c11d73cfb44871248063802f511824b424669b1fd39b8f54d52d893",
+    "created_at": "2024-10-17T10:27:25.000Z",
+    "duration": 36,
+    "device_info": {
+        "device": "Samsung Galaxy S9",
+        "os": "android",
+        "os_version": "8.0",
+        "browser": "chrome_android",
+        "browser_version": "Chrome Mobile 127.0.0"
+    }
+}

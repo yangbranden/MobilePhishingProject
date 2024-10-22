@@ -1,0 +1,13 @@
+{
+    "build_name": "HGWhwxQ6_All_Targets  63  17-Oct-02:24",
+    "public_url": "https://automate.browserstack.com/builds/f125e3f12a48017c67e830939a51a698d4bf85c1/sessions/4021c1bfafad99edbef7d97d682d095d1fa5cb70?auth_token=b6f01d8f67e5d2372b13c2c0543ed3be354a6a70c999288ef01ed5f2ff5ab60c",
+    "created_at": "2024-10-17T09:27:00.000Z",
+    "duration": 27,
+    "device_info": {
+        "device": "Google Pixel 6",
+        "os": "android",
+        "os_version": "12.0",
+        "browser": "chrome_android",
+        "browser_version": "Chrome Mobile 127.0.0"
+    }
+}

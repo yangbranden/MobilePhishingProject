@@ -1,0 +1,15 @@
+1729148335405:SEVERE:https://mtgovokta8.wixsite.com/ - Failed to load resource: the server responded with a status of 404 ()
+1729148335669:SEVERE:https://mtgovokta8.wixsite.com/ - Refused to execute script from 'https://www.wix.com/_api/wix-laboratory-server/laboratory/conductAllInScope?scope=error-pages&accept=jsonp&callback=setExperimentsSync' because its MIME type ('application/jsonp') is not executable, and strict MIME type checking is enabled.
+1729148336624:SEVERE:https://yuhapp-aktivieren.cfolks.pl/auth/88923/Entry.php - Failed to load resource: the server responded with a status of 403 (Forbidden)
+1729148336880:SEVERE:http://yuhapp-aktivieren.cfolks.pl.x.62b55f11062ac04db00bcaf0379889b472e5.d043db89.id.opendns.com/s/phish.opendns.com/?X-OpenDNS-Session=aa51dc5c0ccc5aad4_62b55f11062ac04db00bcaf0379889b472e5_684b158433fa1add4e94eeb37099a7704ca46e45_url=yuhapp-aktivieren.cfolks.pl%2Fauth%2F88923%2FEntry.php&server=pao1&prefs=&tagging=&nref - Failed to load resource: the server responded with a status of 502 (No data received from server or forwarder)
+1729148336996:SEVERE:http://yuhapp-aktivieren.cfolks.pl.x.62b55f11062ac04db00bcaf0379889b472e5.d043db89.id.opendns.com/favicon.ico - Failed to load resource: the server responded with a status of 502 (No data received from server or forwarder)
+1729148337362:SEVERE:https://bafkreic73cwiszlzfyym5yow4ndbxgkzk5dwtt3aye5u4t63hgoimvf7nu.ipfs.dweb.link/ - Failed to load resource: the server responded with a status of 403 (Forbidden)
+1729148338065:SEVERE:https://fwebserver-106018.weeblysite.com/ - Failed to load resource: the server responded with a status of 404 ()
+1729148339248:SEVERE:https://keepo.io/goodgood/ - Failed to load resource: the server responded with a status of 404 ()
+1729148340302:SEVERE:chrome-extension://invalid/ - Failed to load resource: net::ERR_FAILED
+1729148341137:SEVERE:https://docs.google.com/presentation/manifest.json 0 Manifest: Line: 1, column: 1, Syntax error.
+1729148341143:SEVERE:chrome-extension://invalid/ - Failed to load resource: net::ERR_FAILED
+1729148342087:SEVERE:https://evrios.help/ - Failed to load resource: the server responded with a status of 404 (Not Found)
+1729148342119:SEVERE:https://evrios.help/favicon.ico - Failed to load resource: the server responded with a status of 404 (Not Found)
+1729148342464:SEVERE:https://attmaicomeback001.webflow.io/ - Failed to load resource: the server responded with a status of 403 (Forbidden)
+1729148343249:SEVERE:chrome-extension://invalid/ - Failed to load resource: net::ERR_FAILED

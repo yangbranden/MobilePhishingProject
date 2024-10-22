@@ -1,0 +1,12 @@
+1729148476096:SEVERE:https://mtgovokta8.wixsite.com/ - Failed to load resource: the server responded with a status of 404 ()
+1729148476611:SEVERE:https://mtgovokta8.wixsite.com/ - Refused to execute script from 'https://www.wix.com/_api/wix-laboratory-server/laboratory/conductAllInScope?scope=error-pages&accept=jsonp&callback=setExperimentsSync' because its MIME type ('application/jsonp') is not executable, and strict MIME type checking is enabled.
+1729148478951:SEVERE:https://bafkreic73cwiszlzfyym5yow4ndbxgkzk5dwtt3aye5u4t63hgoimvf7nu.ipfs.dweb.link/favicon.ico - Failed to load resource: the server responded with a status of 404 ()
+1729148479495:SEVERE:https://fwebserver-106018.weeblysite.com/ - Failed to load resource: the server responded with a status of 404 ()
+1729148480798:SEVERE:https://keepo.io/goodgood/ - Failed to load resource: the server responded with a status of 404 ()
+1729148482044:SEVERE:https://docs.google.com/presentation/d/e/2PACX-1vSyZvhdvQciz9GoEknoSbwh4YMMbsGaOKZExu1oNCQVrqKQ0eYznD0BOr_8wCoJKpDgyPDTg3WxNFJt/pub?start=false&amp;loop=false&amp;delayms=3000 0 Error while trying to use the following icon from the Manifest: https://keepo.io/android-icon-144x144.png (Download error or resource isn't a valid image)
+1729148482060:SEVERE:chrome-extension://invalid/ - Failed to load resource: net::ERR_FAILED
+1729148483618:SEVERE:chrome-extension://invalid/ - Failed to load resource: net::ERR_FAILED
+1729148484394:SEVERE:https://evrios.help/ - Failed to load resource: the server responded with a status of 404 (Not Found)
+1729148484471:SEVERE:https://evrios.help/favicon.ico - Failed to load resource: the server responded with a status of 404 (Not Found)
+1729148485063:SEVERE:https://attmaicomeback001.webflow.io/ - Failed to load resource: the server responded with a status of 404 ()
+1729148486042:SEVERE:chrome-extension://invalid/ - Failed to load resource: net::ERR_FAILED

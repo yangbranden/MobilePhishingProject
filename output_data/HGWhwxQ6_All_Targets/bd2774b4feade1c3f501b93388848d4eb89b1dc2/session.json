@@ -1,0 +1,13 @@
+{
+    "build_name": "HGWhwxQ6_All_Targets  66  17-Oct-02:48",
+    "public_url": "https://automate.browserstack.com/builds/3ba7fe1dbe4878fdc5723a89ba4c66e92c01b21a/sessions/bd2774b4feade1c3f501b93388848d4eb89b1dc2?auth_token=a299fabe5d7f650f1b58877901d424294e6b449ba0b4f61f0858fcdfeb57003c",
+    "created_at": "2024-10-17T09:49:04.000Z",
+    "duration": 26,
+    "device_info": {
+        "device": "Motorola Moto G71 5G",
+        "os": "android",
+        "os_version": "11.0",
+        "browser": "chrome_android",
+        "browser_version": "Chrome Mobile 127.0.0"
+    }
+}

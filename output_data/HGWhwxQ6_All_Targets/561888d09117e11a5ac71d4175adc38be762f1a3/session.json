@@ -1,0 +1,13 @@
+{
+    "build_name": "HGWhwxQ6_All_Targets  44  17-Oct-00:50",
+    "public_url": "https://automate.browserstack.com/builds/23d4417c1ea6f7343730358ee6bb7cf390f91f44/sessions/561888d09117e11a5ac71d4175adc38be762f1a3?auth_token=8a026fe7dce71ef879550e7352fd6284b29a36ca4560640357dbd84a78b53abe",
+    "created_at": "2024-10-17T07:51:40.000Z",
+    "duration": 45,
+    "device_info": {
+        "device": "iPhone 12 Pro",
+        "os": "ios",
+        "os_version": "18.0",
+        "browser": "chromium_iphone",
+        "browser_version": "Chrome Mobile iOS 125.0.6422"
+    }
+}

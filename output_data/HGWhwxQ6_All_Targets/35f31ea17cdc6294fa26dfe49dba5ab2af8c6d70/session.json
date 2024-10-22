@@ -1,0 +1,13 @@
+{
+    "build_name": "HGWhwxQ6_All_Targets  39  17-Oct-00:27",
+    "public_url": "https://automate.browserstack.com/builds/a5ac003724eb696883d4146cce366f267c826e4d/sessions/35f31ea17cdc6294fa26dfe49dba5ab2af8c6d70?auth_token=6cfe1c704ee4245d63c3c472a2ed8ec8cfe38507b14cd2d778be11e1dd526760",
+    "created_at": "2024-10-17T07:28:26.000Z",
+    "duration": 24,
+    "device_info": {
+        "device": null,
+        "os": "OS X",
+        "os_version": "Sequoia",
+        "browser": "firefox",
+        "browser_version": "127.0"
+    }
+}

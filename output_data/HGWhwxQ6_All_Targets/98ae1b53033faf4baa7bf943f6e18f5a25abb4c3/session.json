@@ -1,0 +1,13 @@
+{
+    "build_name": "HGWhwxQ6_All_Targets  54  17-Oct-01:44",
+    "public_url": "https://automate.browserstack.com/builds/23f74c55e5b5567d99134c84c487abaa521bd014/sessions/98ae1b53033faf4baa7bf943f6e18f5a25abb4c3?auth_token=8d2af97d0e796b679e2ec736d038a7642cf0473709e8476769d9ed48aa7a8c49",
+    "created_at": "2024-10-17T08:45:27.000Z",
+    "duration": 44,
+    "device_info": {
+        "device": "iPad Mini 2021",
+        "os": "ios",
+        "os_version": "15.5",
+        "browser": "ipad",
+        "browser_version": "Mobile Safari 15.5"
+    }
+}

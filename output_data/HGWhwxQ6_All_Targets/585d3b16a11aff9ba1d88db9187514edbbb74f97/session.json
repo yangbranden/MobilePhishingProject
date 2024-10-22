@@ -1,0 +1,13 @@
+{
+    "build_name": "HGWhwxQ6_All_Targets  69  17-Oct-02:57",
+    "public_url": "https://automate.browserstack.com/builds/5a1bbc6b173f31959cce9c408268b515d9860546/sessions/585d3b16a11aff9ba1d88db9187514edbbb74f97?auth_token=e587c4cb5ea54fddf59364cabebf05d8333b9848b2e5f3f4a0c94cc2673d3c30",
+    "created_at": "2024-10-17T09:58:51.000Z",
+    "duration": 34,
+    "device_info": {
+        "device": "Samsung Galaxy A51",
+        "os": "android",
+        "os_version": "10.0",
+        "browser": "samsung",
+        "browser_version": "Samsung Internet 25.0"
+    }
+}

@@ -1,0 +1,13 @@
+{
+    "build_name": "HGWhwxQ6_All_Targets  75  17-Oct-03:21",
+    "public_url": "https://automate.browserstack.com/builds/7cdbba65594c70878671fa0a38d66a31fa6ec9d1/sessions/1974ca742c1fb6ee1dc803993e0e0543709ab011?auth_token=1b321690ff2eb1f597b1231ff6abf15194a641b3394c941fbe119c80226fcdcb",
+    "created_at": "2024-10-17T10:21:49.000Z",
+    "duration": 36,
+    "device_info": {
+        "device": "Samsung Galaxy Note 9",
+        "os": "android",
+        "os_version": "8.1",
+        "browser": "samsung",
+        "browser_version": "Samsung Internet 25.0"
+    }
+}

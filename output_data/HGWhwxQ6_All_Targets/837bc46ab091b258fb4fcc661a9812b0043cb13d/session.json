@@ -1,0 +1,13 @@
+{
+    "build_name": "HGWhwxQ6_All_Targets  73  17-Oct-03:12",
+    "public_url": "https://automate.browserstack.com/builds/c6b94a3acf15caaebd3223929d12d496e46c9199/sessions/837bc46ab091b258fb4fcc661a9812b0043cb13d?auth_token=083839e23490b803bf08325ccb6da687391584f9c77afd0a743f3e38f4ab8f2f",
+    "created_at": "2024-10-17T10:13:18.000Z",
+    "duration": 34,
+    "device_info": {
+        "device": "Samsung Galaxy S10 Plus",
+        "os": "android",
+        "os_version": "9.0",
+        "browser": "samsung",
+        "browser_version": "Samsung Internet 25.0"
+    }
+}

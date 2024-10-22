@@ -1,0 +1,13 @@
+{
+    "build_name": "HGWhwxQ6_All_Targets  42  17-Oct-00:41",
+    "public_url": "https://automate.browserstack.com/builds/120e596f3c98691ee093006a819c92a5eebdd0bf/sessions/f5368ae7e2e08f0afb3bd1dc8b60cd07f620c12e?auth_token=2205a6dac3bc6870e094fd1e47bd8d47a84835b9340f32e745a68ee81b76c0fd",
+    "created_at": "2024-10-17T07:45:01.000Z",
+    "duration": 44,
+    "device_info": {
+        "device": "iPad Pro 13 2024",
+        "os": "ios",
+        "os_version": "17.5",
+        "browser": "ipad",
+        "browser_version": "Safari 17.5"
+    }
+}

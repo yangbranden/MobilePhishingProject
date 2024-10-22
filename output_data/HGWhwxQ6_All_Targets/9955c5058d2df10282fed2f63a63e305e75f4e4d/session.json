@@ -1,0 +1,13 @@
+{
+    "build_name": "HGWhwxQ6_All_Targets  62  17-Oct-02:20",
+    "public_url": "https://automate.browserstack.com/builds/cdf276004955db5385b499c3f972f384944ac7df/sessions/9955c5058d2df10282fed2f63a63e305e75f4e4d?auth_token=d3550c3db91807f817cf08267328acf92a691f8f226f5209d978d9976c8db80a",
+    "created_at": "2024-10-17T09:21:57.000Z",
+    "duration": 36,
+    "device_info": {
+        "device": "Samsung Galaxy S22",
+        "os": "android",
+        "os_version": "12.0",
+        "browser": "samsung",
+        "browser_version": "Samsung Internet 25.0"
+    }
+}

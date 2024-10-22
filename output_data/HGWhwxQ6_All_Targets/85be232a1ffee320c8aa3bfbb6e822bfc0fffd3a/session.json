@@ -1,0 +1,13 @@
+{
+    "build_name": "HGWhwxQ6_All_Targets  59  17-Oct-02:07",
+    "public_url": "https://automate.browserstack.com/builds/d3f1ec1e5e5e0b61449c914e4d8a39cd7422e2d1/sessions/85be232a1ffee320c8aa3bfbb6e822bfc0fffd3a?auth_token=cc65ff8655ce2a822ef92634a309f0f48d6b6387b63245d1b29211ce8d53d544",
+    "created_at": "2024-10-17T09:08:23.000Z",
+    "duration": 54,
+    "device_info": {
+        "device": "iPhone 8",
+        "os": "ios",
+        "os_version": "11.4",
+        "browser": "iphone",
+        "browser_version": "Mobile Safari 11.0"
+    }
+}

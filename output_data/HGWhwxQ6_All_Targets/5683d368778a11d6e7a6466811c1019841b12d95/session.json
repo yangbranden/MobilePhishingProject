@@ -1,0 +1,13 @@
+{
+    "build_name": "HGWhwxQ6_All_Targets  65  17-Oct-02:30",
+    "public_url": "https://automate.browserstack.com/builds/7546f1add511e55c54a218ee2810c4408a96dcea/sessions/5683d368778a11d6e7a6466811c1019841b12d95?auth_token=695470c4d93f8caf1894c78b8a0f16d70050c6e861aea6e07408b4965c83199e",
+    "created_at": "2024-10-17T09:30:39.000Z",
+    "duration": 33,
+    "device_info": {
+        "device": "Samsung Galaxy A52",
+        "os": "android",
+        "os_version": "11.0",
+        "browser": "samsung",
+        "browser_version": "Samsung Internet 25.0"
+    }
+}

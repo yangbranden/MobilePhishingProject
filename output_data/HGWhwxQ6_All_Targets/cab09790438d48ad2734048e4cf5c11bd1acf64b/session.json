@@ -1,0 +1,13 @@
+{
+    "build_name": "HGWhwxQ6_All_Targets  73  17-Oct-03:12",
+    "public_url": "https://automate.browserstack.com/builds/c6b94a3acf15caaebd3223929d12d496e46c9199/sessions/cab09790438d48ad2734048e4cf5c11bd1acf64b?auth_token=19bba4f207d1ce4e1c08b36f75841e4db752e7b080164ddb9575f4415af8c0e7",
+    "created_at": "2024-10-17T10:15:53.000Z",
+    "duration": 25,
+    "device_info": {
+        "device": "Google Pixel 8",
+        "os": "android",
+        "os_version": "14.0",
+        "browser": "chrome_android",
+        "browser_version": "Chrome Mobile 127.0.0"
+    }
+}

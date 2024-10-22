@@ -1,0 +1,13 @@
+{
+    "build_name": "HGWhwxQ6_All_Targets  27  17-Oct-00:00",
+    "public_url": "https://automate.browserstack.com/builds/873711d90c842d1540f154af1705e2fcd42ef3e0/sessions/ac4772aaca6ebc86f6468c40eff8072e12fa601d?auth_token=6de35dd21cde8bf8e4a42fa8da8bc6be46de8eb7bf05ff77842f4e464c302a32",
+    "created_at": "2024-10-17T07:01:52.000Z",
+    "duration": 13,
+    "device_info": {
+        "device": null,
+        "os": "OS X",
+        "os_version": "Ventura",
+        "browser": "chrome",
+        "browser_version": "129.0"
+    }
+}

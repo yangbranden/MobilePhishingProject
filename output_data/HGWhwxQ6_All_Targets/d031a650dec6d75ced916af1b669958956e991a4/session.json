@@ -1,0 +1,13 @@
+{
+    "build_name": "HGWhwxQ6_All_Targets  63  17-Oct-02:24",
+    "public_url": "https://automate.browserstack.com/builds/f125e3f12a48017c67e830939a51a698d4bf85c1/sessions/d031a650dec6d75ced916af1b669958956e991a4?auth_token=91bf271ca62c47e34240790d4d4a19cca1735bca188c284c0711c40ab7107318",
+    "created_at": "2024-10-17T09:26:05.000Z",
+    "duration": 24,
+    "device_info": {
+        "device": "Google Pixel 6 Pro",
+        "os": "android",
+        "os_version": "12.0",
+        "browser": "chrome_android",
+        "browser_version": "Chrome Mobile 127.0.0"
+    }
+}

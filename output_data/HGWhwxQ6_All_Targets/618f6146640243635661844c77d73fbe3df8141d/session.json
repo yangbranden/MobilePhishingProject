@@ -1,0 +1,13 @@
+{
+    "build_name": "HGWhwxQ6_All_Targets  58  17-Oct-02:03",
+    "public_url": "https://automate.browserstack.com/builds/80b62e264da7127d67927866038451fb1d57b7a4/sessions/618f6146640243635661844c77d73fbe3df8141d?auth_token=2b28ff42ef305129e058e34cd9ea8d9eb443161433d375442fd41571a359ee2a",
+    "created_at": "2024-10-17T09:06:57.000Z",
+    "duration": 41,
+    "device_info": {
+        "device": "iPhone 11",
+        "os": "ios",
+        "os_version": "13.3",
+        "browser": "iphone",
+        "browser_version": "Mobile Safari 13.0.5"
+    }
+}

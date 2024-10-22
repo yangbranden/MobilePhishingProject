@@ -1,0 +1,13 @@
+{
+    "build_name": "HGWhwxQ6_All_Targets  74  17-Oct-03:16",
+    "public_url": "https://automate.browserstack.com/builds/e9463c6672961d8738c153d74a298defd388d900/sessions/ae2ff2ee4446e308dd18976190af96b9cc795f2a?auth_token=76aad5d25161ce3dea1adfea0e1e52f4a19ac8c7217b75fe107d3036a8223731",
+    "created_at": "2024-10-17T10:17:00.000Z",
+    "duration": 27,
+    "device_info": {
+        "device": "Google Pixel 3",
+        "os": "android",
+        "os_version": "9.0",
+        "browser": "chrome_android",
+        "browser_version": "Chrome Mobile 127.0.0"
+    }
+}

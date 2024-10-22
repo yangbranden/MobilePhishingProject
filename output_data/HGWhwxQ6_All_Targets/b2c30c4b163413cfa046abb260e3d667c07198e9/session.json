@@ -1,0 +1,13 @@
+{
+    "build_name": "HGWhwxQ6_All_Targets  42  17-Oct-00:41",
+    "public_url": "https://automate.browserstack.com/builds/120e596f3c98691ee093006a819c92a5eebdd0bf/sessions/b2c30c4b163413cfa046abb260e3d667c07198e9?auth_token=325e07e4b2a46ec3a6d9fd25a8f6e23c0faac003952bda7ae8cee3a4522aad3a",
+    "created_at": "2024-10-17T07:41:59.000Z",
+    "duration": 42,
+    "device_info": {
+        "device": "iPhone 12",
+        "os": "ios",
+        "os_version": "17.0",
+        "browser": "iphone",
+        "browser_version": "Mobile Safari 17.0"
+    }
+}

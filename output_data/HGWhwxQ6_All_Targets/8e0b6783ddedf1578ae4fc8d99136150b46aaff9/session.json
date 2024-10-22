@@ -1,0 +1,13 @@
+{
+    "build_name": "HGWhwxQ6_All_Targets  46  17-Oct-01:04",
+    "public_url": "https://automate.browserstack.com/builds/fadd9fcae8ef589f65d46431612f5b924fa43850/sessions/8e0b6783ddedf1578ae4fc8d99136150b46aaff9?auth_token=2bf99eb3e2d7cc9214998573b13e419e92f5725dcac4ba8759b35237d86588f7",
+    "created_at": "2024-10-17T08:08:01.000Z",
+    "duration": 45,
+    "device_info": {
+        "device": "iPhone 16",
+        "os": "ios",
+        "os_version": "18.0",
+        "browser": "chromium_iphone",
+        "browser_version": "Chrome Mobile iOS 125.0.6422"
+    }
+}

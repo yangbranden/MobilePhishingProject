@@ -1,0 +1,13 @@
+{
+    "build_name": "HGWhwxQ6_All_Targets  64  17-Oct-02:27",
+    "public_url": "https://automate.browserstack.com/builds/c6eac3a6ed35e77a486a2963e523c192ef1b8d34/sessions/ecf080166a8a24ccc857a6372773b598c06cfc2b?auth_token=9073a8109c5c884b97fcecef01423631b4fa7649980c014ef3a1880fc066645b",
+    "created_at": "2024-10-17T09:28:31.000Z",
+    "duration": 27,
+    "device_info": {
+        "device": "Samsung Galaxy S21 Plus",
+        "os": "android",
+        "os_version": "11.0",
+        "browser": "samsung",
+        "browser_version": "Samsung Internet 25.0"
+    }
+}

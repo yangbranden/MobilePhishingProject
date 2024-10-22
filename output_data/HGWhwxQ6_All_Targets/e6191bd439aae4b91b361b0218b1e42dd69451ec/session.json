@@ -1,0 +1,13 @@
+{
+    "build_name": "HGWhwxQ6_All_Targets  57  17-Oct-01:58",
+    "public_url": "https://automate.browserstack.com/builds/e60ab90a98339a2153990162239ee3dea2e09f75/sessions/e6191bd439aae4b91b361b0218b1e42dd69451ec?auth_token=656409fc333a4f679419d470809b40a3ef0045f2910a5604fec8215297f64117",
+    "created_at": "2024-10-17T09:00:32.000Z",
+    "duration": 41,
+    "device_info": {
+        "device": "iPad 8th",
+        "os": "ios",
+        "os_version": "14.0",
+        "browser": "chromium_ipad",
+        "browser_version": "Chrome Mobile iOS 111.0.5563"
+    }
+}

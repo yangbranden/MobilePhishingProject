@@ -1,0 +1,13 @@
+{
+    "build_name": "HGWhwxQ6_All_Targets  16  16-Oct-23:32",
+    "public_url": "https://automate.browserstack.com/builds/0df089228c6b0b5ad11721f3a5edb5553c05d2b5/sessions/85cd65a9ffc7157e8e46381c9ab10d7d5dfbc1ff?auth_token=73f22d34d6dce720315f3cdbb0314d5a59c7a1e83cde343cfd42ae6aad0d19cf",
+    "created_at": "2024-10-17T06:33:28.000Z",
+    "duration": 27,
+    "device_info": {
+        "device": null,
+        "os": "OS X",
+        "os_version": "Big Sur",
+        "browser": "chrome",
+        "browser_version": "123.0"
+    }
+}

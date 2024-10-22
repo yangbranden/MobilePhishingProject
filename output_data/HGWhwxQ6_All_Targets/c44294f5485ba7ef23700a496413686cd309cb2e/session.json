@@ -1,0 +1,13 @@
+{
+    "build_name": "HGWhwxQ6_All_Targets  40  17-Oct-00:30",
+    "public_url": "https://automate.browserstack.com/builds/0c8b2288da091f791b353c1fa5d4b1a675130cee/sessions/c44294f5485ba7ef23700a496413686cd309cb2e?auth_token=3fbf40e2a4276e4bb3d6b6638ed9e6670c1238132a9eb34e46e0fdbb86c69993",
+    "created_at": "2024-10-17T07:32:39.000Z",
+    "duration": 44,
+    "device_info": {
+        "device": "iPhone 15 Pro Max",
+        "os": "ios",
+        "os_version": "17.1",
+        "browser": "chromium_iphone",
+        "browser_version": "Chrome Mobile iOS 125.0.6422"
+    }
+}

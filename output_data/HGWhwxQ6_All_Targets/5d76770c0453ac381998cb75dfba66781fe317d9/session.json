@@ -1,0 +1,13 @@
+{
+    "build_name": "HGWhwxQ6_All_Targets  41  17-Oct-00:35",
+    "public_url": "https://automate.browserstack.com/builds/cf410844d2823c4ddf96e68d1feedb0629117c65/sessions/5d76770c0453ac381998cb75dfba66781fe317d9?auth_token=174cc3fa636c14ccfdaebcdbe79407133b2b52866d1c214aec608ad684e22a6d",
+    "created_at": "2024-10-17T07:38:50.000Z",
+    "duration": 89,
+    "device_info": {
+        "device": "iPhone 15",
+        "os": "ios",
+        "os_version": "17.5",
+        "browser": "chromium_iphone",
+        "browser_version": "Chrome Mobile iOS 125.0.6422"
+    }
+}

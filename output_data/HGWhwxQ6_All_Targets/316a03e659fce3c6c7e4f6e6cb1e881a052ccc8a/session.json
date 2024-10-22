@@ -1,0 +1,13 @@
+{
+    "build_name": "HGWhwxQ6_All_Targets  49  17-Oct-01:19",
+    "public_url": "https://automate.browserstack.com/builds/db48c605cfe72407cf448ef26790696f7456282f/sessions/316a03e659fce3c6c7e4f6e6cb1e881a052ccc8a?auth_token=e8d4f2c05e428f6e7f93dba359a81f5969c6b47f3708242f87149cc53375b79f",
+    "created_at": "2024-10-17T08:21:01.000Z",
+    "duration": 43,
+    "device_info": {
+        "device": "iPad Pro 12.9 2020",
+        "os": "ios",
+        "os_version": "16.2",
+        "browser": "chromium_ipad",
+        "browser_version": "Chrome Mobile iOS 125.0.6422"
+    }
+}

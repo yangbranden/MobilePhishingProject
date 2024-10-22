@@ -1,0 +1,11 @@
+1729149054418:SEVERE:https://mtgovokta8.wixsite.com/ - Failed to load resource: the server responded with a status of 404 ()
+1729149054876:SEVERE:https://mtgovokta8.wixsite.com/ - Refused to execute script from 'https://www.wix.com/_api/wix-laboratory-server/laboratory/conductAllInScope?scope=error-pages&accept=jsonp&callback=setExperimentsSync' because its MIME type ('application/jsonp') is not executable, and strict MIME type checking is enabled.
+1729149057479:SEVERE:https://bafkreic73cwiszlzfyym5yow4ndbxgkzk5dwtt3aye5u4t63hgoimvf7nu.ipfs.dweb.link/favicon.ico - Failed to load resource: the server responded with a status of 404 ()
+1729149058132:SEVERE:https://fwebserver-106018.weeblysite.com/ - Failed to load resource: the server responded with a status of 404 ()
+1729149059795:SEVERE:https://keepo.io/goodgood/ - Failed to load resource: the server responded with a status of 404 ()
+1729149060877:SEVERE:chrome-extension://invalid/ - Failed to load resource: net::ERR_FAILED
+1729149062020:SEVERE:chrome-extension://invalid/ - Failed to load resource: net::ERR_FAILED
+1729149062994:SEVERE:https://evrios.help/ - Failed to load resource: the server responded with a status of 404 (Not Found)
+1729149063075:SEVERE:https://evrios.help/favicon.ico - Failed to load resource: the server responded with a status of 404 (Not Found)
+1729149063496:SEVERE:https://attmaicomeback001.webflow.io/ - Failed to load resource: the server responded with a status of 404 ()
+1729149064482:SEVERE:chrome-extension://invalid/ - Failed to load resource: net::ERR_FAILED

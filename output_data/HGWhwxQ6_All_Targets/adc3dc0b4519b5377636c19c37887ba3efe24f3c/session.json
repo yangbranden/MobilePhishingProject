@@ -1,0 +1,13 @@
+{
+    "build_name": "HGWhwxQ6_All_Targets  72  17-Oct-03:09",
+    "public_url": "https://automate.browserstack.com/builds/54586286ff08c557a856cf039332c86326a72d46/sessions/adc3dc0b4519b5377636c19c37887ba3efe24f3c?auth_token=ab591c2a78fa966bc05814541984421748d82f3e963dee4d04dc0e69b18ebe11",
+    "created_at": "2024-10-17T10:10:49.000Z",
+    "duration": 22,
+    "device_info": {
+        "device": "Google Pixel 9 Pro XL",
+        "os": "android",
+        "os_version": "14.0",
+        "browser": "chrome_android",
+        "browser_version": "Chrome Mobile 127.0.0"
+    }
+}

@@ -1,0 +1,13 @@
+{
+    "build_name": "HGWhwxQ6_All_Targets  25  16-Oct-23:55",
+    "public_url": "https://automate.browserstack.com/builds/064bf2ac96baa14033bcaacc194dc9917d174593/sessions/1cbb5a463c0e066ad563c1f8ad7a39d9e497a81b?auth_token=43674262ec731027a52d39c35bab5e8017a78a6f87305273daf50e1fee1d3f5b",
+    "created_at": "2024-10-17T06:58:02.000Z",
+    "duration": 38,
+    "device_info": {
+        "device": null,
+        "os": "OS X",
+        "os_version": "Monterey",
+        "browser": "firefox",
+        "browser_version": "127.0"
+    }
+}
