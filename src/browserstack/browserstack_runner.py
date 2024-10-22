@@ -530,13 +530,9 @@ class BrowserstackRunner:
         s = requests.Session()
         s.auth = (os.environ.get("BROWSERSTACK_USERNAME"), os.environ.get("BROWSERSTACK_ACCESS_KEY"))
 
-        r = s.get(f"https://api.browserstack.com/automate/sessions/{session_id}.json")
-        response = json.loads(r.text)
-
-        text_logs_url = response['automation_session']['logs']
-        network_logs_url = response['automation_session']['har_logs_url']
-        console_logs_url = response['automation_session']['browser_console_logs_url']
-
+        text_logs_url = f"https://api.browserstack.com/automate/sessions/{session_id}/logs"
+        network_logs_url = f"https://api.browserstack.com/automate/sessions/{session_id}/networklogs"
+        console_logs_url = f"https://api.browserstack.com/automate/sessions/{session_id}/consolelogs"
         r = s.get(text_logs_url)
         # Text logs will occasionally return a 502 error; make sure the request succeeds
         err_count = 0
@@ -556,12 +552,12 @@ class BrowserstackRunner:
             content = remove_empty_lines(r.text)
             f.write(content)
 
-        r = requests.get(network_logs_url)
+        r = s.get(network_logs_url)
         # Ensure request succeeds
         err_count = 0
         while r.status_code != 200:
             print("RETURN CODE (network logs):", r.status_code, session_id)
-            r = requests.get(network_logs_url)
+            r = s.get(network_logs_url)
             if r.status_code == 429:
                 print("TOO MANY REQUESTS (waiting a bit...)")
                 time.sleep(5)
@@ -575,12 +571,12 @@ class BrowserstackRunner:
             content = remove_empty_lines(r.text)
             f.write(content)
 
-        r = requests.get(console_logs_url)
+        r = s.get(console_logs_url)
         # Ensure request succeeds
         err_count = 0
         while r.status_code != 200:
             print("RETURN CODE (console logs):", r.status_code, session_id)
-            r = requests.get(console_logs_url)
+            r = s.get(console_logs_url)
             if r.status_code == 429:
                 print("TOO MANY REQUESTS (waiting a bit...)")
                 time.sleep(5)
