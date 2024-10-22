@@ -76,11 +76,6 @@ with open(urls_file, 'r', encoding='latin-1') as f:
 
 print("PHISHING URLs:", phishing_urls)
 
-# Output will be list of length phishing_urls
-outcomes = {}
-for url in phishing_urls:
-    outcomes[url] = ['TBD'] # WILL EDIT THIS LATER (once we have identified possible outcomes)
-
 # The webdriver management will be handled by the browserstack-sdk
 # so this will be overridden and tests will run browserstack -
 # without any changes to the test files!

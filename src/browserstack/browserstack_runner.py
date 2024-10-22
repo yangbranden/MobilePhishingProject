@@ -334,39 +334,41 @@ class BrowserstackRunner:
         s = requests.Session()
         s.auth = (os.environ.get("BROWSERSTACK_USERNAME"), os.environ.get("BROWSERSTACK_ACCESS_KEY"))
 
-        r = s.get(f"https://api.browserstack.com/automate/sessions/{session_id}/networklogs")
         try:
-            output = json.loads(r.text)
+            r = s.get(f"https://api.browserstack.com/automate/sessions/{session_id}/networklogs")
+            response = json.loads(r.text)
+
+            logs = response["log"]["entries"]
+            user_agent = None
+            for log in logs:
+                found = False
+                log_headers = log["request"]["headers"]
+                for header in log_headers:
+                    # printing host for visibility
+                    # if header["name"] == "Host":
+                    #     print(header)
+                    if header["name"] == "User-Agent":
+                        # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent
+                        # "Mozilla/5.0 is the general token that says that the browser is Mozilla-compatible. 
+                        # For historical reasons, almost every browser today sends it"
+                        if "Mozilla/5.0" not in header["value"]:
+                            # print("skipping", header["value"])
+                            continue
+                        else:
+                            user_agent = header["value"]
+                            found = True
+                            break
+                if found:
+                    break
+            browser_family = parse(user_agent).browser.family
+            browser_version_str = parse(user_agent).browser.version_string
+            browser_version = browser_family + " " + browser_version_str
+            return browser_version
         except Exception as e:
-            print(e)
-        logs = output["log"]["entries"]
-        user_agent = None
-        for log in logs:
-            found = False
-            log_headers = log["request"]["headers"]
-            for header in log_headers:
-                # printing host for visibility
-                # if header["name"] == "Host":
-                #     print(header)
-                if header["name"] == "User-Agent":
-                    # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent
-                    # "Mozilla/5.0 is the general token that says that the browser is Mozilla-compatible. 
-                    # For historical reasons, almost every browser today sends it"
-                    if "Mozilla/5.0" not in header["value"]:
-                        # print("skipping", header["value"])
-                        continue
-                    else:
-                        user_agent = header["value"]
-                        found = True
-                        break
-            if found:
-                break
+            print(f"Exception: {e}")
 
-        browser_family = parse(user_agent).browser.family
-        browser_version_str = parse(user_agent).browser.version_string
-        browser_version = browser_family + " " + browser_version_str
-        return browser_version
-
+        # This should hopefully never get here
+        return None
 
     # Get the output directory for the build
     def get_build_dir(self, session_id):
@@ -379,6 +381,19 @@ class BrowserstackRunner:
         build_name = response['automation_session']['build_name'].split(' ')[0]
 
         return f"{base_dir}/{build_name}"
+    
+
+    # Write an error to a log file
+    def save_error(self, session_id, error_msg):
+        base_dir = self.config.browserstack_runner.output_analyzer.output_directory
+        errors_dir = f"{base_dir}/errors"
+
+        if not os.path.exists(errors_dir):
+            os.makedirs(errors_dir)
+
+        with open(f"{errors_dir}/{session_id}.txt", "a") as f:
+            f.write(f"{datetime.now()} ERROR: {error_msg}\n")
+
 
     # Save information about a session
     def save_session_info(self, session_id):
@@ -388,9 +403,6 @@ class BrowserstackRunner:
         r = s.get(f"https://api.browserstack.com/automate/sessions/{session_id}.json")
         automation_session = json.loads(r.text)['automation_session']
 
-        # Shortened build name for folder name purposes
-        build_name = automation_session['build_name'].split(' ')[0]
-
         output = dict()
         output['build_name'] = automation_session['build_name']
         output['public_url'] = automation_session['public_url']
@@ -398,7 +410,7 @@ class BrowserstackRunner:
         output['duration'] = automation_session['duration']
 
         # contains information about the device
-        device_info = dict() 
+        device_info = dict()
         device_info["device"] = automation_session["device"]
         device_info["os"] = automation_session["os"]
         device_info["os_version"] = automation_session["os_version"]
@@ -420,6 +432,7 @@ class BrowserstackRunner:
     # Save the outcome of our tests based on a session-id
     def save_outcome_session_id(self, session_id):
         print(f'Gathering information about session_id "{session_id}"...')
+        build_dir = self.get_build_dir(session_id)
 
         s = requests.Session()
         s.auth = (os.environ.get("BROWSERSTACK_USERNAME"), os.environ.get("BROWSERSTACK_ACCESS_KEY"))
@@ -432,34 +445,39 @@ class BrowserstackRunner:
             print(f"Invalid session id; Error: {e}")
             return
 
+        # Add basic session info if we haven't already
+        session_info_dir = f"{build_dir}/{session_id}/session.json"
+        if not os.path.exists(session_info_dir):
+            self.save_session_info(session_id)
+
         # We are detecting the following fields from the logs:
         # REQUEST for /url
         # RESPONSE from the /execute/sync REQUEST
         output = dict() # Contains output for all URLs
-        execute_sync_req_detected = False
+        current_entry = dict() # used to record the current url
 
         for line in response_lines:
-            current_entry = dict() # used to record the current url
+            execute_sync_req_detected = False
             if "REQUEST" in line:
-                segments = line.split(' ')
-                json_str = ' '.join(segments[7:])
                 # Detect the REQUEST for /url
                 if "/url" in line: 
-                    try: 
+                    segments = line.split(' ')
+                    json_str = ' '.join(segments[7:])
+                    try:
                         json_data = json.loads(json_str)
                         current_entry["url"] = json_data["url"]
                     except Exception as e:
-                        print(f"Exception: {e}")
+                        print(f"Exception in REQUEST: {e}")
                         continue
                 # Detect the REQUEST for /execute/sync (the outcome we are sending to BrowserStack)
                 elif "/execute/sync" in line:
                     execute_sync_req_detected = True # indicates that the next RESPONSE should be interpreted as important (containing the outcome)
             
             elif "RESPONSE" in line:
-                segments = line.split(' ')
-                json_str = ' '.join(segments[3:])
                 # Detect the RESPONSE after the /execute/sync request
                 if execute_sync_req_detected:
+                    segments = line.split(' ')
+                    json_str = ' '.join(segments[3:])
                     try:
                         json_data = json.loads(json_str)
                         automation_session = json.loads(json_data['value'].split('"automation_session":')[-1][:-1])
@@ -470,12 +488,11 @@ class BrowserstackRunner:
                         }
                         output[current_entry["url"]] = current_entry["outcome"]
                     except Exception as e:
-                        print(f"Exception: {e}")
+                        print(f"Exception in RESPONSE: {e}")
                         continue
                     execute_sync_req_detected = False
 
         # Create directories if they do not exist
-        build_dir = self.get_build_dir(session_id)
         output_dir = f"{build_dir}/{session_id}"
         if not os.path.exists(output_dir):
             os.makedirs(output_dir)
@@ -484,7 +501,7 @@ class BrowserstackRunner:
             json.dump(output, f, indent=4)
 
         # print(output)
-        print(f"Check {output_dir}/outcomes.json for the output.")
+        print(f"Check {output_dir}/outcomes.json for the output.\n")
 
     
     # Save the outcome of our tests based on a unique string ID in the title of the relevant builds
@@ -499,14 +516,20 @@ class BrowserstackRunner:
         s.auth = (os.environ.get("BROWSERSTACK_USERNAME"), os.environ.get("BROWSERSTACK_ACCESS_KEY"))
 
         for count, session_id in enumerate(session_ids):
-            print(f"{count+1}/{len(session_ids)}", end='')
+            print(f"({count+1}/{len(session_ids)}) ", end='')
             self.save_outcome_session_id(session_id)
     
     
     # Save all logs based on session id
     def save_logs_session_id(self, session_id):
-        # Create the directory for the session
         build_dir = self.get_build_dir(session_id)
+
+        # Add basic session info if we haven't already
+        session_info_dir = f"{build_dir}/{session_id}/session.json"
+        if not os.path.exists(session_info_dir):
+            self.save_session_info(session_id)
+
+        # Create the directory for the session
         output_dir = f"{build_dir}/{session_id}"
         if not os.path.exists(f"{output_dir}"):
             os.makedirs(f"{output_dir}")
@@ -523,9 +546,18 @@ class BrowserstackRunner:
 
         r = s.get(text_logs_url)
         # Text logs will occasionally return a 502 error; make sure the request succeeds
+        err_count = 0
         while r.status_code != 200:
-            print("RETURN CODE:", r.status_code)
+            print("RETURN CODE (text logs):", r.status_code, session_id)
             r = s.get(text_logs_url)
+            if r.status_code == 429:
+                print("TOO MANY REQUESTS (waiting a bit...)")
+                time.sleep(5)
+                continue
+            if err_count > 5:
+                self.save_error(session_id, f"Unable to get text logs for session {session_id}")
+                break
+            err_count += 1
         # Save text logs
         with open(f"{output_dir}/text_logs.txt", "w", encoding='utf-8') as f:
             content = remove_empty_lines(r.text)
@@ -533,9 +565,18 @@ class BrowserstackRunner:
 
         r = requests.get(network_logs_url)
         # Ensure request succeeds
+        err_count = 0
         while r.status_code != 200:
-            print("RETURN CODE:", r.status_code)
-            r = s.get(network_logs_url)
+            print("RETURN CODE (network logs):", r.status_code, session_id)
+            r = requests.get(network_logs_url)
+            if r.status_code == 429:
+                print("TOO MANY REQUESTS (waiting a bit...)")
+                time.sleep(5)
+                continue
+            if err_count > 5:
+                self.save_error(session_id, f"Unable to get network logs for session {session_id}")
+                break
+            err_count += 1
         # Save network logs
         with open(f"{output_dir}/network_logs.txt", "w", encoding='utf-8') as f:
             content = remove_empty_lines(r.text)
@@ -543,9 +584,18 @@ class BrowserstackRunner:
 
         r = requests.get(console_logs_url)
         # Ensure request succeeds
+        err_count = 0
         while r.status_code != 200:
-            print("RETURN CODE:", r.status_code)
-            r = s.get(console_logs_url)
+            print("RETURN CODE (console logs):", r.status_code, session_id)
+            r = requests.get(console_logs_url)
+            if r.status_code == 429:
+                print("TOO MANY REQUESTS (waiting a bit...)")
+                time.sleep(5)
+                continue
+            if err_count > 5:
+                self.save_error(session_id, f"Unable to get console logs for session {session_id}")
+                break
+            err_count += 1
         # Save console logs
         with open(f"{output_dir}/console_logs.txt", "w", encoding='utf-8') as f:
             content = remove_empty_lines(r.text)
@@ -566,5 +616,5 @@ class BrowserstackRunner:
         s.auth = (os.environ.get("BROWSERSTACK_USERNAME"), os.environ.get("BROWSERSTACK_ACCESS_KEY"))
 
         for count, session_id in enumerate(session_ids):
-            print(f"{count+1}/{len(session_ids)}", end='')
+            print(f"({count+1}/{len(session_ids)}) ", end='')
             self.save_logs_session_id(session_id)
