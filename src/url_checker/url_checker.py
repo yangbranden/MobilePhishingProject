@@ -5,11 +5,15 @@ import csv
 import ssl
 import socket
 from cryptography import x509
+import shutil
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import hashes
 from cryptography.x509.ocsp import OCSPRequestBuilder
 from cryptography.hazmat.primitives import serialization
 from cryptography.x509.oid import ExtensionOID
+from pki_tools import Certificate, Chain, is_revoked, RevokeMode
+from get_certificate_chain.download import SSLCertificateChainDownloader
+
 
 from dataclasses import dataclass
 from omegaconf import DictConfig, ListConfig
@@ -78,114 +82,61 @@ class URLChecker:
                     return True
 
         return False
+
+
+    # Returns the certificate chain given a hostname
+    def get_cert_chain(self, hostname):
+        certs_dir = f"./tmp/{hostname}"
+
+        # Try to download the certificates
+        try:
+            downloader = SSLCertificateChainDownloader(certs_dir)
+            downloader.run({'host': hostname})
+        except Exception as e:
+            print(e)
+
+        cert_files = []
+        for root, dirs, files in os.walk(certs_dir):
+            for file in files:
+                cert_files.append(os.path.join(root, file))
+
+        certs = []
+        for cert_file in cert_files:
+            certs.append(Certificate.from_file(cert_file))
+        
+        return Chain(certificates=certs)
+
     
+    # Returns True if certificate is valid, False if certificate is invalid or unknown
+    def check_certificate(self, hostname, revoke_mode: RevokeMode):
+        valid = False
 
-    # Returns certificate for URL
-    def get_certificate(self, hostname, port=443):
-        conn = ssl.create_default_context().wrap_socket(
-            socket.socket(socket.AF_INET), server_hostname=hostname
-        )
-        conn.connect((hostname, port))
-        cert = conn.getpeercert(binary_form=True)
-        conn.close()
-        return x509.load_der_x509_certificate(cert, default_backend())
+        # Fetch the certificate chain dynamically from the server
+        chain = self.get_cert_chain(hostname)
 
+        # Fetch the server's certificate
+        server_cert = Certificate.from_server(f"https://{hostname}")
 
-    # OCSP; Returns True if certificate is valid, False if certificate is invalid or unknown
-    def check_ocsp(self, url):
-        cert = self.get_certificate(url)
-
-        # Get the OCSP responder URL
-        ocsp_url = None
-        for ext in cert.extensions:
-            if isinstance(ext.value, x509.AuthorityInformationAccess):
-                for access_desc in ext.value:
-                    if access_desc.access_method == x509.AuthorityInformationAccessOID.OCSP:
-                        ocsp_url = access_desc.access_location.value
-        if not ocsp_url:
-            print("No OCSP URL found.")
-            return False
-
-        # Get the issuer cert
-        issuer_cert_url = None
-        aia = cert.extensions.get_extension_for_oid(ExtensionOID.AUTHORITY_INFORMATION_ACCESS).value
-        for access_description in aia:
-            if access_description.access_method == x509.AuthorityInformationAccessOID.CA_ISSUERS:
-                issuer_cert_url = access_description.access_location.value
-        issuer_cert = self.get_certificate(issuer_cert_url)
-
-        # Create the OCSP request
-        builder = OCSPRequestBuilder()
-        builder = builder.add_certificate(cert, issuer_cert, hashes.SHA1()) # TODO: FIGURE OUT HOW TO GET THE ISSUER CERT
-        ocsp_req = builder.build()
-
-        # Send the OCSP request
-        headers = {'Content-Type': 'application/ocsp-request'}
-        response = requests.post(ocsp_url, data=ocsp_req.public_bytes(serialization.Encoding.DER), headers=headers)
-
-        # Parse the OCSP response
-        ocsp_response = x509.ocsp.load_der_ocsp_response(response.content)
-        status = ocsp_response.certificate_status
-        if status == x509.ocsp.OCSPCertStatus.GOOD:
-            print("Certificate status (OCSP): GOOD")
-            return True
-        elif status == x509.ocsp.OCSPCertStatus.REVOKED:
-            print("Certificate status (OCSP): REVOKED")
-            return False
+        # Perform revocation checks
+        if not is_revoked(server_cert, chain, revoke_mode=revoke_mode):
+            print("Certificate is not revoked")
+            valid = True
         else:
-            print("Certificate status (OCSP): UNKNOWN")
-            return False
+            print("Certificate is revoked")
+            valid = False
+
+        # Remove the certificate files afterwards
+        if os.path.exists(f"./tmp/{hostname}") and os.path.isdir(f"./tmp/{hostname}"):
+            shutil.rmtree(f"./tmp/{hostname}")
+
+        return valid
 
 
-    # CRL; Returns True if CRL status is good, False if CRL status is revoked or unknown
-    def check_crl(self, url):
-        cert = self.get_certificate(url)
+    # Online Certificate Status Protocol
+    def check_ocsp(self, hostname):
+        self.check_certificate(hostname, RevokeMode.OCSP_ONLY)
 
-        crl_urls = []
-        for ext in cert.extensions:
-            if isinstance(ext.value, x509.CRLDistributionPoints):
-                for dist_point in ext.value:
-                    if dist_point.full_name:
-                        for name in dist_point.full_name:
-                            crl_urls.append(name.value)
-        if not crl_urls:
-            print("No CRL URLs found.")
-            return False
 
-        # For this example, we'll just check the first CRL URL
-        crl_url = crl_urls[0]
-        print(f"Fetching CRL from {crl_url}...")
-
-        # Download the CRL
-        response = requests.get(crl_url)
-        if response.status_code != 200:
-            print(f"Failed to download CRL: {response.status_code}")
-            return False
-
-        crl = x509.load_der_x509_crl(response.content, default_backend())
-
-        # Check if the certificate is revoked
-        for revoked_cert in crl:
-            if revoked_cert.serial_number == cert.serial_number:
-                print("Certificate status (CRL): REVOKED")
-                return False
-
-        print("Certificate status (CRL): GOOD")
-        return True
-    
-
-    def check_all(self, url):
-        print("Checking all sources...")
-        print("----------------------------------------")
-        print("Google SafeBrowsing...")
-        self.check_google_safebrowsing(url)
-        print("----------------------------------------")
-        print("PhishTank...")
-        self.check_phishtank(url)
-        print("----------------------------------------")
-        print("OCSP...")
-        self.check_ocsp(url)
-        print("----------------------------------------")
-        print("CRL...")
-        self.check_crl(url)
-        print("----------------------------------------")
+    # Certificate Revocation List
+    def check_crl(self, hostname):        
+        self.check_certificate(hostname, RevokeMode.CRL_ONLY)
