@@ -47,6 +47,7 @@ class URLChecker:
 
         # Send the request to Google Safe Browsing API
         response = requests.post(api_endpoint, json=payload)
+        # print(response.content)
 
         # Check the response status code
         if response.status_code == 200:

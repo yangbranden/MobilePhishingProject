@@ -37,11 +37,15 @@ class BrowserstackRunner:
 
         found = False
         current_config = None
-        files = os.listdir(targets_src)
-        sorted_files = sorted(files, key=lambda x: int(x.split('.')[0]))
         
+        if os.path.isdir(targets_src):
+            files = os.listdir(targets_src)
+            files = sorted(files, key=lambda x: int(x.split('.')[0]))
+        else:
+            files = [targets_src]
+
         # Iterate through each file in the target directory
-        for file in sorted_files:
+        for file in files:
             if self.config.browserstack_runner.interrupted:
                 if found is False and file != self.config.browserstack_runner.continue_point:
                     print("skipping...")
@@ -55,7 +59,11 @@ class BrowserstackRunner:
                 current_config = yaml.load(f)
 
             # Open the file that contains the platforms we want to test on
-            with open(os.path.join(targets_src, file), "r") as target_set:
+            if os.path.isdir(targets_src):
+                target_file = os.path.join(targets_src, file)
+            else:
+                target_file = targets_src
+            with open(target_file, "r") as target_set:
                 platforms = yaml.load(target_set)
             
             # edit the config to have the target set we want

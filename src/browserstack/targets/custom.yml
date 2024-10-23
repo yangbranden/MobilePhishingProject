@@ -1,0 +1,9 @@
+- os: Windows
+  os_version: '11'
+  browser: firefox
+  browser_version: '130.0'
+- os: android
+  os_version: '13.0'
+  browser: samsung
+  device: Samsung Galaxy S23 Ultra
+  real_mobile: true
