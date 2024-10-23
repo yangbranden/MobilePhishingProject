@@ -1,52 +1,12 @@
 # MobilePhishingProject
-See the BrowserStack automated testing tutorial: https://automate.browserstack.com/dashboard/v2/quick-start/get-started
+GitHub repository for a project aimed at testing the phishing prevention mechanisms of mobile device environments, while comparing and contrasting with corresponding desktop environments.
 
-# Getting BrowserStack (free with GitHub Student Developer Pack)
-https://www.browserstack.com/github-students
+This essentially means that the majority of the time, we are looking at configurations of different browser versions and different devices. 
 
-## Prerequisite
-```
-python3 should be installed
-```
+Although the majority of our project utilizes the service "BrowserStack" for performing automated testing, our goal is to include future support for other Infrastructure-as-a-Service providers.
 
-## Setup
-* Clone the repo
-```
-git clone -b sdk https://github.com/browserstack/python-selenium-browserstack.git
-``` 
-* Install packages through requirements.txt
-```
-pip3 install -r requirements.txt
-```
+## Setting Up
+For setup instructions, see [SETUP.md](./SETUP.md).
 
-## Set BrowserStack Credentials
-* Add your BrowserStack username and access key in the `browserstack.yml` config file.
-* You can also export them as environment variables, `BROWSERSTACK_USERNAME` and `BROWSERSTACK_ACCESS_KEY`:
-
-  #### For Linux/MacOS
-    ```
-    export BROWSERSTACK_USERNAME=<browserstack-username>
-    export BROWSERSTACK_ACCESS_KEY=<browserstack-access-key>
-    ```
-  #### For Windows
-    ```
-    setx BROWSERSTACK_USERNAME "<browserstack-username>"
-    setx BROWSERSTACK_ACCESS_KEY "<browserstack-access-key>"
-    ```
-    or
-    ```
-    set BROWSERSTACK_USERNAME=<browserstack-username>
-    set BROWSERSTACK_ACCESS_KEY=<browserstack-access-key>
-    ```
-
-## Running tests
-* Run sample test:
-  - To run the sample test across platforms defined in the `browserstack.yml` file, run:
-    ```
-    browserstack-sdk ./tests/test.py
-    ``` 
-* Run tests on locally hosted website:
-  - To run the local test across platforms defined in the `browserstack.yml` file, run:
-    ```
-    browserstack-sdk ./tests/local-test.py
-    ``` 
+## Using the Framework
+For more detailed information on our code and using the framework, see [FRAMEWORK.md](./FRAMEWORK.md)

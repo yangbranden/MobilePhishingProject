@@ -4,6 +4,15 @@ import string
 import secrets
 from enum import Enum
 
+class Browsers(Enum):
+    ALL = 0
+    FIREFOX = 1
+    CHROME = 2
+    EDGE = 3
+    SAFARI = 4
+    SAMSUNG = 5
+    OPERA = 6
+
 class Platforms(Enum):
     ALL = 0
     ANDROID = 1
