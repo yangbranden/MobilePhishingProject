@@ -6,3 +6,5 @@ user_agents
 omegaconf
 cryptography
 ocspbuilder
+pki_tools == 1.0.5
+get_certificate_chain
