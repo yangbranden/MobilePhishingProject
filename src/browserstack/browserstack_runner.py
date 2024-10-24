@@ -19,6 +19,15 @@ from src.util import remove_empty_lines
 # - run_browserstack (actually runs browserstack)
 # - generate_targets (interacts with browserstack API to get list of targets)
 # - scope_browser_versions (interacts with browserstack API to get list of browser versions for our scope)
+# - scrape_session_ids
+# - detect_mobile_browser_version
+# - get_build_dir
+# - save_error
+# - save_session_info
+# - save_outcome_session_id
+# - save_outcome_unique_id
+# - save_logs_session_id
+# - save_logs_unique_id
 
 @dataclass
 class BrowserstackRunner:

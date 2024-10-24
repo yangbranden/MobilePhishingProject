@@ -1,7 +1,9 @@
 # MobilePhishingProject
-GitHub repository for a project aimed at testing the phishing prevention mechanisms of mobile device environments, while comparing and contrasting with corresponding desktop environments.
+GitHub repository for a project is aimed at testing the phishing prevention mechanisms of mobile device environments, while comparing and contrasting with corresponding versions found in desktop environments.
 
-This essentially means that the majority of the time, we are looking at configurations of different browser versions and different devices. 
+In essence, the majority of the time we are looking at different configurations and combinations of browser versions and devices (operating systems). 
+
+Our framework aims to define several criteria by which to judge the differences between phishing attacks in traditional desktop environments versus phishing attacks in mobile device environments.
 
 Although the majority of our project utilizes the service "BrowserStack" for performing automated testing, our goal is to include future support for other Infrastructure-as-a-Service providers.
 
