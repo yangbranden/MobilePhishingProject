@@ -17,17 +17,17 @@
   device: iPhone 16
   real_mobile: true
 - os: ios
-  os_version: '16'
+  os_version: '18'
   browser: chromium
-  device: iPhone 14 Pro Max
+  device: iPad 9th
   real_mobile: true
 - os: ios
-  os_version: '16'
-  browser: iphone
-  device: iPhone 14 Pro Max
+  os_version: '18'
+  browser: ipad
+  device: iPad 9th
   real_mobile: true
 - os: ios
-  os_version: '16'
+  os_version: '18'
   browser: chromium
-  device: iPhone 14 Pro
+  device: iPad Pro 11 2021
   real_mobile: true

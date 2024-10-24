@@ -3,25 +3,25 @@
 # =======================================
 - os: OS X
   os_version: Sonoma
-  browser: edge
+  browser: firefox
   browser_version: '127.0'
 - os: OS X
   os_version: Sonoma
-  browser: edge
+  browser: firefox
   browser_version: '128.0'
 - os: OS X
   os_version: Sonoma
-  browser: edge
+  browser: firefox
   browser_version: '129.0'
 - os: OS X
   os_version: Sonoma
   browser: firefox
-  browser_version: '121.0'
+  browser_version: '130.0'
 - os: OS X
-  os_version: Sonoma
-  browser: firefox
+  os_version: Sequoia
+  browser: chrome
   browser_version: '122.0'
 - os: OS X
-  os_version: Sonoma
-  browser: firefox
+  os_version: Sequoia
+  browser: chrome
   browser_version: '123.0'

@@ -3,6 +3,26 @@
 # =======================================
 - os: ios
   os_version: '15'
+  browser: iphone
+  device: iPhone XR
+  real_mobile: true
+- os: ios
+  os_version: '15'
+  browser: chromium
+  device: iPhone SE 2022
+  real_mobile: true
+- os: ios
+  os_version: '15'
+  browser: iphone
+  device: iPhone SE 2022
+  real_mobile: true
+- os: ios
+  os_version: '15'
+  browser: chromium
+  device: iPad 9th
+  real_mobile: true
+- os: ios
+  os_version: '15'
   browser: ipad
   device: iPad 9th
   real_mobile: true
@@ -10,24 +30,4 @@
   os_version: '15'
   browser: chromium
   device: iPad Air 5
-  real_mobile: true
-- os: ios
-  os_version: '15'
-  browser: ipad
-  device: iPad Air 5
-  real_mobile: true
-- os: ios
-  os_version: '15'
-  browser: chromium
-  device: iPad Mini 2021
-  real_mobile: true
-- os: ios
-  os_version: '15'
-  browser: ipad
-  device: iPad Mini 2021
-  real_mobile: true
-- os: ios
-  os_version: '14'
-  browser: chromium
-  device: iPhone 12 Pro Max
   real_mobile: true

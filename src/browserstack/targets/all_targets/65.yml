@@ -3,6 +3,21 @@
 # =======================================
 - os: android
   os_version: '11.0'
+  browser: samsung
+  device: Samsung Galaxy M32
+  real_mobile: true
+- os: android
+  os_version: '11.0'
+  browser: android
+  device: Samsung Galaxy M32
+  real_mobile: true
+- os: android
+  os_version: '11.0'
+  browser: samsung
+  device: Samsung Galaxy A52
+  real_mobile: true
+- os: android
+  os_version: '11.0'
   browser: android
   device: Samsung Galaxy A52
   real_mobile: true
@@ -15,19 +30,4 @@
   os_version: '11.0'
   browser: android
   device: Google Pixel 4
-  real_mobile: true
-- os: android
-  os_version: '11.0'
-  browser: android
-  device: OnePlus 9
-  real_mobile: true
-- os: android
-  os_version: '11.0'
-  browser: android
-  device: Motorola Moto G71 5G
-  real_mobile: true
-- os: android
-  os_version: '11.0'
-  browser: android
-  device: Xiaomi Redmi Note 11
   real_mobile: true

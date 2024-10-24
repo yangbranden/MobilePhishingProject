@@ -4,6 +4,21 @@
 - os: android
   os_version: '14.0'
   browser: android
+  device: Google Pixel 9 Pro XL
+  real_mobile: true
+- os: android
+  os_version: '14.0'
+  browser: android
+  device: Google Pixel 9
+  real_mobile: true
+- os: android
+  os_version: '14.0'
+  browser: android
+  device: Google Pixel 8 Pro
+  real_mobile: true
+- os: android
+  os_version: '14.0'
+  browser: android
   device: Google Pixel 8
   real_mobile: true
 - os: android
@@ -15,19 +30,4 @@
   os_version: '14.0'
   browser: android
   device: Samsung Galaxy Tab A9 Plus
-  real_mobile: true
-- os: android
-  os_version: '9.0'
-  browser: samsung
-  device: Samsung Galaxy S10 Plus
-  real_mobile: true
-- os: android
-  os_version: '9.0'
-  browser: android
-  device: Samsung Galaxy S10 Plus
-  real_mobile: true
-- os: android
-  os_version: '9.0'
-  browser: samsung
-  device: Samsung Galaxy S10
   real_mobile: true

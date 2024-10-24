@@ -4,30 +4,30 @@
 - os: ios
   os_version: '15'
   browser: chromium
+  device: iPhone 13 Mini
+  real_mobile: true
+- os: ios
+  os_version: '15'
+  browser: iphone
+  device: iPhone 13 Mini
+  real_mobile: true
+- os: ios
+  os_version: '15'
+  browser: chromium
+  device: iPhone 13
+  real_mobile: true
+- os: ios
+  os_version: '15'
+  browser: iphone
+  device: iPhone 13
+  real_mobile: true
+- os: ios
+  os_version: '15'
+  browser: chromium
   device: iPhone XR
   real_mobile: true
 - os: ios
   os_version: '15'
   browser: iphone
   device: iPhone XR
-  real_mobile: true
-- os: ios
-  os_version: '15'
-  browser: chromium
-  device: iPhone SE 2022
-  real_mobile: true
-- os: ios
-  os_version: '15'
-  browser: iphone
-  device: iPhone SE 2022
-  real_mobile: true
-- os: ios
-  os_version: '15'
-  browser: chromium
-  device: iPad 9th
-  real_mobile: true
-- os: ios
-  os_version: '15'
-  browser: ipad
-  device: iPad 9th
   real_mobile: true
