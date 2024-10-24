@@ -2,18 +2,9 @@ import requests
 import json
 import os
 import csv
-import ssl
-import socket
-from cryptography import x509
 import shutil
-from cryptography.hazmat.backends import default_backend
-from cryptography.hazmat.primitives import hashes
-from cryptography.x509.ocsp import OCSPRequestBuilder
-from cryptography.hazmat.primitives import serialization
-from cryptography.x509.oid import ExtensionOID
 from pki_tools import Certificate, Chain, is_revoked, RevokeMode
 from get_certificate_chain.download import SSLCertificateChainDownloader
-
 
 from dataclasses import dataclass
 from omegaconf import DictConfig, ListConfig

@@ -87,6 +87,7 @@ def main():
     phishtank_fetcher_parser.add_argument("-n", "--num_urls", type=int, required=False, help="The number of phishing URLs to fetch from PhishTank")
     phishtank_fetcher_parser.set_defaults(func=phishtank_fetcher)
 
+    # Subparser for url_checker
     url_checker_parser = subparsers.add_parser("url_checker", help="Use url_checker submodule")
     src_mutex_group = url_checker_parser.add_mutually_exclusive_group(required=True)
     src_mutex_group.add_argument("-u", "--url", help="The URL to check")
