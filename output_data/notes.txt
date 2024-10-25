@@ -1,4 +1,6 @@
-UNIQUE_ID   |   DATE        |   TARGETS
----------------------------------------------
-HGWhwxQ6    |   10-17-24    |   All_Targets
-JwlZY1fx    |   10-24-24    |   All_Targets
+UNIQUE_ID   |   DATE        |   TARGETS         |   TEST SCRIPT     |   NOTES
+------------------------------------------------------------------------------------------------------------
+HGWhwxQ6    |   10-17-24    |   All_Targets     |   phish-test.py   |   Pre-fix for FPs, 10 latest versions
+JwIZY1fx    |   10-24-24    |   All_Targets     |   phish-test.py   |   Pre-fix for FPs, 10 latest versions
+6rVphbHX    |   10-24-24    |   All_Targets     |   visit-only.py   |   10 latest versions
+__    |   10-25-24    |   All_Targets     |   visit-only.py   |   10 latest versions 

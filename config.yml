@@ -1,6 +1,6 @@
 browserstack_runner:
   build_name: "All_Targets" # Name for the browserstack build
-  test_script: "./src/browserstack/tests/phish-test.py" # Test script to run
+  test_script: "./src/browserstack/tests/visit-only.py" # Test script to run
   urls_file: "./urls/latest.yml" # Phishing URLs to test on the devices 
   targets_src: "./src/browserstack/targets/all_targets" # Either the single file or directory of files containing the list of devices/configurations to test on
   interrupted: False
