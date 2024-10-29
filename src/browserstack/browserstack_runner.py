@@ -253,9 +253,7 @@ class BrowserstackRunner:
                         yaml.dump(batch, f)
 
 
-    # TODO: This currently does not perform any sort of useful analysis; 
-    # plan was to use this to programmatically go through the browser changelogs and make a list of versions
-    # that have significant security updates
+    # Programmatically go through CVE list and make a list of versions that have significant security updates
     def scope_browser_versions(self):
         # Use API to get all possible combinations of browser versions
         s = requests.Session()
@@ -273,42 +271,17 @@ class BrowserstackRunner:
             'opera': 0.0
         }
         for item in output:
-            if item["browser"] == "firefox":
+            browser = item["browser"]
+            if browser in latest_versions:
                 try:
                     detected_version = float(item["browser_version"])
-                    if detected_version > latest_versions["firefox"]:
-                        latest_versions["firefox"] = detected_version
-                except Exception:
-                    continue
-            elif item["browser"] == "chrome":
-                try:
-                    detected_version = float(item["browser_version"])
-                    if detected_version > latest_versions["chrome"]:
-                        latest_versions["chrome"] = detected_version
-                except Exception:
-                    continue
-            elif item["browser"] == "edge":
-                try:
-                    detected_version = float(item["browser_version"])
-                    if detected_version > latest_versions["edge"]:
-                        latest_versions["edge"] = detected_version
-                except Exception:
-                    continue
-            elif item["browser"] == "safari":
-                try:
-                    detected_version = float(item["browser_version"])
-                    if detected_version > latest_versions["safari"]:
-                        latest_versions["safari"] = detected_version
-                except Exception:
-                    continue
-            elif item["browser"] == "opera":
-                try:
-                    detected_version = float(item["browser_version"])
-                    if detected_version > latest_versions["opera"]:
-                        latest_versions["opera"] = detected_version
-                except Exception:
+                    if detected_version > latest_versions[browser]:
+                        latest_versions[browser] = detected_version
+                except ValueError:
                     continue
         print("Latest versions:\n", latest_versions)
+
+        time.sleep(10)
 
         # CVEDetails search URLs
         cvedetails_urls = {
@@ -326,12 +299,7 @@ class BrowserstackRunner:
         }
 
         # Number of CVEs to record for each browser
-        cve_count = {
-            "firefox": 20,
-            "chrome": 30,
-            "edge": 20,
-            "safari": 20
-        }
+        cve_count = 20
 
         # Keywords to search by on CVEs:
         phishing_keywords = ["spoof", "spoofing", "fake", "phishing"]
@@ -346,7 +314,7 @@ class BrowserstackRunner:
             wait = WebDriverWait(driver, 30)
 
             # Keep going until number of results met for each browser
-            while len(cve_results[browser]) < cve_count[browser]:
+            while len(cve_results[browser]) < cve_count:
                 # Find all CVE elements on the page
                 cve_elements = driver.find_elements(By.XPATH, "//div[@id='searchresults']/div[@data-tsvfield='cveinfo']")
 
@@ -369,7 +337,9 @@ class BrowserstackRunner:
 
         driver.quit()
 
-        with open("./relevant_cves.yml", "w+") as f:
+        # Save the list of CVEs
+        base_dir = self.config.browserstack_runner.target_generator.targets_directory
+        with open(f"{base_dir}/relevant_cves.yml", "w+") as f:
             yaml.dump(cve_results, f)
 
         # THIS IS JUST EXTRA; we can also just manually parse the version if it's too hard to sort through this programmatically
@@ -418,21 +388,22 @@ class BrowserstackRunner:
 
         # (Versions for Microsoft Edge must be parsed manually; summary texts do not specify, but it does show on CVEdetails website)
 
-        # Parse versions for Safari; format is "Safari ##.#"
+        # (Versions for Safari mustbe parsed manually; inconsistent summary text format)
 
 
-        # TEMPORARY: get latest 10 versions of each (except Opera because there's only 2 available and they're on Windows XP lol)
         data = {
             'firefox_versions': versions["firefox"],
             'chrome_versions': versions["chrome"],
-            'edge_versions': [latest_versions["edge"] - i for i in range(10)],
-            'safari_versions': [latest_versions["safari"] - i for i in range(10)],
-            'opera_versions': [12.16, 12.15]
+            'edge_versions': [],
+            'safari_versions': [],
+            'opera_versions': [12.16, 12.15] # There are only 2 versions of opera available on BrowserStack lol
         }
 
-        # with open("./targets/browser_versions.yml", "w+") as f:
-        #     # write_file_source_header("scope_browser_versions (browserstack_runner.py)", f)
-        #     yaml.dump(data, f)
+        # Output the versions to a file
+        browser_versions_file = self.config.browserstack_runner.target_generator.browser_versions_file
+        with open(browser_versions_file, "w+") as f:
+            # write_file_source_header("scope_browser_versions (browserstack_runner.py)", f)
+            yaml.dump(data, f)
 
 
     # Gather all relevant session ids based on a unique identifier in the title of the associated build(s)
