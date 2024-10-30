@@ -281,8 +281,6 @@ class BrowserstackRunner:
                     continue
         print("Latest versions:\n", latest_versions)
 
-        time.sleep(10)
-
         # CVEDetails search URLs
         cvedetails_urls = {
             "firefox": "https://www.cvedetails.com/vulnerability-list/vendor_id-452/product_id-3264/Mozilla-Firefox.html",
@@ -299,7 +297,12 @@ class BrowserstackRunner:
         }
 
         # Number of CVEs to record for each browser
-        cve_count = 20
+        cve_count = {
+            "firefox": 20,
+            "chrome": 30,
+            "edge": 20,
+            "safari": 20
+        }
 
         # Keywords to search by on CVEs:
         phishing_keywords = ["spoof", "spoofing", "fake", "phishing"]
@@ -314,7 +317,7 @@ class BrowserstackRunner:
             wait = WebDriverWait(driver, 30)
 
             # Keep going until number of results met for each browser
-            while len(cve_results[browser]) < cve_count:
+            while len(cve_results[browser]) < cve_count[browser]:
                 # Find all CVE elements on the page
                 cve_elements = driver.find_elements(By.XPATH, "//div[@id='searchresults']/div[@data-tsvfield='cveinfo']")
 
@@ -367,7 +370,7 @@ class BrowserstackRunner:
                 # Add the version to the Firefox set
                 if version_str.isdigit():
                     versions["firefox"].add(int(version_str))
-        versions["firefox"] = sorted(versions["firefox"])
+        versions["firefox"] = sorted(versions["firefox"], reverse=True)
         print("Extracted Firefox Versions:", versions["firefox"])
 
 
@@ -382,11 +385,12 @@ class BrowserstackRunner:
                 # Add it to the set of Chrome versions
                 versions["chrome"].add(version_number)
         # Convert the set to a sorted list
-        versions["chrome"] = sorted(versions["chrome"])
+        versions["chrome"] = sorted(versions["chrome"], reverse=True)
         print("Extracted Chrome Versions:", versions["chrome"])
 
 
         # (Versions for Microsoft Edge must be parsed manually; summary texts do not specify, but it does show on CVEdetails website)
+
 
         # (Versions for Safari mustbe parsed manually; inconsistent summary text format)
 
@@ -399,11 +403,13 @@ class BrowserstackRunner:
             'opera_versions': [12.16, 12.15] # There are only 2 versions of opera available on BrowserStack lol
         }
 
+        print(data)
+
         # Output the versions to a file
-        browser_versions_file = self.config.browserstack_runner.target_generator.browser_versions_file
-        with open(browser_versions_file, "w+") as f:
-            # write_file_source_header("scope_browser_versions (browserstack_runner.py)", f)
-            yaml.dump(data, f)
+        # browser_versions_file = self.config.browserstack_runner.target_generator.browser_versions_file
+        # with open(browser_versions_file, "w+") as f:
+        #     # write_file_source_header("scope_browser_versions (browserstack_runner.py)", f)
+        #     yaml.dump(data, f)
 
 
     # Gather all relevant session ids based on a unique identifier in the title of the associated build(s)

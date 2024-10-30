@@ -179,6 +179,50 @@ chrome:
     to 127.0.6533.72 allowed a remote attacker who convinced a user to engage in specific
     UI gestures to spoof the contents of the Omnibox (URL bar) via a crafted HTML
     page. (Chromium security severity: Medium)'
+- - CVE-2024-4950
+  - 'Inappropriate implementation in Downloads in Google Chrome prior to 125.0.6422.60
+    allowed a remote attacker who convinced a user to engage in specific UI gestures
+    to perform UI spoofing via a crafted HTML page. (Chromium security severity: Low)'
+- - CVE-2024-3846
+  - 'Inappropriate implementation in Prompts in Google Chrome prior to 124.0.6367.60
+    allowed a remote attacker who convinced a user to engage in specific UI gestures
+    to perform UI spoofing via a crafted HTML page. (Chromium security severity: Low)'
+- - CVE-2024-3844
+  - 'Inappropriate implementation in Extensions in Google Chrome prior to 124.0.6367.60
+    allowed a remote attacker to perform UI spoofing via a crafted Chrome Extension.
+    (Chromium security severity: Low)'
+- - CVE-2024-3843
+  - 'Insufficient data validation in Downloads in Google Chrome prior to 124.0.6367.60
+    allowed a remote attacker to perform UI spoofing via a crafted HTML page. (Chromium
+    security severity: Medium)'
+- - CVE-2024-3838
+  - 'Inappropriate implementation in Autofill in Google Chrome prior to 124.0.6367.60
+    allowed an attacker who convinced a user to install a malicious app to perform
+    UI spoofing via a crafted app. (Chromium security severity: Medium)'
+- - CVE-2024-2631
+  - 'Inappropriate implementation in iOS in Google Chrome prior to 123.0.6312.58 allowed
+    a remote attacker to perform UI spoofing via a crafted HTML page. (Chromium security
+    severity: Low)'
+- - CVE-2024-2629
+  - 'Incorrect security UI in iOS in Google Chrome prior to 123.0.6312.58 allowed
+    a remote attacker to perform UI spoofing via a crafted HTML page. (Chromium security
+    severity: Medium)'
+- - CVE-2024-2628
+  - 'Inappropriate implementation in Downloads in Google Chrome prior to 123.0.6312.58
+    allowed a remote attacker to perform UI spoofing via a crafted URL. (Chromium
+    security severity: Medium)'
+- - CVE-2024-1676
+  - 'Inappropriate implementation in Navigation in Google Chrome prior to 122.0.6261.57
+    allowed a remote attacker to spoof security UI via a crafted HTML page. (Chromium
+    security severity: Low)'
+- - CVE-2024-0814
+  - 'Incorrect security UI in Payments in Google Chrome prior to 121.0.6167.85 allowed
+    a remote attacker to potentially spoof security UI via a crafted HTML page. (Chromium
+    security severity: Medium)'
+- - CVE-2024-0805
+  - 'Inappropriate implementation in Downloads in Google Chrome prior to 121.0.6167.85
+    allowed a remote attacker to perform domain spoofing via a crafted domain name.
+    (Chromium security severity: Medium)'
 edge:
 - - CVE-2024-38208
   - Microsoft Edge for Android Spoofing Vulnerability
