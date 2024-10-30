@@ -417,15 +417,17 @@ class BrowserstackRunner:
         s = requests.Session()
         s.auth = (os.environ.get("BROWSERSTACK_USERNAME"), os.environ.get("BROWSERSTACK_ACCESS_KEY"))
 
-        r = s.get(f"https://api.browserstack.com/automate/builds.json?limit=100")
-        builds = json.loads(r.text)
-
-        # Save all build IDs with the specified unique_id
+        # (iterate over the last 1000 builds and find those relevant to the test)
         build_ids = []
-        for build in builds:
-            # print("build:", build)
-            if unique_id in build['automation_build']['name']:
-                build_ids.append(build['automation_build']['hashed_id'])
+        for i in range(10):
+            r = s.get(f"https://api.browserstack.com/automate/builds.json?limit={100}&offset={i*100}")
+            builds = json.loads(r.text)
+
+            # Save all build IDs with the specified unique_id
+            for build in builds:
+                # print("build:", build)
+                if unique_id in build['automation_build']['name']:
+                    build_ids.append(build['automation_build']['hashed_id'])
         # print(build_ids)
 
         # Save all relevant session IDs
