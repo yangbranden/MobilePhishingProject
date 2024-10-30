@@ -3,11 +3,6 @@
 # =======================================
 - os: android
   os_version: '7.0'
-  browser: samsung
-  device: Samsung Galaxy S8
-  real_mobile: true
-- os: android
-  os_version: '7.0'
   browser: android
   device: Samsung Galaxy S8
   real_mobile: true

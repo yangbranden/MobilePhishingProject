@@ -4,11 +4,6 @@
 - os: android
   os_version: '9.0'
   browser: android
-  device: Samsung Galaxy A10
-  real_mobile: true
-- os: android
-  os_version: '9.0'
-  browser: android
   device: Google Pixel 3
   real_mobile: true
 - os: android
@@ -30,4 +25,9 @@
   os_version: '9.0'
   browser: android
   device: Huawei P30
+  real_mobile: true
+- os: android
+  os_version: '9.0'
+  browser: samsung
+  device: Samsung Galaxy Tab S6
   real_mobile: true

@@ -3,31 +3,31 @@
 # =======================================
 - os: ios
   os_version: '18'
+  browser: chromium
+  device: iPhone 13 Pro Max
+  real_mobile: true
+- os: ios
+  os_version: '18'
   browser: iphone
+  device: iPhone 13 Pro Max
+  real_mobile: true
+- os: ios
+  os_version: '18'
+  browser: chromium
+  device: iPhone 13
+  real_mobile: true
+- os: ios
+  os_version: '18'
+  browser: iphone
+  device: iPhone 13
+  real_mobile: true
+- os: ios
+  os_version: '18'
+  browser: chromium
   device: iPhone 12 Pro
   real_mobile: true
 - os: ios
   os_version: '18'
-  browser: chromium
-  device: iPhone 16 Pro Max
-  real_mobile: true
-- os: ios
-  os_version: '18'
   browser: iphone
-  device: iPhone 16 Pro Max
-  real_mobile: true
-- os: ios
-  os_version: '18'
-  browser: chromium
-  device: iPhone 16 Pro
-  real_mobile: true
-- os: ios
-  os_version: '18'
-  browser: iphone
-  device: iPhone 16 Pro
-  real_mobile: true
-- os: ios
-  os_version: '18'
-  browser: chromium
-  device: iPhone 16 Plus
+  device: iPhone 12 Pro
   real_mobile: true

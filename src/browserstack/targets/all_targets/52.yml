@@ -3,31 +3,31 @@
 # =======================================
 - os: ios
   os_version: '15'
+  browser: chromium
+  device: iPhone XS
+  real_mobile: true
+- os: ios
+  os_version: '15'
   browser: iphone
+  device: iPhone XS
+  real_mobile: true
+- os: ios
+  os_version: '15'
+  browser: chromium
+  device: iPhone 13 Pro Max
+  real_mobile: true
+- os: ios
+  os_version: '15'
+  browser: iphone
+  device: iPhone 13 Pro Max
+  real_mobile: true
+- os: ios
+  os_version: '15'
+  browser: chromium
   device: iPhone 13 Pro
   real_mobile: true
 - os: ios
   os_version: '15'
-  browser: chromium
-  device: iPhone 13 Mini
-  real_mobile: true
-- os: ios
-  os_version: '15'
   browser: iphone
-  device: iPhone 13 Mini
-  real_mobile: true
-- os: ios
-  os_version: '15'
-  browser: chromium
-  device: iPhone 13
-  real_mobile: true
-- os: ios
-  os_version: '15'
-  browser: iphone
-  device: iPhone 13
-  real_mobile: true
-- os: ios
-  os_version: '15'
-  browser: chromium
-  device: iPhone XR
+  device: iPhone 13 Pro
   real_mobile: true
