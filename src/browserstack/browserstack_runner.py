@@ -523,6 +523,8 @@ class BrowserstackRunner:
             response = json.loads(r.text)
         except Exception as e:
             print(f"Bad response (save_session_info): {e}")
+            self.save_error(session_id, f"Unable to get session info for session {session_id}")
+            return
         
         automation_session = response['automation_session']
 
