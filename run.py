@@ -59,10 +59,11 @@ def url_checker(args):
 def cve_searcher_browser(args):
     config = OmegaConf.load(CONFIG_FILE)
     x = CVESearcher(config=config)
-    if args.source == "cvedetails":
-        x.scrape_browser_cves(args.source)
-    elif args.source == "mitre":
-        x.scrape_browser_cves(args.source)
+    x.scrape_browser_cves(args.source)
+# def cve_searcher_os(args):
+#     config = OmegaConf.load(CONFIG_FILE)
+#     x = CVESearcher(config=config)
+#     x.scrape_os_cves(args.source)
 
 def main():
     parser = argparse.ArgumentParser(description="Mobile Phishing framework")
@@ -113,6 +114,10 @@ def main():
     cve_search_browser.add_argument("-s", "--source", choices=['cvedetails', 'mitre'], default='cvedetails', help="The CVE database to search from")
     cve_search_browser.add_argument("-y", "--year", default=(datetime.now().year-2), help="Get CVEs until [year] ago; default is 2 years old")
     cve_search_browser.set_defaults(func=cve_searcher_browser)
+    # cve_search_os = cve_searcher_subparsers.add_parser("os", help="Searches for phishing-related CVEs for OSs")
+    # cve_search_os.add_argument("-s", "--source", choices=['cvedetails', 'mitre'], default='cvedetails', help="The CVE database to search from")
+    # cve_search_os.add_argument("-y", "--year", default=(datetime.now().year-2), help="Get CVEs until [year] ago; default is 2 years old")
+    # cve_search_os.set_defaults(func=cve_searcher_os)
 
     # Parse the arguments and call the appropriate function
     args = parser.parse_args()

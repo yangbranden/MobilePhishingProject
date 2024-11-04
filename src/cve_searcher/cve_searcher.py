@@ -12,6 +12,8 @@ from selenium.webdriver.chrome.options import Options as ChromeOptions
 from dataclasses import dataclass
 from omegaconf import DictConfig, ListConfig
 
+from src.util import write_file_source_header
+
 @dataclass
 class CVESearcher:
     config: DictConfig | ListConfig # return type of OmegaConf.load()
@@ -91,11 +93,11 @@ class CVESearcher:
                         summary = lines[1].strip()
                         if cve_year <= target_cve_year:
                             break
-                        # print((cve_id, summary))
+                        url = cve_element.find_element(By.TAG_NAME, "a").get_attribute("href")
                         # Check if any keyword is present in the description
                         if any(keyword.lower() in summary.lower() for keyword in phishing_keywords):
-                            print("entry found:", (cve_id, summary))
-                            cve_results[browser].append((cve_id, summary))
+                            print("entry found:", {"cve_id": cve_id, "summary": summary, "url": url})
+                            cve_results[browser].append({"cve_id": cve_id, "summary": summary, "url": url})
                     if cve_year <= target_cve_year:
                         break
                     # Go to the next page
@@ -117,24 +119,84 @@ class CVESearcher:
                         cve_id = lines[0].strip()
                         cve_year = int(cve_id.split('-')[1])
                         summary = ' '.join(lines[1:])
-
                         if cve_year <= target_cve_year:
                             break
-                        # print((cve_id, summary))
+                        url = cve_element.find_element(By.TAG_NAME, "a").get_attribute("href")
                         # Check if any keyword is present in the description
                         if any(keyword.lower() in summary.lower() for keyword in phishing_keywords):
-                            print("entry found:", (cve_id, summary))
-                            cve_results[browser].append((cve_id, summary))
+                            print("entry found:", {"cve_id": cve_id, "summary": summary, "url": url})
+                            cve_results[browser].append({"cve_id": cve_id, "summary": summary, "url": url})
 
         driver.quit()
 
         # Save the list of CVEs
-        base_dir = self.config.browserstack_runner.target_generator.targets_directory
-        with open(f"{base_dir}/relevant_cves.yml", "w+") as f:
+        base_dir = self.config.cve_searcher.cves_directory
+        os.makedirs(base_dir)
+        with open(f"{base_dir}/browser_cves.yml", "w+") as f:
             yaml.dump(cve_results, f)
 
-    def scrape_os_cves(self):
-        # TODO
+    def scrape_os_cves(self, url_source):
+        # Use API to get all possible combinations of OS versions
+        s = requests.Session()
+        s.auth = (os.environ.get("BROWSERSTACK_USERNAME"), os.environ.get("BROWSERSTACK_ACCESS_KEY"))
+
+        r = s.get("https://api.browserstack.com/automate/browsers.json")
+        output = json.loads(r.text)
+
+        # Find the latest versions of each OS
+        latest_versions = {
+            "Windows": 0.0,
+            "OS X": 0.0,
+            "ios": 0.0,
+            "android": 0.0
+        }
+        for item in output:
+            os = item["os"]
+            if os in latest_versions:
+                try:
+                    detected_version = float(item["os_version"])
+                    if detected_version > latest_versions[os]:
+                        latest_versions[os] = detected_version
+                except ValueError:
+                    continue
+        print("Latest versions:\n", latest_versions)
+
+        # These do not really work; too many categorizations
+        cvedetails_urls = {
+            "Windows": "https://www.cvedetails.com/vulnerability-list/vendor_id-26/product_id-102217/Microsoft-Windows-11.html",
+            "OS X": "https://www.cvedetails.com/vulnerability-list/vendor_id-49/product_id-156/Apple-Mac-Os-X.html",
+            "ios": "https://www.cvedetails.com/version-list/49/15556/1/Apple-Iphone-Os.html",
+            "android": "https://www.cvedetails.com/version-list/1224/19997/1/Google-Android.html"
+        }
+
+        # MITRE search URLs
+        mitre_urls = {
+            "Windows": "https://cve.mitre.org/cgi-bin/cvekey.cgi?keyword=windows",
+            "OS X": "https://cve.mitre.org/cgi-bin/cvekey.cgi?keyword=OS%20X",
+            "ios": "https://cve.mitre.org/cgi-bin/cvekey.cgi?keyword=ios",
+            "android": "https://cve.mitre.org/cgi-bin/cvekey.cgi?keyword=android"
+        }
+
+        cve_results = {
+            "Windows": [],
+            "OS X": [],
+            "ios": [],
+            "android": []
+        }
+
+        # Keywords to search by on CVEs:
+        phishing_keywords = ["spoof", "spoofing", "fake", "phishing"]
+
+        # Use selenium to search CVEDetails website and record a list of CVEs that have the keywords in them 
+        driver = webdriver.Chrome(options=ChromeOptions())
+
+        ##########
+        ### TODO
+        ##########
+
+        base_dir = self.config.cve_searcher.cves_directory
+        with open(f"{base_dir}/os_cves.yml", "w+") as f:
+            yaml.dump(cve_results, f)
         return
     
     def save_browser_versions(self):
@@ -152,13 +214,15 @@ class CVESearcher:
         }
 
         # Parse versions for Firefox; format is "Firefox < ###.#"
-        for cve_id, description in cve_results["firefox"]:
+        for entry in cve_results.get("firefox", []):
+            cve_id = entry["cve_id"] 
+            summary = entry["summary"]
             # Find the starting index of "Firefox < "
-            start_index = description.find("Firefox < ")
-            # If the format "Firefox < " is found in the description
+            start_index = summary.find("Firefox < ")
+            # If the format "Firefox < " is found in the summary
             if start_index != -1:
                 # Extract the version by slicing the string after "Firefox < "
-                version_part = description[start_index + len("Firefox < "):]  
+                version_part = summary[start_index + len("Firefox < "):]  
                 # Find the end of the version number, which is usually the first space or period afterward
                 end_index = version_part.find(" ")
                 if end_index == -1:  # If no space, take the whole part
@@ -172,11 +236,13 @@ class CVESearcher:
 
 
         # Parse versions for Google Chrome; format is "Google Chrome prior to ###.#"
-        for cve_id, description in cve_results["chrome"]:
-            if "Google Chrome prior to" in description:
+        for entry in cve_results.get("chrome", []):
+            cve_id = entry["cve_id"] 
+            summary = entry["summary"]
+            if "Google Chrome prior to" in summary:
                 # Extract the version substring following "Google Chrome prior to "
-                start_index = description.index("Google Chrome prior to") + len("Google Chrome prior to ")
-                version_part = description[start_index:].split('.')[0]  # Get the major version before the first period
+                start_index = summary.index("Google Chrome prior to") + len("Google Chrome prior to ")
+                version_part = summary[start_index:].split('.')[0]  # Get the major version before the first period
                 # Convert it to an integer
                 version_number = int(version_part)
                 # Add it to the set of Chrome versions
@@ -203,7 +269,7 @@ class CVESearcher:
         print(data)
 
         # Output the versions to a file
-        # browser_versions_file = self.config.browserstack_runner.target_generator.browser_versions_file
-        # with open(browser_versions_file, "w+") as f:
-        #     # write_file_source_header("scope_browser_versions (browserstack_runner.py)", f)
-        #     yaml.dump(data, f)
+        browser_versions_file = self.config.browserstack_runner.target_generator.browser_versions_file
+        with open(browser_versions_file, "w+") as f:
+            write_file_source_header("save_browser_versions (cve_searcher.py)", f)
+            yaml.dump(data, f)
