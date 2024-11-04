@@ -43,7 +43,8 @@ class BrowserstackRunner:
         urls_file = self.config.browserstack_runner.urls_file
         targets_src = self.config.browserstack_runner.targets_src
         # build_name = f"{datetime.now().strftime("%m_%d")}_{self.config.browserstack_runner.build_name}"
-        build_name = f"{generate_unique_str()}_{self.config.browserstack_runner.build_name}"
+        unique_id = generate_unique_str()
+        build_name = f"{unique_id}_{self.config.browserstack_runner.build_name}"
 
         # Save the original config to restore later
         with open("browserstack.yml", "r") as f:
@@ -107,6 +108,10 @@ class BrowserstackRunner:
         # Reset back to the original config
         with open("browserstack.yml", "w") as f:
             yaml.dump(original_config, f)
+
+        # Automatically save logs & outcome (select fields from logs) after running test
+        self.save_logs_unique_id(unique_id)
+        self.save_outcome_unique_id(unique_id)
     
 
     def generate_targets(self, output_mode):
@@ -418,6 +423,7 @@ class BrowserstackRunner:
         output = dict() # Contains output for all URLs
         current_entry = dict() # used to record the current url
         execute_sync_req_detected = False
+        screenshot_url = None
 
         for line in response_lines:
             if "REQUEST" in line:
@@ -427,14 +433,16 @@ class BrowserstackRunner:
                     json_str = ' '.join(segments[7:])
                     try:
                         json_data = json.loads(json_str)
-                        current_entry["url"] = json_data["url"]
+                        current_entry["url"] = json_data["url"].replace("http", "hxxp")
                     except Exception as e:
                         print(f"Exception in REQUEST (save_outcome_session_id): {e}")
                         continue
                 # Detect the REQUEST for /execute/sync (the outcome we are sending to BrowserStack)
                 elif "/execute/sync" in line:
                     execute_sync_req_detected = True # indicates that the next RESPONSE should be interpreted as important (containing the outcome)
-            
+            elif "DEBUG" in line:
+                segments = line.split(' ')
+                screenshot_url = segments[-1]
             elif "RESPONSE" in line:
                 # Detect the RESPONSE after the /execute/sync request
                 if execute_sync_req_detected:
@@ -446,7 +454,8 @@ class BrowserstackRunner:
                         # print(automation_session)
                         current_entry["outcome"] = {
                             "status": automation_session["status"],
-                            "reason": automation_session["reason"]
+                            "reason": automation_session["reason"],
+                            "screenshot_url": screenshot_url
                         }
                         output[current_entry["url"]] = current_entry["outcome"]
                     except Exception as e:
