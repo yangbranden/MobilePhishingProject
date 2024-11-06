@@ -260,6 +260,15 @@ class BrowserstackRunner:
 
     # Gather all relevant session ids based on a unique identifier in the title of the associated build(s)
     def scrape_session_ids(self, unique_id):
+        # Check if we have cached already
+        cache_dir = os.path.join(self.config.browserstack_runner.output_analyzer.output_directory, "tmp")
+        if os.path.exists(f"{cache_dir}/{unique_id}_session_ids.json"):
+            with open(f"{cache_dir}/{unique_id}_session_ids.json", "r") as f:
+                session_ids = json.load(f)
+            print(f'Found cached session_ids for unique id "{unique_id}".')
+            return session_ids
+        
+        print("Scraping all relevant BrowserStack session ids...")
         s = requests.Session()
         s.auth = (os.environ.get("BROWSERSTACK_USERNAME"), os.environ.get("BROWSERSTACK_ACCESS_KEY"))
 
@@ -285,6 +294,13 @@ class BrowserstackRunner:
                 # print("session:", session)
                 session_ids.append(session['automation_session']['hashed_id'])
         # print(session_ids)
+        print(f"Total of {len(session_ids)} session ids found.")
+        
+        # Cache in case we are calling several times
+        if not os.path.exists(cache_dir):
+            os.makedirs(cache_dir)
+        with open(f"{cache_dir}/{unique_id}_session_ids.json", "w") as f:
+            json.dump(session_ids, f)
 
         return session_ids
 
@@ -402,7 +418,6 @@ class BrowserstackRunner:
 
     # Save the page sources from each site visit based on session id
     def save_page_source_session_id(self, session_id):
-        print(f'Saving page source(s) for session_id "{session_id}"...')
         build_dir = self.get_build_dir(session_id)
         
         s = requests.Session()
@@ -431,13 +446,16 @@ class BrowserstackRunner:
             elif "RESPONSE" in line:
                 # Detect the RESPONSE after the /source request
                 if get_source_req_detected:
-                    segments = line.split('{"value":')
-                    page_source = '{"value":'.join(segments[1:])[:-1] # get the page source by parsing it out of the "value" json response
-                    current_entry = {
-                        "text": page_source,
-                        "label": 1 # 1 = phishing; TODO: IF WE ARE COLLECTING BENIGN SITES, THIS NEEDS TO BE CHANGED
-                    }
-                    output.append(current_entry)
+                    try:
+                        segments = line.split('{"value":')
+                        page_source = '{"value":'.join(segments[1:])[:-1] # get the page source by parsing it out of the "value" json response (remove last '}')
+                        current_entry = {
+                            "text": page_source,
+                            "label": 1 # 1 = phishing; TODO: IF WE ARE COLLECTING BENIGN SITES, THIS NEEDS TO BE CHANGED
+                        }
+                        output.append(current_entry)
+                    except Exception:
+                        continue
                     get_source_req_detected = False
 
         # Create directories if they do not exist
@@ -449,16 +467,14 @@ class BrowserstackRunner:
             json.dump(output, f, indent=4)
 
         # print(output)
-        print(f"Check {output_dir}/page_sources.json for the output.\n")
+        print(f"Check {output_dir}/page_sources.json for saved output.")
     
     
     # Save the page sources from each site visit based on unique id
     def save_page_source_unique_id(self, unique_id):
-        print(f'Gathering information about builds with unique identifier "{unique_id}"...')
+        print(f'Saving page sources for unique identifier "{unique_id}"...')
 
-        print("Scraping all relevant BrowserStack session ids...")
         session_ids = self.scrape_session_ids(unique_id)
-        print(f"Total of {len(session_ids)} session ids found.")
 
         for count, session_id in enumerate(session_ids):
             print(f"({count+1}/{len(session_ids)}) ", end='')
@@ -467,7 +483,6 @@ class BrowserstackRunner:
 
     # Save the outcome of our tests based on session id
     def save_outcome_session_id(self, session_id):
-        print(f'Gathering information about session_id "{session_id}"...')
         build_dir = self.get_build_dir(session_id)
 
         s = requests.Session()
@@ -537,17 +552,15 @@ class BrowserstackRunner:
             json.dump(output, f, indent=4)
 
         # print(output)
-        print(f"Check {output_dir}/outcomes.json for the output.\n")
+        print(f"Check {output_dir}/outcomes.json for saved output.")
 
     
     # Save the outcome of our tests based on a unique string ID in the title of the relevant builds
     def save_outcome_unique_id(self, unique_id):
-        print(f'Gathering information about builds with unique identifier "{unique_id}"...')
+        print(f'Saving outcomes for unique identifier "{unique_id}"...')
 
-        print("Scraping all relevant BrowserStack session ids...")
         session_ids = self.scrape_session_ids(unique_id)
-        print(f"Total of {len(session_ids)} session ids found.")
-
+        
         for count, session_id in enumerate(session_ids):
             print(f"({count+1}/{len(session_ids)}) ", end='')
             self.save_outcome_session_id(session_id)
@@ -577,7 +590,7 @@ class BrowserstackRunner:
         # Text logs will occasionally return a 502 error; make sure the request succeeds
         err_count = 0
         while r.status_code != 200:
-            print("RETURN CODE (text logs):", r.status_code, session_id)
+            print("UNABLE TO RETRIEVE LOGS (text logs):", r.status_code, session_id)
             r = s.get(text_logs_url)
             if r.status_code == 429:
                 print("TOO MANY REQUESTS (waiting a bit...)")
@@ -596,7 +609,7 @@ class BrowserstackRunner:
         # Ensure request succeeds
         err_count = 0
         while r.status_code != 200:
-            print("RETURN CODE (network logs):", r.status_code, session_id)
+            print("UNABLE TO RETRIEVE LOGS (network logs):", r.status_code, session_id)
             r = s.get(network_logs_url)
             if r.status_code == 429:
                 print("TOO MANY REQUESTS (waiting a bit...)")
@@ -615,7 +628,7 @@ class BrowserstackRunner:
         # Ensure request succeeds
         err_count = 0
         while r.status_code != 200:
-            print("RETURN CODE (console logs):", r.status_code, session_id)
+            print("UNABLE TO RETRIEVE LOGS (console logs):", r.status_code, session_id)
             r = s.get(console_logs_url)
             if r.status_code == 429:
                 print("TOO MANY REQUESTS (waiting a bit...)")
@@ -635,12 +648,28 @@ class BrowserstackRunner:
 
     # Save all logs based on unique id
     def save_logs_unique_id(self, unique_id):
-        print(f'Gathering information about builds with unique identifier "{unique_id}"...')
+        print(f'Saving logs for unique identifier "{unique_id}"...')
 
-        print("Scraping all relevant BrowserStack session ids...")
         session_ids = self.scrape_session_ids(unique_id)
-        print(f"Total of {len(session_ids)} session ids found.")
 
         for count, session_id in enumerate(session_ids):
             print(f"({count+1}/{len(session_ids)}) ", end='')
             self.save_logs_session_id(session_id)
+            
+    
+    # Saves all data relating to session id
+    def save_all_session_id(self, session_id):
+        print(f'SAVING ALL FOR SESSION ID "{session_id}..."')
+        self.save_logs_session_id(session_id)
+        self.save_outcome_session_id(session_id)
+        self.save_page_source_session_id(session_id)
+        print(f'ALL DATA SAVED FOR SESSION ID "{session_id}"')
+        
+    
+    # Saves all data relating to unique id
+    def save_all_unique_id(self, unique_id):
+        print(f'SAVING ALL FOR UNIQUE ID "{unique_id}..."')
+        self.save_logs_unique_id(unique_id)
+        self.save_outcome_unique_id(unique_id)
+        self.save_page_source_unique_id(unique_id)
+        print(f'ALL DATA SAVED FOR UNIQUE ID "{unique_id}"')
