@@ -40,12 +40,15 @@ print("PHISHING URLs:", phishing_urls)
 options = ChromeOptions()
 driver = webdriver.Chrome(options=options)
 
-for url in phishing_urls:
+for count, url in enumerate(phishing_urls):
     isBlocked = False
     print(f"Testing {url}...")
     try:
         # Navigate to the URL
         driver.get(url)
+        
+        # Save page source
+        page_source = driver.page_source
         
         driver.execute_script(
                 'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Page loaded successfully."}}')

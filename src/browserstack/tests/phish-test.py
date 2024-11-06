@@ -20,7 +20,7 @@ windows_browsers_xpaths = { # deprecated
 
 browsers_blocked_message = {
     "Microsoft Edge (1)": 'This site has been reported as unsafe',
-    "Microsoft Edge (2)": "Microsogt recommends you don\'t continue to this site.",
+    "Microsoft Edge (2)": "Microsoft recommends you don\'t continue to this site.",
     
     "Mozilla Firefox (1)": 'Firefox blocked this page because it may trick you into doing something dangerous like installing software or revealing personal information like passwords or credit cards.', # Deceptive site ahead
     "Mozilla Firefox (2)": 'The page you are trying to view cannot be shown because the authenticity of the received data could not be verified.', # Secure Connection Failed
