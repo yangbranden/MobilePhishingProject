@@ -41,7 +41,6 @@ options = ChromeOptions()
 driver = webdriver.Chrome(options=options)
 
 for count, url in enumerate(phishing_urls):
-    isBlocked = False
     print(f"Testing {url}...")
     try:
         # Navigate to the URL
