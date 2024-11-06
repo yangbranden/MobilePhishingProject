@@ -400,7 +400,72 @@ class BrowserstackRunner:
             json.dump(output, f, indent=4)
     
 
-    # Save the outcome of our tests based on a session-id
+    # Save the page sources from each site visit based on session id
+    def save_page_source_session_id(self, session_id):
+        print(f'Saving page source(s) for session_id "{session_id}"...')
+        build_dir = self.get_build_dir(session_id)
+        
+        s = requests.Session()
+        s.auth = (os.environ.get("BROWSERSTACK_USERNAME"), os.environ.get("BROWSERSTACK_ACCESS_KEY"))
+
+        # Check if session ID is valid
+        r = s.get(f"https://api.browserstack.com/automate/sessions/{session_id}/logs")
+        response_lines = r.text.splitlines()
+    
+        # Add basic session info if we haven't already
+        session_info_dir = f"{build_dir}/{session_id}/session.json"
+        if not os.path.exists(session_info_dir):
+            self.save_session_info(session_id)
+            
+        # We are detecting the following fields from the logs:
+        # REQUEST for /url
+        # RESPONSE from the /source REQUEST
+        output = [] # Contains output for all URLs
+        get_source_req_detected = False
+        
+        for line in response_lines:
+            if "REQUEST" in line:
+                # Detect the REQUEST for /source
+                if "/source" in line: 
+                    get_source_req_detected = True # indicates that the next RESPONSE should be interpreted as important (containing the outcome)
+            elif "RESPONSE" in line:
+                # Detect the RESPONSE after the /source request
+                if get_source_req_detected:
+                    segments = line.split('{"value":')
+                    page_source = '{"value":'.join(segments[1:])[:-1] # get the page source by parsing it out of the "value" json response
+                    current_entry = {
+                        "text": page_source,
+                        "label": 1 # 1 = phishing; TODO: IF WE ARE COLLECTING BENIGN SITES, THIS NEEDS TO BE CHANGED
+                    }
+                    output.append(current_entry)
+                    get_source_req_detected = False
+
+        # Create directories if they do not exist
+        output_dir = f"{build_dir}/{session_id}"
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
+
+        with open(f"{output_dir}/page_sources.json", "w") as f:
+            json.dump(output, f, indent=4)
+
+        # print(output)
+        print(f"Check {output_dir}/page_sources.json for the output.\n")
+    
+    
+    # Save the page sources from each site visit based on unique id
+    def save_page_source_unique_id(self, unique_id):
+        print(f'Gathering information about builds with unique identifier "{unique_id}"...')
+
+        print("Scraping all relevant BrowserStack session ids...")
+        session_ids = self.scrape_session_ids(unique_id)
+        print(f"Total of {len(session_ids)} session ids found.")
+
+        for count, session_id in enumerate(session_ids):
+            print(f"({count+1}/{len(session_ids)}) ", end='')
+            self.save_page_source_session_id(session_id)
+    
+
+    # Save the outcome of our tests based on session id
     def save_outcome_session_id(self, session_id):
         print(f'Gathering information about session_id "{session_id}"...')
         build_dir = self.get_build_dir(session_id)
