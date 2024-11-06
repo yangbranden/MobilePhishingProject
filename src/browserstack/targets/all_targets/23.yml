@@ -4,6 +4,18 @@
 - os: OS X
   os_version: Big Sur
   browser: firefox
+  browser_version: '123.0'
+- os: OS X
+  os_version: Big Sur
+  browser: firefox
+  browser_version: '126.0'
+- os: OS X
+  os_version: Big Sur
+  browser: firefox
+  browser_version: '127.0'
+- os: OS X
+  os_version: Big Sur
+  browser: firefox
   browser_version: '129.0'
 - os: OS X
   os_version: Big Sur
@@ -13,15 +25,3 @@
   os_version: Big Sur
   browser: firefox
   browser_version: '131.0'
-- os: OS X
-  os_version: Monterey
-  browser: chrome
-  browser_version: '121.0'
-- os: OS X
-  os_version: Monterey
-  browser: chrome
-  browser_version: '122.0'
-- os: OS X
-  os_version: Monterey
-  browser: chrome
-  browser_version: '123.0'

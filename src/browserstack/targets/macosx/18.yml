@@ -4,6 +4,18 @@
 - os: OS X
   os_version: Ventura
   browser: edge
+  browser_version: '93.0'
+- os: OS X
+  os_version: Ventura
+  browser: edge
+  browser_version: '97.0'
+- os: OS X
+  os_version: Ventura
+  browser: edge
+  browser_version: '114.0'
+- os: OS X
+  os_version: Ventura
+  browser: edge
   browser_version: '118.0'
 - os: OS X
   os_version: Ventura
@@ -13,15 +25,3 @@
   os_version: Ventura
   browser: edge
   browser_version: '126.0'
-- os: OS X
-  os_version: Ventura
-  browser: edge
-  browser_version: '128.0'
-- os: OS X
-  os_version: Ventura
-  browser: firefox
-  browser_version: '113.0'
-- os: OS X
-  os_version: Ventura
-  browser: firefox
-  browser_version: '115.0'

@@ -4,6 +4,10 @@
 - os: OS X
   os_version: Big Sur
   browser: edge
+  browser_version: '123.0'
+- os: OS X
+  os_version: Big Sur
+  browser: edge
   browser_version: '126.0'
 - os: OS X
   os_version: Big Sur
@@ -21,7 +25,3 @@
   os_version: Big Sur
   browser: firefox
   browser_version: '122.0'
-- os: OS X
-  os_version: Big Sur
-  browser: firefox
-  browser_version: '123.0'

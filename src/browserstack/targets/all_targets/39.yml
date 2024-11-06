@@ -3,25 +3,25 @@
 # =======================================
 - os: OS X
   os_version: Sequoia
-  browser: firefox
+  browser: edge
   browser_version: '123.0'
 - os: OS X
   os_version: Sequoia
-  browser: firefox
+  browser: edge
   browser_version: '126.0'
 - os: OS X
   os_version: Sequoia
-  browser: firefox
-  browser_version: '127.0'
+  browser: edge
+  browser_version: '128.0'
+- os: OS X
+  os_version: Sequoia
+  browser: safari
+  browser_version: '18.0'
 - os: OS X
   os_version: Sequoia
   browser: firefox
-  browser_version: '129.0'
+  browser_version: '113.0'
 - os: OS X
   os_version: Sequoia
   browser: firefox
-  browser_version: '130.0'
-- os: OS X
-  os_version: Sequoia
-  browser: firefox
-  browser_version: '131.0'
+  browser_version: '115.0'

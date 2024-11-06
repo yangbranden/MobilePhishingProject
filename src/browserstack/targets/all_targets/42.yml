@@ -4,30 +4,30 @@
 - os: ios
   os_version: '17'
   browser: chromium
-  device: iPhone 12
+  device: iPhone 15 Plus
   real_mobile: true
 - os: ios
   os_version: '17'
   browser: iphone
-  device: iPhone 12
+  device: iPhone 15 Plus
   real_mobile: true
 - os: ios
   os_version: '17'
   browser: chromium
-  device: iPad Pro 13 2024
+  device: iPhone 15
   real_mobile: true
 - os: ios
   os_version: '17'
-  browser: ipad
-  device: iPad Pro 13 2024
+  browser: iphone
+  device: iPhone 15
   real_mobile: true
 - os: ios
   os_version: '17'
   browser: chromium
-  device: iPad Pro 12.9 2021
+  device: iPhone 13
   real_mobile: true
 - os: ios
   os_version: '17'
-  browser: ipad
-  device: iPad Pro 12.9 2021
+  browser: iphone
+  device: iPhone 13
   real_mobile: true

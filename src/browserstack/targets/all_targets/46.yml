@@ -4,30 +4,30 @@
 - os: ios
   os_version: '18'
   browser: chromium
-  device: iPhone 16
+  device: iPhone 12 Pro
   real_mobile: true
 - os: ios
   os_version: '18'
   browser: iphone
-  device: iPhone 16
+  device: iPhone 12 Pro
   real_mobile: true
 - os: ios
   os_version: '18'
   browser: chromium
-  device: iPad 9th
+  device: iPhone 16 Pro Max
   real_mobile: true
 - os: ios
   os_version: '18'
-  browser: ipad
-  device: iPad 9th
+  browser: iphone
+  device: iPhone 16 Pro Max
   real_mobile: true
 - os: ios
   os_version: '18'
   browser: chromium
-  device: iPad Pro 11 2021
+  device: iPhone 16 Pro
   real_mobile: true
 - os: ios
   os_version: '18'
-  browser: ipad
-  device: iPad Pro 11 2021
+  browser: iphone
+  device: iPhone 16 Pro
   real_mobile: true

@@ -18,10 +18,10 @@
   browser: firefox
   browser_version: '131.0'
 - os: OS X
-  os_version: Big Sur
-  browser: chrome
-  browser_version: '121.0'
+  os_version: Catalina
+  browser: firefox
+  browser_version: '132.0'
 - os: OS X
   os_version: Big Sur
   browser: chrome
-  browser_version: '122.0'
+  browser_version: '121.0'

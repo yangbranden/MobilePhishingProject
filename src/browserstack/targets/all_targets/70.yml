@@ -4,30 +4,30 @@
 - os: android
   os_version: '10.0'
   browser: samsung
-  device: Samsung Galaxy A51
+  device: Samsung Galaxy S20 Plus
   real_mobile: true
 - os: android
   os_version: '10.0'
   browser: android
-  device: Samsung Galaxy A51
+  device: Samsung Galaxy S20 Plus
+  real_mobile: true
+- os: android
+  os_version: '10.0'
+  browser: samsung
+  device: Samsung Galaxy S20 Ultra
   real_mobile: true
 - os: android
   os_version: '10.0'
   browser: android
-  device: Samsung Galaxy A11
+  device: Samsung Galaxy S20 Ultra
+  real_mobile: true
+- os: android
+  os_version: '10.0'
+  browser: samsung
+  device: Samsung Galaxy Note 20 Ultra
   real_mobile: true
 - os: android
   os_version: '10.0'
   browser: android
-  device: Google Pixel 4 XL
-  real_mobile: true
-- os: android
-  os_version: '10.0'
-  browser: android
-  device: Google Pixel 4
-  real_mobile: true
-- os: android
-  os_version: '10.0'
-  browser: android
-  device: OnePlus 8
+  device: Samsung Galaxy Note 20 Ultra
   real_mobile: true

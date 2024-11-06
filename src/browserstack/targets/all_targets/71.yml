@@ -3,31 +3,31 @@
 # =======================================
 - os: android
   os_version: '10.0'
-  browser: android
-  device: OnePlus 7T
+  browser: samsung
+  device: Samsung Galaxy Note 20
   real_mobile: true
 - os: android
   os_version: '10.0'
   browser: android
-  device: Motorola Moto G9 Play
-  real_mobile: true
-- os: android
-  os_version: '10.0'
-  browser: android
-  device: Xiaomi Redmi Note 9
-  real_mobile: true
-- os: android
-  os_version: '10.0'
-  browser: android
-  device: Vivo Y50
-  real_mobile: true
-- os: android
-  os_version: '10.0'
-  browser: android
-  device: Oppo Reno 3 Pro
+  device: Samsung Galaxy Note 20
   real_mobile: true
 - os: android
   os_version: '10.0'
   browser: samsung
-  device: Samsung Galaxy Tab S7
+  device: Samsung Galaxy A51
+  real_mobile: true
+- os: android
+  os_version: '10.0'
+  browser: android
+  device: Samsung Galaxy A51
+  real_mobile: true
+- os: android
+  os_version: '10.0'
+  browser: android
+  device: Samsung Galaxy A11
+  real_mobile: true
+- os: android
+  os_version: '10.0'
+  browser: android
+  device: Google Pixel 4 XL
   real_mobile: true

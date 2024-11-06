@@ -4,30 +4,30 @@
 - os: ios
   os_version: '16'
   browser: chromium
-  device: iPad Pro 12.9 2022
+  device: iPhone 12 Pro Max
   real_mobile: true
 - os: ios
   os_version: '16'
-  browser: ipad
-  device: iPad Pro 12.9 2022
-  real_mobile: true
-- os: ios
-  os_version: '16'
-  browser: chromium
-  device: iPad Pro 12.9 2020
-  real_mobile: true
-- os: ios
-  os_version: '16'
-  browser: ipad
-  device: iPad Pro 12.9 2020
+  browser: iphone
+  device: iPhone 12 Pro Max
   real_mobile: true
 - os: ios
   os_version: '16'
   browser: chromium
-  device: iPad Pro 11 2022
+  device: iPhone 12 Pro
   real_mobile: true
 - os: ios
   os_version: '16'
-  browser: ipad
-  device: iPad Pro 11 2022
+  browser: iphone
+  device: iPhone 12 Pro
+  real_mobile: true
+- os: ios
+  os_version: '16'
+  browser: chromium
+  device: iPhone 12 Mini
+  real_mobile: true
+- os: ios
+  os_version: '16'
+  browser: iphone
+  device: iPhone 12 Mini
   real_mobile: true

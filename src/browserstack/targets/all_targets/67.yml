@@ -4,30 +4,30 @@
 - os: android
   os_version: '11.0'
   browser: android
-  device: Motorola Moto G71 5G
+  device: Samsung Galaxy M52
+  real_mobile: true
+- os: android
+  os_version: '11.0'
+  browser: samsung
+  device: Samsung Galaxy M32
   real_mobile: true
 - os: android
   os_version: '11.0'
   browser: android
-  device: Xiaomi Redmi Note 11
+  device: Samsung Galaxy M32
+  real_mobile: true
+- os: android
+  os_version: '11.0'
+  browser: samsung
+  device: Samsung Galaxy A52
   real_mobile: true
 - os: android
   os_version: '11.0'
   browser: android
-  device: Vivo Y21
+  device: Samsung Galaxy A52
   real_mobile: true
 - os: android
   os_version: '11.0'
   browser: android
-  device: Vivo V21
-  real_mobile: true
-- os: android
-  os_version: '11.0'
-  browser: android
-  device: Oppo Reno 6
-  real_mobile: true
-- os: android
-  os_version: '11.0'
-  browser: android
-  device: Oppo A96
+  device: Google Pixel 5
   real_mobile: true

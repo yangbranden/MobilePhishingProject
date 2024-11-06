@@ -3,6 +3,14 @@
 # =======================================
 - os: OS X
   os_version: Catalina
+  browser: edge
+  browser_version: '128.0'
+- os: OS X
+  os_version: Catalina
+  browser: firefox
+  browser_version: '113.0'
+- os: OS X
+  os_version: Catalina
   browser: firefox
   browser_version: '115.0'
 - os: OS X
@@ -17,11 +25,3 @@
   os_version: Catalina
   browser: firefox
   browser_version: '126.0'
-- os: OS X
-  os_version: Catalina
-  browser: firefox
-  browser_version: '127.0'
-- os: OS X
-  os_version: Catalina
-  browser: firefox
-  browser_version: '129.0'

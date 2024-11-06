@@ -4,30 +4,30 @@
 - os: android
   os_version: '11.0'
   browser: android
-  device: Samsung Galaxy M32
+  device: Samsung Galaxy S21 Ultra
   real_mobile: true
 - os: android
   os_version: '11.0'
   browser: samsung
-  device: Samsung Galaxy A52
+  device: Samsung Galaxy S21
   real_mobile: true
 - os: android
   os_version: '11.0'
   browser: android
-  device: Samsung Galaxy A52
+  device: Samsung Galaxy S21
+  real_mobile: true
+- os: android
+  os_version: '11.0'
+  browser: samsung
+  device: Samsung Galaxy S21 Plus
   real_mobile: true
 - os: android
   os_version: '11.0'
   browser: android
-  device: Google Pixel 5
+  device: Samsung Galaxy S21 Plus
   real_mobile: true
 - os: android
   os_version: '11.0'
-  browser: android
-  device: Google Pixel 4
-  real_mobile: true
-- os: android
-  os_version: '11.0'
-  browser: android
-  device: OnePlus 9
+  browser: samsung
+  device: Samsung Galaxy M52
   real_mobile: true

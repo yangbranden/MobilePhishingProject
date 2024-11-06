@@ -4,30 +4,30 @@
 - os: ios
   os_version: '16'
   browser: chromium
-  device: iPhone 12 Pro
+  device: iPhone 14 Plus
   real_mobile: true
 - os: ios
   os_version: '16'
   browser: iphone
-  device: iPhone 12 Pro
+  device: iPhone 14 Plus
   real_mobile: true
 - os: ios
   os_version: '16'
   browser: chromium
-  device: iPhone 12 Mini
+  device: iPhone 14
   real_mobile: true
 - os: ios
   os_version: '16'
   browser: iphone
-  device: iPhone 12 Mini
+  device: iPhone 14
   real_mobile: true
 - os: ios
   os_version: '16'
   browser: chromium
-  device: iPhone SE 2020
+  device: iPhone 13
   real_mobile: true
 - os: ios
   os_version: '16'
   browser: iphone
-  device: iPhone SE 2020
+  device: iPhone 13
   real_mobile: true

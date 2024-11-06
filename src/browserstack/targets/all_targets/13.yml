@@ -3,6 +3,14 @@
 # =======================================
 - os: OS X
   os_version: Sierra
+  browser: opera
+  browser_version: '12.15'
+- os: OS X
+  os_version: Sierra
+  browser: edge
+  browser_version: '93.0'
+- os: OS X
+  os_version: Sierra
   browser: edge
   browser_version: '97.0'
 - os: OS X
@@ -17,11 +25,3 @@
   os_version: High Sierra
   browser: opera
   browser_version: '12.15'
-- os: OS X
-  os_version: High Sierra
-  browser: edge
-  browser_version: '93.0'
-- os: OS X
-  os_version: High Sierra
-  browser: edge
-  browser_version: '97.0'
