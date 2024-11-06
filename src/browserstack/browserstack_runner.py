@@ -114,6 +114,8 @@ class BrowserstackRunner:
         self.save_outcome_unique_id(unique_id)
     
 
+    # Creates the list (or folder) of targets to run the browserstack tests on; scopes by browser_versions.yml if it exists
+    # (You can create the browser_versions.yml file using the cve_searcher module)
     def generate_targets(self, output_mode):
         if output_mode == "all":
             output_mode = Platforms.ALL

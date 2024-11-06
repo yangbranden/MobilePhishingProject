@@ -26,16 +26,9 @@ edge_versions:
 - 118
 - 114
 - 97
-- 93
 safari_versions: 
 - 18
 - 17
 - 16
-- 15
-- 14
-- 13
-- 12
-- 11
 opera_versions:
-- 12.16
-- 12.15
+- 
