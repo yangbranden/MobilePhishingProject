@@ -7,5 +7,6 @@ browserstack.err
 output_data/tmp/*
 __pycache__/
 *.pyc
-tmp.py
 output_data/
+tmp/
+tmp.py

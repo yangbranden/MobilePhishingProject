@@ -1,42 +1,52 @@
 {
-    "http://mtgovokta8.wixsite.com": {
+    "hxxp://mtgovokta8.wixsite.com": {
         "status": "passed",
-        "reason": "Page loaded successfully."
+        "reason": "Page loaded successfully.",
+        "screenshot_url": "https://automate.browserstack.com/s3-debug/browserstack-debug-screenshots-prod-usw1/eae5c4dc23e1a0f92db101bb0cc1f221a7c1a2ce/screenshot-0952f11704.jpeg"
     },
-    "https://yuhapp-aktivieren.cfolks.pl/auth/88923/Entry.php": {
+    "hxxps://yuhapp-aktivieren.cfolks.pl/auth/88923/Entry.php": {
         "status": "failed",
-        "reason": "Exception: <class 'selenium.common.exceptions.WebDriverException'> unknown error: net::ERR_CONNECTION_CLOSED\n  (Session info: MicrosoftEdge=126.0.2592.56)"
+        "reason": "Exception: <class 'selenium.common.exceptions.WebDriverException'> unknown error: net::ERR_CONNECTION_CLOSED\n  (Session info: MicrosoftEdge=126.0.2592.56)",
+        "screenshot_url": "https://automate.browserstack.com/s3-debug/browserstack-debug-screenshots-prod-usw1/eae5c4dc23e1a0f92db101bb0cc1f221a7c1a2ce/screenshot-1ffa27b15f.jpeg"
     },
-    "https://bafkreic73cwiszlzfyym5yow4ndbxgkzk5dwtt3aye5u4t63hgoimvf7nu.ipfs.dweb.link/": {
+    "hxxps://bafkreic73cwiszlzfyym5yow4ndbxgkzk5dwtt3aye5u4t63hgoimvf7nu.ipfs.dweb.link/": {
         "status": "passed",
-        "reason": "Page loaded successfully."
+        "reason": "Page loaded successfully.",
+        "screenshot_url": "https://automate.browserstack.com/s3-debug/browserstack-debug-screenshots-prod-usw1/eae5c4dc23e1a0f92db101bb0cc1f221a7c1a2ce/screenshot-90e6ed1971.jpeg"
     },
-    "https://fwebserver-106018.weeblysite.com/": {
+    "hxxps://fwebserver-106018.weeblysite.com/": {
         "status": "passed",
-        "reason": "Page loaded successfully."
+        "reason": "Page loaded successfully.",
+        "screenshot_url": "https://automate.browserstack.com/s3-debug/browserstack-debug-screenshots-prod-usw1/eae5c4dc23e1a0f92db101bb0cc1f221a7c1a2ce/screenshot-4606afa1fe.jpeg"
     },
-    "https://keepo.io/goodgood/": {
+    "hxxps://keepo.io/goodgood/": {
         "status": "passed",
-        "reason": "Page loaded successfully."
+        "reason": "Page loaded successfully.",
+        "screenshot_url": "https://automate.browserstack.com/s3-debug/browserstack-debug-screenshots-prod-usw1/eae5c4dc23e1a0f92db101bb0cc1f221a7c1a2ce/screenshot-5539088b41.jpeg"
     },
-    "https://docs.google.com/presentation/d/e/2PACX-1vSyZvhdvQciz9GoEknoSbwh4YMMbsGaOKZExu1oNCQVrqKQ0eYznD0BOr_8wCoJKpDgyPDTg3WxNFJt/pub?start=false&amp;loop=false&amp;delayms=3000": {
+    "hxxps://docs.google.com/presentation/d/e/2PACX-1vSyZvhdvQciz9GoEknoSbwh4YMMbsGaOKZExu1oNCQVrqKQ0eYznD0BOr_8wCoJKpDgyPDTg3WxNFJt/pub?start=false&amp;loop=false&amp;delayms=3000": {
         "status": "passed",
-        "reason": "Page loaded successfully."
+        "reason": "Page loaded successfully.",
+        "screenshot_url": "https://automate.browserstack.com/s3-debug/browserstack-debug-screenshots-prod-usw1/eae5c4dc23e1a0f92db101bb0cc1f221a7c1a2ce/screenshot-66fdf5c37e.jpeg"
     },
-    "https://docs.google.com/presentation/d/e/2PACX-1vQqBfKem5duhbIjL1SAp1ok8xfLMAeFAa8OWdjB67G4-pwiRWkNu7RNXkLOpbCdz0VOTwybnOP09715/pub?start=false&amp;loop=false&amp;delayms=3000": {
+    "hxxps://docs.google.com/presentation/d/e/2PACX-1vQqBfKem5duhbIjL1SAp1ok8xfLMAeFAa8OWdjB67G4-pwiRWkNu7RNXkLOpbCdz0VOTwybnOP09715/pub?start=false&amp;loop=false&amp;delayms=3000": {
         "status": "passed",
-        "reason": "Page loaded successfully."
+        "reason": "Page loaded successfully.",
+        "screenshot_url": "https://automate.browserstack.com/s3-debug/browserstack-debug-screenshots-prod-usw1/eae5c4dc23e1a0f92db101bb0cc1f221a7c1a2ce/screenshot-2ecb9c416b.jpeg"
     },
-    "https://evrios.help": {
+    "hxxps://evrios.help": {
         "status": "passed",
-        "reason": "Page loaded successfully."
+        "reason": "Page loaded successfully.",
+        "screenshot_url": "https://automate.browserstack.com/s3-debug/browserstack-debug-screenshots-prod-usw1/eae5c4dc23e1a0f92db101bb0cc1f221a7c1a2ce/screenshot-67bbe3fd10.jpeg"
     },
-    "https://attmaicomeback001.webflow.io/": {
+    "hxxps://attmaicomeback001.webflow.io/": {
         "status": "passed",
-        "reason": "Page loaded successfully."
+        "reason": "Page loaded successfully.",
+        "screenshot_url": "https://automate.browserstack.com/s3-debug/browserstack-debug-screenshots-prod-usw1/eae5c4dc23e1a0f92db101bb0cc1f221a7c1a2ce/screenshot-95aa55e6f3.jpeg"
     },
-    "https://docs.google.com/presentation/d/e/2PACX-1vTxCBJXDJMwwNcmcA7KpBbzN2_0dJD3c-Fe5Dr7h1GyYZdGUr0Dq66IDU1TamZfidow72ZI-w3UGaXX/pub?start=false&amp;loop=false&amp;delayms=3000": {
+    "hxxps://docs.google.com/presentation/d/e/2PACX-1vTxCBJXDJMwwNcmcA7KpBbzN2_0dJD3c-Fe5Dr7h1GyYZdGUr0Dq66IDU1TamZfidow72ZI-w3UGaXX/pub?start=false&amp;loop=false&amp;delayms=3000": {
         "status": "passed",
-        "reason": "Page loaded successfully."
+        "reason": "Page loaded successfully.",
+        "screenshot_url": "https://automate.browserstack.com/s3-debug/browserstack-debug-screenshots-prod-usw1/eae5c4dc23e1a0f92db101bb0cc1f221a7c1a2ce/screenshot-0081b3a245.jpeg"
     }
 }

@@ -1,7 +1,7 @@
-UNIQUE_ID   |   DATE        |   TARGETS         |   TEST SCRIPT     |   NOTES
+UNIQUE_ID   |   DATE        |   TARGETS         |   TEST SCRIPT     |   URLS                    |   OTHER NOTES
 ------------------------------------------------------------------------------------------------------------
-HGWhwxQ6    |   10-17-24    |   All_Targets     |   phish-test.py   |   Pre-fix for FPs, 10 latest versions
-JwIZY1fx    |   10-24-24    |   All_Targets     |   phish-test.py   |   Pre-fix for FPs, 10 latest versions
-6rVphbHX    |   10-24-24    |   All_Targets     |   visit-only.py   |   10 latest versions
-pOKUgP2N    |   10-25-24    |   All_Targets     |   visit-only.py   |   10 latest versions 
-xhYQi9NJ    |   10-30-24    |   All_Targets     |   visit-only.py   |   CVE-based version scoping
+HGWhwxQ6    |   10-17-24    |   All_Targets     |   phish-test.py   |   10 latest phishtank     |   Pre-fix for FPs, 10 latest versions
+JwIZY1fx    |   10-24-24    |   All_Targets     |   phish-test.py   |   10 latest phishtank     |   Pre-fix for FPs, 10 latest versions
+6rVphbHX    |   10-24-24    |   All_Targets     |   visit-only.py   |   10 latest phishtank     |   10 latest versions
+pOKUgP2N    |   10-25-24    |   All_Targets     |   visit-only.py   |   10 latest phishtank     |   10 latest versions 
+xhYQi9NJ    |   10-30-24    |   All_Targets     |   visit-only.py   |   10 latest phishtank     |   CVE-based version scoping

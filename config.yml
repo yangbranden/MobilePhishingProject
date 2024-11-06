@@ -18,3 +18,6 @@ phishtank_fetcher:
   urls_directory: "./urls"
   source_csv: './urls/online-valid.csv'
   num_urls: 10 # Number of URLs to fetch from phishtank (argparse argument has precedence over this value)
+
+cve_searcher:
+  cves_directory: "./src/cve_searcher/cves"
