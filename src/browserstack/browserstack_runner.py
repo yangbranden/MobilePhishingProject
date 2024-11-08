@@ -110,8 +110,7 @@ class BrowserstackRunner:
             yaml.dump(original_config, f)
 
         # Automatically save logs & outcome (select fields from logs) after running test
-        self.save_logs_unique_id(unique_id)
-        self.save_outcome_unique_id(unique_id)
+        self.save_all_unique_id(unique_id)
     
 
     # Creates the list (or folder) of targets to run the browserstack tests on; scopes by browser_versions.yml if it exists
