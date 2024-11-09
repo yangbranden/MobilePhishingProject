@@ -1,0 +1,597 @@
+chrome:
+- cve_id: CVE-2024-9964
+  summary: 'Inappropriate implementation in Payments in Google Chrome prior to 130.0.6723.58
+    allowed a remote attacker who convinced a user to engage in specific UI gestures
+    to perform UI spoofing via a crafted Chrome Extension. (Chromium security severity:
+    Low)'
+  url: https://www.cvedetails.com/cve/CVE-2024-9964/
+- cve_id: CVE-2024-9963
+  summary: 'Insufficient data validation in Downloads in Google Chrome prior to 130.0.6723.58
+    allowed a remote attacker who convinced a user to engage in specific UI gestures
+    to perform UI spoofing via a crafted HTML page. (Chromium security severity: Medium)'
+  url: https://www.cvedetails.com/cve/CVE-2024-9963/
+- cve_id: CVE-2024-9962
+  summary: 'Inappropriate implementation in Permissions in Google Chrome prior to
+    130.0.6723.58 allowed a remote attacker who convinced a user to engage in specific
+    UI gestures to perform UI spoofing via a crafted HTML page. (Chromium security
+    severity: Medium)'
+  url: https://www.cvedetails.com/cve/CVE-2024-9962/
+- cve_id: CVE-2024-9958
+  summary: 'Inappropriate implementation in PictureInPicture in Google Chrome prior
+    to 130.0.6723.58 allowed a remote attacker to perform UI spoofing via a crafted
+    HTML page. (Chromium security severity: Medium)'
+  url: https://www.cvedetails.com/cve/CVE-2024-9958/
+- cve_id: CVE-2024-8909
+  summary: 'Inappropriate implementation in UI in Google Chrome on iOS prior to 129.0.6668.58
+    allowed a remote attacker to perform UI spoofing via a crafted HTML page. (Chromium
+    security severity: Low)'
+  url: https://www.cvedetails.com/cve/CVE-2024-8909/
+- cve_id: CVE-2024-8908
+  summary: 'Inappropriate implementation in Autofill in Google Chrome prior to 129.0.6668.58
+    allowed a remote attacker to perform UI spoofing via a crafted HTML page. (Chromium
+    security severity: Low)'
+  url: https://www.cvedetails.com/cve/CVE-2024-8908/
+- cve_id: CVE-2024-8906
+  summary: 'Incorrect security UI in Downloads in Google Chrome prior to 129.0.6668.58
+    allowed a remote attacker who convinced a user to engage in specific UI gestures
+    to perform UI spoofing via a crafted HTML page. (Chromium security severity: Medium)'
+  url: https://www.cvedetails.com/cve/CVE-2024-8906/
+- cve_id: CVE-2024-8035
+  summary: 'Inappropriate implementation in Extensions in Google Chrome on Windows
+    prior to 128.0.6613.84 allowed a remote attacker to perform UI spoofing via a
+    crafted HTML page. (Chromium security severity: Low)'
+  url: https://www.cvedetails.com/cve/CVE-2024-8035/
+- cve_id: CVE-2024-8034
+  summary: 'Inappropriate implementation in Custom Tabs in Google Chrome on Android
+    prior to 128.0.6613.84 allowed a remote attacker to perform UI spoofing via a
+    crafted HTML page. (Chromium security severity: Low)'
+  url: https://www.cvedetails.com/cve/CVE-2024-8034/
+- cve_id: CVE-2024-8033
+  summary: 'Inappropriate implementation in WebApp Installs in Google Chrome on Windows
+    prior to 128.0.6613.84 allowed an attacker who convinced a user to install a malicious
+    application to perform UI spoofing via a crafted HTML page. (Chromium security
+    severity: Low)'
+  url: https://www.cvedetails.com/cve/CVE-2024-8033/
+- cve_id: CVE-2024-7981
+  summary: 'Inappropriate implementation in Views in Google Chrome prior to 128.0.6613.84
+    allowed a remote attacker to perform UI spoofing via a crafted HTML page. (Chromium
+    security severity: Low)'
+  url: https://www.cvedetails.com/cve/CVE-2024-7981/
+- cve_id: CVE-2024-7976
+  summary: 'Inappropriate implementation in FedCM in Google Chrome prior to 128.0.6613.84
+    allowed a remote attacker to perform UI spoofing via a crafted HTML page. (Chromium
+    security severity: Medium)'
+  url: https://www.cvedetails.com/cve/CVE-2024-7976/
+- cve_id: CVE-2024-7975
+  summary: 'Inappropriate implementation in Permissions in Google Chrome prior to
+    128.0.6613.84 allowed a remote attacker to perform UI spoofing via a crafted HTML
+    page. (Chromium security severity: Medium)'
+  url: https://www.cvedetails.com/cve/CVE-2024-7975/
+- cve_id: CVE-2024-7020
+  summary: 'Inappropriate implementation in Autofill in Google Chrome prior to 124.0.6367.60
+    allowed a remote attacker to perform UI spoofing via a crafted HTML page. (Chromium
+    security severity: Low)'
+  url: https://www.cvedetails.com/cve/CVE-2024-7020/
+- cve_id: CVE-2024-7019
+  summary: 'Inappropriate implementation in UI in Google Chrome prior to 124.0.6367.60
+    allowed a remote attacker who convinced a user to engage in specific UI gestures
+    to perform UI spoofing via a crafted HTML page. (Chromium security severity: Medium)'
+  url: https://www.cvedetails.com/cve/CVE-2024-7019/
+- cve_id: CVE-2024-7003
+  summary: 'Inappropriate implementation in FedCM in Google Chrome prior to 127.0.6533.72
+    allowed a remote attacker who convinced a user to engage in specific UI gestures
+    to perform UI spoofing via a crafted HTML page. (Chromium security severity: Low)'
+  url: https://www.cvedetails.com/cve/CVE-2024-7003/
+- cve_id: CVE-2024-7001
+  summary: 'Inappropriate implementation in HTML in Google Chrome prior to 127.0.6533.72
+    allowed a remote attacker who convinced a user to engage in specific UI gestures
+    to perform UI spoofing via a crafted HTML page. (Chromium security severity: Medium)'
+  url: https://www.cvedetails.com/cve/CVE-2024-7001/
+- cve_id: CVE-2024-6999
+  summary: 'Inappropriate implementation in FedCM in Google Chrome prior to 127.0.6533.72
+    allowed a remote attacker who convinced a user to engage in specific UI gestures
+    to perform UI spoofing via a crafted HTML page. (Chromium security severity: Medium)'
+  url: https://www.cvedetails.com/cve/CVE-2024-6999/
+- cve_id: CVE-2024-6996
+  summary: 'Race in Frames in Google Chrome prior to 127.0.6533.72 allowed a remote
+    attacker who convinced a user to engage in specific UI gestures to perform UI
+    spoofing via a crafted HTML page. (Chromium security severity: Medium)'
+  url: https://www.cvedetails.com/cve/CVE-2024-6996/
+- cve_id: CVE-2024-6995
+  summary: 'Inappropriate implementation in Fullscreen in Google Chrome on Android
+    prior to 127.0.6533.72 allowed a remote attacker who convinced a user to engage
+    in specific UI gestures to spoof the contents of the Omnibox (URL bar) via a crafted
+    HTML page. (Chromium security severity: Medium)'
+  url: https://www.cvedetails.com/cve/CVE-2024-6995/
+- cve_id: CVE-2024-4950
+  summary: 'Inappropriate implementation in Downloads in Google Chrome prior to 125.0.6422.60
+    allowed a remote attacker who convinced a user to engage in specific UI gestures
+    to perform UI spoofing via a crafted HTML page. (Chromium security severity: Low)'
+  url: https://www.cvedetails.com/cve/CVE-2024-4950/
+- cve_id: CVE-2024-3846
+  summary: 'Inappropriate implementation in Prompts in Google Chrome prior to 124.0.6367.60
+    allowed a remote attacker who convinced a user to engage in specific UI gestures
+    to perform UI spoofing via a crafted HTML page. (Chromium security severity: Low)'
+  url: https://www.cvedetails.com/cve/CVE-2024-3846/
+- cve_id: CVE-2024-3844
+  summary: 'Inappropriate implementation in Extensions in Google Chrome prior to 124.0.6367.60
+    allowed a remote attacker to perform UI spoofing via a crafted Chrome Extension.
+    (Chromium security severity: Low)'
+  url: https://www.cvedetails.com/cve/CVE-2024-3844/
+- cve_id: CVE-2024-3843
+  summary: 'Insufficient data validation in Downloads in Google Chrome prior to 124.0.6367.60
+    allowed a remote attacker to perform UI spoofing via a crafted HTML page. (Chromium
+    security severity: Medium)'
+  url: https://www.cvedetails.com/cve/CVE-2024-3843/
+- cve_id: CVE-2024-3838
+  summary: 'Inappropriate implementation in Autofill in Google Chrome prior to 124.0.6367.60
+    allowed an attacker who convinced a user to install a malicious app to perform
+    UI spoofing via a crafted app. (Chromium security severity: Medium)'
+  url: https://www.cvedetails.com/cve/CVE-2024-3838/
+- cve_id: CVE-2024-2631
+  summary: 'Inappropriate implementation in iOS in Google Chrome prior to 123.0.6312.58
+    allowed a remote attacker to perform UI spoofing via a crafted HTML page. (Chromium
+    security severity: Low)'
+  url: https://www.cvedetails.com/cve/CVE-2024-2631/
+- cve_id: CVE-2024-2629
+  summary: 'Incorrect security UI in iOS in Google Chrome prior to 123.0.6312.58 allowed
+    a remote attacker to perform UI spoofing via a crafted HTML page. (Chromium security
+    severity: Medium)'
+  url: https://www.cvedetails.com/cve/CVE-2024-2629/
+- cve_id: CVE-2024-2628
+  summary: 'Inappropriate implementation in Downloads in Google Chrome prior to 123.0.6312.58
+    allowed a remote attacker to perform UI spoofing via a crafted URL. (Chromium
+    security severity: Medium)'
+  url: https://www.cvedetails.com/cve/CVE-2024-2628/
+- cve_id: CVE-2024-1676
+  summary: 'Inappropriate implementation in Navigation in Google Chrome prior to 122.0.6261.57
+    allowed a remote attacker to spoof security UI via a crafted HTML page. (Chromium
+    security severity: Low)'
+  url: https://www.cvedetails.com/cve/CVE-2024-1676/
+- cve_id: CVE-2024-0814
+  summary: 'Incorrect security UI in Payments in Google Chrome prior to 121.0.6167.85
+    allowed a remote attacker to potentially spoof security UI via a crafted HTML
+    page. (Chromium security severity: Medium)'
+  url: https://www.cvedetails.com/cve/CVE-2024-0814/
+- cve_id: CVE-2024-0805
+  summary: 'Inappropriate implementation in Downloads in Google Chrome prior to 121.0.6167.85
+    allowed a remote attacker to perform domain spoofing via a crafted domain name.
+    (Chromium security severity: Medium)'
+  url: https://www.cvedetails.com/cve/CVE-2024-0805/
+- cve_id: CVE-2023-7282
+  summary: 'Inappropriate implementation in Navigation in Google Chrome prior to 113.0.5672.63
+    allowed a remote attacker who convinced a user to engage in specific UI gestures
+    to perform domain spoofing via a crafted HTML page. (Chromium security severity:
+    Low)'
+  url: https://www.cvedetails.com/cve/CVE-2023-7282/
+- cve_id: CVE-2023-7281
+  summary: 'Inappropriate implementation in Compositing in Google Chrome prior to
+    119.0.6045.105 allowed a remote attacker to perform UI spoofing via a crafted
+    HTML page. (Chromium security severity: Medium)'
+  url: https://www.cvedetails.com/cve/CVE-2023-7281/
+- cve_id: CVE-2023-7013
+  summary: 'Inappropriate implementation in Compositing in Google Chrome prior to
+    119.0.6045.105 allowed a remote attacker to potentially spoof security UI via
+    a crafted HTML page. (Chromium security severity: Medium)'
+  url: https://www.cvedetails.com/cve/CVE-2023-7013/
+- cve_id: CVE-2023-7011
+  summary: 'Inappropriate implementation in Picture in Picture in Google Chrome prior
+    to 119.0.6045.105 allowed a remote attacker to spoof the contents of the Omnibox
+    (URL bar) via a crafted HTML page. (Chromium security severity: Medium)'
+  url: https://www.cvedetails.com/cve/CVE-2023-7011/
+- cve_id: CVE-2023-6512
+  summary: 'Inappropriate implementation in Web Browser UI in Google Chrome prior
+    to 120.0.6099.62 allowed a remote attacker to potentially spoof the contents of
+    an iframe dialog context menu via a crafted HTML page. (Chromium security severity:
+    Low)'
+  url: https://www.cvedetails.com/cve/CVE-2023-6512/
+- cve_id: CVE-2023-5859
+  summary: 'Incorrect security UI in Picture In Picture in Google Chrome prior to
+    119.0.6045.105 allowed a remote attacker to perform domain spoofing via a crafted
+    local HTML page. (Chromium security severity: Low)'
+  url: https://www.cvedetails.com/cve/CVE-2023-5859/
+- cve_id: CVE-2023-5850
+  summary: 'Incorrect security UI in Downloads in Google Chrome prior to 119.0.6045.105
+    allowed a remote attacker to perform domain spoofing via a crafted domain name.
+    (Chromium security severity: Medium)'
+  url: https://www.cvedetails.com/cve/CVE-2023-5850/
+- cve_id: CVE-2023-5486
+  summary: 'Inappropriate implementation in Input in Google Chrome prior to 118.0.5993.70
+    allowed a remote attacker to spoof security UI via a crafted HTML page. (Chromium
+    security severity: Low)'
+  url: https://www.cvedetails.com/cve/CVE-2023-5486/
+- cve_id: CVE-2023-5484
+  summary: 'Inappropriate implementation in Navigation in Google Chrome prior to 118.0.5993.70
+    allowed a remote attacker to spoof security UI via a crafted HTML page. (Chromium
+    security severity: Medium)'
+  url: https://www.cvedetails.com/cve/CVE-2023-5484/
+- cve_id: CVE-2023-5481
+  summary: 'Inappropriate implementation in Downloads in Google Chrome prior to 118.0.5993.70
+    allowed a remote attacker to spoof security UI via a crafted HTML page. (Chromium
+    security severity: Medium)'
+  url: https://www.cvedetails.com/cve/CVE-2023-5481/
+- cve_id: CVE-2023-4908
+  summary: 'Inappropriate implementation in Picture in Picture in Google Chrome prior
+    to 117.0.5938.62 allowed a remote attacker to spoof security UI via a crafted
+    HTML page. (Chromium security severity: Low)'
+  url: https://www.cvedetails.com/cve/CVE-2023-4908/
+- cve_id: CVE-2023-4905
+  summary: 'Inappropriate implementation in Prompts in Google Chrome prior to 117.0.5938.62
+    allowed a remote attacker to spoof security UI via a crafted HTML page. (Chromium
+    security severity: Medium)'
+  url: https://www.cvedetails.com/cve/CVE-2023-4905/
+- cve_id: CVE-2023-4903
+  summary: 'Inappropriate implementation in Custom Mobile Tabs in Google Chrome on
+    Android prior to 117.0.5938.62 allowed a remote attacker to spoof security UI
+    via a crafted HTML page. (Chromium security severity: Medium)'
+  url: https://www.cvedetails.com/cve/CVE-2023-4903/
+- cve_id: CVE-2023-4902
+  summary: 'Inappropriate implementation in Input in Google Chrome prior to 117.0.5938.62
+    allowed a remote attacker to spoof security UI via a crafted HTML page. (Chromium
+    security severity: Medium)'
+  url: https://www.cvedetails.com/cve/CVE-2023-4902/
+- cve_id: CVE-2023-4901
+  summary: 'Inappropriate implementation in Prompts in Google Chrome prior to 117.0.5938.62
+    allowed a remote attacker to potentially spoof security UI via a crafted HTML
+    page. (Chromium security severity: Medium)'
+  url: https://www.cvedetails.com/cve/CVE-2023-4901/
+- cve_id: CVE-2023-4764
+  summary: 'Incorrect security UI in BFCache in Google Chrome prior to 116.0.5845.179
+    allowed a remote attacker to spoof the contents of the Omnibox (URL bar) via a
+    crafted HTML page. (Chromium security severity: High)'
+  url: https://www.cvedetails.com/cve/CVE-2023-4764/
+- cve_id: CVE-2023-4363
+  summary: 'Inappropriate implementation in WebShare in Google Chrome on Android prior
+    to 116.0.5845.96 allowed a remote attacker to spoof the contents of a dialog URL
+    via a crafted HTML page. (Chromium security severity: Medium)'
+  url: https://www.cvedetails.com/cve/CVE-2023-4363/
+- cve_id: CVE-2023-4359
+  summary: 'Inappropriate implementation in App Launcher in Google Chrome on iOS prior
+    to 116.0.5845.96 allowed a remote attacker to potentially spoof elements of the
+    security UI via a crafted HTML page. (Chromium security severity: Medium)'
+  url: https://www.cvedetails.com/cve/CVE-2023-4359/
+- cve_id: CVE-2023-4350
+  summary: 'Inappropriate implementation in Fullscreen in Google Chrome on Android
+    prior to 116.0.5845.96 allowed a remote attacker to potentially spoof the contents
+    of the Omnibox (URL bar) via a crafted HTML page. (Chromium security severity:
+    High)'
+  url: https://www.cvedetails.com/cve/CVE-2023-4350/
+- cve_id: CVE-2023-3737
+  summary: 'Inappropriate implementation in Notifications in Google Chrome prior to
+    115.0.5790.98 allowed a remote attacker to spoof the contents of media notifications
+    via a crafted HTML page. (Chromium security severity: Medium)'
+  url: https://www.cvedetails.com/cve/CVE-2023-3737/
+- cve_id: CVE-2023-3734
+  summary: 'Inappropriate implementation in Picture In Picture in Google Chrome prior
+    to 115.0.5790.98 allowed a remote attacker to potentially spoof the contents of
+    the Omnibox (URL bar) via a crafted HTML page. (Chromium security severity: Medium)'
+  url: https://www.cvedetails.com/cve/CVE-2023-3734/
+- cve_id: CVE-2023-3733
+  summary: 'Inappropriate implementation in WebApp Installs in Google Chrome prior
+    to 115.0.5790.98 allowed a remote attacker to potentially spoof the contents of
+    the Omnibox (URL bar) via a crafted HTML page. (Chromium security severity: Medium)'
+  url: https://www.cvedetails.com/cve/CVE-2023-3733/
+- cve_id: CVE-2023-2941
+  summary: 'Inappropriate implementation in Extensions API in Google Chrome prior
+    to 114.0.5735.90 allowed an attacker who convinced a user to install a malicious
+    extension to spoof the contents of the UI via a crafted Chrome Extension. (Chromium
+    security severity: Low)'
+  url: https://www.cvedetails.com/cve/CVE-2023-2941/
+- cve_id: CVE-2023-2938
+  summary: 'Inappropriate implementation in Picture In Picture in Google Chrome prior
+    to 114.0.5735.90 allowed a remote attacker who had compromised the renderer process
+    to spoof the contents of the Omnibox (URL bar) via a crafted HTML page. (Chromium
+    security severity: Medium)'
+  url: https://www.cvedetails.com/cve/CVE-2023-2938/
+- cve_id: CVE-2023-2937
+  summary: 'Inappropriate implementation in Picture In Picture in Google Chrome prior
+    to 114.0.5735.90 allowed a remote attacker who had compromised the renderer process
+    to spoof the contents of the Omnibox (URL bar) via a crafted HTML page. (Chromium
+    security severity: Medium)'
+  url: https://www.cvedetails.com/cve/CVE-2023-2937/
+- cve_id: CVE-2023-2466
+  summary: 'Inappropriate implementation in Prompts in Google Chrome prior to 113.0.5672.63
+    allowed a remote attacker to spoof the contents of the security UI via a crafted
+    HTML page. (Chromium security severity: Low)'
+  url: https://www.cvedetails.com/cve/CVE-2023-2466/
+- cve_id: CVE-2023-2464
+  summary: 'Inappropriate implementation in PictureInPicture in Google Chrome prior
+    to 113.0.5672.63 allowed an attacker who convinced a user to install a malicious
+    extension to perform an origin spoof in the security UI via a crafted HTML page.
+    (Chromium security severity: Medium)'
+  url: https://www.cvedetails.com/cve/CVE-2023-2464/
+- cve_id: CVE-2023-1822
+  summary: 'Incorrect security UI in Navigation in Google Chrome prior to 112.0.5615.49
+    allowed a remote attacker to perform domain spoofing via a crafted HTML page.
+    (Chromium security severity: Low)'
+  url: https://www.cvedetails.com/cve/CVE-2023-1822/
+- cve_id: CVE-2023-1816
+  summary: 'Incorrect security UI in Picture In Picture in Google Chrome prior to
+    112.0.5615.49 allowed a remote attacker to potentially perform navigation spoofing
+    via a crafted HTML page. (Chromium security severity: Medium)'
+  url: https://www.cvedetails.com/cve/CVE-2023-1816/
+- cve_id: CVE-2023-1236
+  summary: 'Inappropriate implementation in Internals in Google Chrome prior to 111.0.5563.64
+    allowed a remote attacker to spoof the origin of an iframe via a crafted HTML
+    page. (Chromium security severity: Low)'
+  url: https://www.cvedetails.com/cve/CVE-2023-1236/
+- cve_id: CVE-2023-1234
+  summary: 'Inappropriate implementation in Intents in Google Chrome on Android prior
+    to 111.0.5563.64 allowed a remote attacker to perform domain spoofing via a crafted
+    HTML page. (Chromium security severity: Low)'
+  url: https://www.cvedetails.com/cve/CVE-2023-1234/
+- cve_id: CVE-2023-1231
+  summary: 'Inappropriate implementation in Autofill in Google Chrome on Android prior
+    to 111.0.5563.64 allowed a remote attacker to potentially spoof the contents of
+    the omnibox via a crafted HTML page. (Chromium security severity: Medium)'
+  url: https://www.cvedetails.com/cve/CVE-2023-1231/
+- cve_id: CVE-2023-1230
+  summary: 'Inappropriate implementation in WebApp Installs in Google Chrome on Android
+    prior to 111.0.5563.64 allowed an attacker who convinced a user to install a malicious
+    WebApp to spoof the contents of the PWA installer via a crafted HTML page. (Chromium
+    security severity: Medium)'
+  url: https://www.cvedetails.com/cve/CVE-2023-1230/
+- cve_id: CVE-2023-0700
+  summary: 'Inappropriate implementation in Download in Google Chrome prior to 110.0.5481.77
+    allowed a remote attacker to potentially spoof the contents of the Omnibox (URL
+    bar) via a crafted HTML page. (Chromium security severity: Medium)'
+  url: https://www.cvedetails.com/cve/CVE-2023-0700/
+- cve_id: CVE-2023-0697
+  summary: 'Inappropriate implementation in Full screen mode in Google Chrome on Android
+    prior to 110.0.5481.77 allowed a remote attacker to spoof the contents of the
+    security UI via a crafted HTML page. (Chromium security severity: High)'
+  url: https://www.cvedetails.com/cve/CVE-2023-0697/
+- cve_id: CVE-2023-0130
+  summary: 'Inappropriate implementation in in Fullscreen API in Google Chrome on
+    Android prior to 109.0.5414.74 allowed a remote attacker to spoof the contents
+    of the Omnibox (URL bar) via a crafted HTML page. (Chromium security severity:
+    Medium)'
+  url: https://www.cvedetails.com/cve/CVE-2023-0130/
+edge:
+- cve_id: CVE-2024-38208
+  summary: Microsoft Edge for Android Spoofing Vulnerability
+  url: https://www.cvedetails.com/cve/CVE-2024-38208/
+- cve_id: CVE-2024-38156
+  summary: Microsoft Edge (Chromium-based) Spoofing Vulnerability
+  url: https://www.cvedetails.com/cve/CVE-2024-38156/
+- cve_id: CVE-2024-38093
+  summary: Microsoft Edge (Chromium-based) Spoofing Vulnerability
+  url: https://www.cvedetails.com/cve/CVE-2024-38093/
+- cve_id: CVE-2024-38082
+  summary: Microsoft Edge (Chromium-based) Spoofing Vulnerability
+  url: https://www.cvedetails.com/cve/CVE-2024-38082/
+- cve_id: CVE-2024-30057
+  summary: Microsoft Edge for iOS Spoofing Vulnerability
+  url: https://www.cvedetails.com/cve/CVE-2024-30057/
+- cve_id: CVE-2024-29057
+  summary: Microsoft Edge (Chromium-based) Spoofing Vulnerability
+  url: https://www.cvedetails.com/cve/CVE-2024-29057/
+- cve_id: CVE-2024-26188
+  summary: Microsoft Edge (Chromium-based) Spoofing Vulnerability
+  url: https://www.cvedetails.com/cve/CVE-2024-26188/
+- cve_id: CVE-2024-26167
+  summary: Microsoft Edge for Android Spoofing Vulnerability
+  url: https://www.cvedetails.com/cve/CVE-2024-26167/
+- cve_id: CVE-2023-36883
+  summary: Microsoft Edge for iOS Spoofing Vulnerability
+  url: https://www.cvedetails.com/cve/CVE-2023-36883/
+- cve_id: CVE-2023-36029
+  summary: Microsoft Edge (Chromium-based) Spoofing Vulnerability
+  url: https://www.cvedetails.com/cve/CVE-2023-36029/
+firefox:
+- cve_id: CVE-2024-38313
+  summary: In certain scenarios a malicious website could attempt to display a fake
+    location URL bar which could mislead users as to the actual website address This
+    vulnerability affects Firefox for iOS < 127.
+  url: https://www.cvedetails.com/cve/CVE-2024-38313/
+- cve_id: CVE-2024-10465
+  summary: A clipboard "paste" button could persist across tabs which allowed a spoofing
+    attack. This vulnerability affects Firefox < 132, Firefox ESR < 128.4, Thunderbird
+    < 128.4, and Thunderbird < 132.
+  url: https://www.cvedetails.com/cve/CVE-2024-10465/
+- cve_id: CVE-2024-10462
+  summary: Truncation of a long URL could have allowed origin spoofing in a permission
+    prompt. This vulnerability affects Firefox < 132, Firefox ESR < 128.4, Thunderbird
+    < 128.4, and Thunderbird < 132.
+  url: https://www.cvedetails.com/cve/CVE-2024-10462/
+- cve_id: CVE-2024-9391
+  summary: A user who enables full-screen mode on a specially crafted web page could
+    potentially be prevented from exiting full screen mode. This may allow spoofing
+    of other sites as the address bar is no longer visible. *This bug only affects
+    Firefox Focus for Android. Other versions of Firefox are unaffected.* This vulnerability
+    affects Firefox < 131.
+  url: https://www.cvedetails.com/cve/CVE-2024-9391/
+- cve_id: CVE-2024-8897
+  summary: Under certain conditions, an attacker with the ability to redirect users
+    to a malicious site via an open redirect on a trusted site, may be able to spoof
+    the address bar contents. This can lead to a malicious site to appear to have
+    the same URL as the trusted site. *This bug only affects Firefox for Android.
+    Other versions of Firefox are unaffected.* This vulnerability affects Firefox
+    for Android < 130.0.1.
+  url: https://www.cvedetails.com/cve/CVE-2024-8897/
+- cve_id: CVE-2024-8388
+  summary: Multiple prompts and panels from both Firefox and the Android OS could
+    be used to obscure the notification announcing the transition to fullscreen mode
+    after the fix for CVE-2023-6870 in Firefox 121. This could lead to spoofing the
+    browser UI if the sudden appearance of the prompt distracted the user from noticing
+    the visual transition happening behind the prompt. These notifications now use
+    the Android Toast feature. *This bug only affects Firefox on Android. Other operating
+    systems are unaffected.* This vulnerability affects Firefox < 130.
+  url: https://www.cvedetails.com/cve/CVE-2024-8388/
+- cve_id: CVE-2024-8386
+  summary: If a site had been granted the permission to open popup windows, it could
+    cause Select elements to appear on top of another site to perform a spoofing attack.
+    This vulnerability affects Firefox < 130, Firefox ESR < 128.2, and Thunderbird
+    < 128.2.
+  url: https://www.cvedetails.com/cve/CVE-2024-8386/
+- cve_id: CVE-2024-7518
+  summary: Select options could obscure the fullscreen notification dialog. This could
+    be used by a malicious site to perform a spoofing attack. This vulnerability affects
+    Firefox < 129, Firefox ESR < 128.1, and Thunderbird < 128.1.
+  url: https://www.cvedetails.com/cve/CVE-2024-7518/
+- cve_id: CVE-2024-5698
+  summary: By manipulating the fullscreen feature while opening a data-list, an attacker
+    could have overlaid a text box over the address bar. This could have led to user
+    confusion and possible spoofing attacks. This vulnerability affects Firefox <
+    127.
+  url: https://www.cvedetails.com/cve/CVE-2024-5698/
+- cve_id: CVE-2024-5689
+  summary: In addition to detecting when a user was taking a screenshot (XXX), a website
+    was able to overlay the 'My Shots' button that appeared, and direct the user to
+    a replica Firefox Screenshots page that could be used for phishing. This vulnerability
+    affects Firefox < 127.
+  url: https://www.cvedetails.com/cve/CVE-2024-5689/
+- cve_id: CVE-2024-5022
+  summary: The file scheme of URLs would be hidden, resulting in potential spoofing
+    of a website's address in the location bar This vulnerability affects Focus for
+    iOS < 126.
+  url: https://www.cvedetails.com/cve/CVE-2024-5022/
+- cve_id: CVE-2024-4773
+  summary: When a network error occurred during page load, the prior content could
+    have remained in view with a blank URL bar. This could have been used to obfuscate
+    a spoofed web site. This vulnerability affects Firefox < 126.
+  url: https://www.cvedetails.com/cve/CVE-2024-4773/
+- cve_id: CVE-2024-4766
+  summary: Different techniques existed to obscure the fullscreen notification in
+    Firefox for Android. These could have lead to potential user confusion and spoofing
+    attacks. *This bug only affects Firefox for Android. Other versions of Firefox
+    are unaffected.* This vulnerability affects Firefox < 126.
+  url: https://www.cvedetails.com/cve/CVE-2024-4766/
+- cve_id: CVE-2024-1548
+  summary: A website could have obscured the fullscreen notification by using a dropdown
+    select input element. This could have led to user confusion and possible spoofing
+    attacks. This vulnerability affects Firefox < 123, Firefox ESR < 115.8, and Thunderbird
+    < 115.8.
+  url: https://www.cvedetails.com/cve/CVE-2024-1548/
+- cve_id: CVE-2024-0749
+  summary: A phishing site could have repurposed an `about:` dialog to show phishing
+    content with an incorrect origin in the address bar. This vulnerability affects
+    Firefox < 122 and Thunderbird < 115.7.
+  url: https://www.cvedetails.com/cve/CVE-2024-0749/
+- cve_id: CVE-2023-37210
+  summary: A website could prevent a user from exiting full-screen mode via alert
+    and prompt calls. This could lead to user confusion and possible spoofing attacks.
+    This vulnerability affects Firefox < 115.
+  url: https://www.cvedetails.com/cve/CVE-2023-37210/
+- cve_id: CVE-2023-37207
+  summary: A website could have obscured the fullscreen notification by using a URL
+    with a scheme handled by an external program, such as a mailto URL. This could
+    have led to user confusion and possible spoofing attacks. This vulnerability affects
+    Firefox < 115, Firefox ESR < 102.13, and Thunderbird < 102.13.
+  url: https://www.cvedetails.com/cve/CVE-2023-37207/
+- cve_id: CVE-2023-37205
+  summary: The use of RTL Arabic characters in the address bar may have allowed for
+    URL spoofing. This vulnerability affects Firefox < 115.
+  url: https://www.cvedetails.com/cve/CVE-2023-37205/
+- cve_id: CVE-2023-37204
+  summary: A website could have obscured the fullscreen notification by using an option
+    element by introducing lag via an expensive computational function. This could
+    have led to user confusion and possible spoofing attacks. This vulnerability affects
+    Firefox < 115.
+  url: https://www.cvedetails.com/cve/CVE-2023-37204/
+- cve_id: CVE-2023-32205
+  summary: In multiple cases browser prompts could have been obscured by popups controlled
+    by content. These could have led to potential user confusion and spoofing attacks.
+    This vulnerability affects Firefox < 113, Firefox ESR < 102.11, and Thunderbird
+    < 102.11.
+  url: https://www.cvedetails.com/cve/CVE-2023-32205/
+- cve_id: CVE-2023-29534
+  summary: Different techniques existed to obscure the fullscreen notification in
+    Firefox and Focus for Android. These could have led to potential user confusion
+    and spoofing attacks. *This bug only affects Firefox and Focus for Android. Other
+    versions of Firefox are unaffected.* This vulnerability affects Firefox for Android
+    < 112 and Focus for Android < 112.
+  url: https://www.cvedetails.com/cve/CVE-2023-29534/
+- cve_id: CVE-2023-29533
+  summary: A website could have obscured the fullscreen notification by using a combination
+    of <code>window.open</code>, fullscreen requests, <code>window.name</code> assignments,
+    and <code>setInterval</code> calls. This could have led to user confusion and
+    possible spoofing attacks. This vulnerability affects Firefox < 112, Focus for
+    Android < 112, Firefox ESR < 102.10, Firefox for Android < 112, and Thunderbird
+    < 102.10.
+  url: https://www.cvedetails.com/cve/CVE-2023-29533/
+- cve_id: CVE-2023-28164
+  summary: Dragging a URL from a cross-origin iframe that was removed during the drag
+    could have led to user confusion and website spoofing attacks. This vulnerability
+    affects Firefox < 111, Firefox ESR < 102.9, and Thunderbird < 102.9.
+  url: https://www.cvedetails.com/cve/CVE-2023-28164/
+- cve_id: CVE-2023-28159
+  summary: The fullscreen notification could have been hidden on Firefox for Android
+    by using download popups, resulting in potential user confusion or spoofing attacks.
+    <br>*This bug only affects Firefox for Android. Other operating systems are unaffected.*.
+    This vulnerability affects Firefox < 111.
+  url: https://www.cvedetails.com/cve/CVE-2023-28159/
+- cve_id: CVE-2023-25748
+  summary: By displaying a prompt with a long description, the fullscreen notification
+    could have been hidden, resulting in potential user confusion or spoofing attacks.
+    <br>*This bug only affects Firefox for Android. Other operating systems are unaffected.*.
+    This vulnerability affects Firefox < 111.
+  url: https://www.cvedetails.com/cve/CVE-2023-25748/
+- cve_id: CVE-2023-25730
+  summary: A background script invoking <code>requestFullscreen</code> and then blocking
+    the main thread could force the browser into fullscreen mode indefinitely, resulting
+    in potential user confusion or spoofing attacks. This vulnerability affects Firefox
+    < 110, Thunderbird < 102.8, and Firefox ESR < 102.8.
+  url: https://www.cvedetails.com/cve/CVE-2023-25730/
+- cve_id: CVE-2023-23601
+  summary: Navigations were being allowed when dragging a URL from a cross-origin
+    iframe into the same tab which could lead to website spoofing attacks. This vulnerability
+    affects Firefox < 109, Thunderbird < 102.7, and Firefox ESR < 102.7.
+  url: https://www.cvedetails.com/cve/CVE-2023-23601/
+- cve_id: CVE-2023-5732
+  summary: An attacker could have created a malicious link using bidirectional characters
+    to spoof the location in the address bar when visited. This vulnerability affects
+    Firefox < 117, Firefox ESR < 115.4, and Thunderbird < 115.4.1.
+  url: https://www.cvedetails.com/cve/CVE-2023-5732/
+- cve_id: CVE-2023-5729
+  summary: A malicious web site can enter fullscreen mode while simultaneously triggering
+    a WebAuthn prompt. This could have obscured the fullscreen notification and could
+    have been leveraged in a spoofing attack. This vulnerability affects Firefox <
+    119.
+  url: https://www.cvedetails.com/cve/CVE-2023-5729/
+- cve_id: CVE-2023-5726
+  summary: 'A website could have obscured the full screen notification by using the
+    file open dialog. This could have led to user confusion and possible spoofing
+    attacks. *Note: This issue only affected macOS operating systems. Other operating
+    systems are unaffected.* This vulnerability affects Firefox < 119, Firefox ESR
+    < 115.4, and Thunderbird < 115.4.1.'
+  url: https://www.cvedetails.com/cve/CVE-2023-5726/
+- cve_id: CVE-2023-4579
+  summary: Search queries in the default search engine could appear to have been the
+    currently navigated URL if the search query itself was a well formed URL. This
+    could have led to a site spoofing another if it had been maliciously set as the
+    default search engine. This vulnerability affects Firefox < 117.
+  url: https://www.cvedetails.com/cve/CVE-2023-4579/
+- cve_id: CVE-2023-4053
+  summary: A website could have obscured the full screen notification by using a URL
+    with a scheme handled by an external program, such as a mailto URL. This could
+    have led to user confusion and possible spoofing attacks. This vulnerability affects
+    Firefox < 116, Firefox ESR < 115.2, and Thunderbird < 115.2.
+  url: https://www.cvedetails.com/cve/CVE-2023-4053/
+- cve_id: CVE-2023-4051
+  summary: A website could have obscured the full screen notification by using the
+    file open dialog. This could have led to user confusion and possible spoofing
+    attacks. This vulnerability affects Firefox < 116, Firefox ESR < 115.2, and Thunderbird
+    < 115.2.
+  url: https://www.cvedetails.com/cve/CVE-2023-4051/
+safari:
+- cve_id: CVE-2024-40866
+  summary: The issue was addressed with improved UI. This issue is fixed in Safari
+    18, macOS Sequoia 15. Visiting a malicious website may lead to address bar spoofing.
+  url: https://www.cvedetails.com/cve/CVE-2024-40866/
+- cve_id: CVE-2024-40817
+  summary: The issue was addressed with improved UI handling. This issue is fixed
+    in macOS Sonoma 14.6, Safari 17.6, macOS Monterey 12.7.6, macOS Ventura 13.6.8.
+    Visiting a website that frames malicious content may lead to UI spoofing.
+  url: https://www.cvedetails.com/cve/CVE-2024-40817/
+- cve_id: CVE-2023-42843
+  summary: An inconsistent user interface issue was addressed with improved state
+    management. This issue is fixed in iOS 16.7.2 and iPadOS 16.7.2, iOS 17.1 and
+    iPadOS 17.1, Safari 17.1, macOS Sonoma 14.1. Visiting a malicious website may
+    lead to address bar spoofing.
+  url: https://www.cvedetails.com/cve/CVE-2023-42843/
+- cve_id: CVE-2023-40417
+  summary: A window management issue was addressed with improved state management.
+    This issue is fixed in Safari 17, iOS 17 and iPadOS 17, watchOS 10, macOS Sonoma
+    14. Visiting a website that frames malicious content may lead to UI spoofing.
+  url: https://www.cvedetails.com/cve/CVE-2023-40417/
