@@ -218,7 +218,8 @@ class CVESearcher:
         else:
             return None
     
-    # WORK IN PROGRESS
+    
+    # Based on the recorded CVEs, save a list of the relevant browser versions
     def parse_browser_versions(self):
         # Load list of CVEs
         base_dir = self.config.browserstack_runner.target_generator.targets_directory
@@ -277,24 +278,6 @@ class CVESearcher:
                 versions["safari"].add(int(version_str))
         versions["safari"] = sorted(versions["safari"], reverse=True)
         print("Extracted Safari Versions:", versions["safari"])  
-        
-        # WORK IN PROGRESS; use selenium to grab the exact version from cvedetails
-        # driver = webdriver.Chrome(options=ChromeOptions())
-        # for entry in cve_results.get("firefox", []):
-        # url = entry["url"]
-        # driver.get(url)
-        # print(url)
-        # try:
-        #     cveAffectedProductsDiv = driver.find_element(By.XPATH, "//div[@id='cveAffectedProductsDiv']")
-        #     affected_versions = cveAffectedProductsDiv.find_elements(By.XPATH, ".//div/ul/li")
-        #     for affected_version in affected_versions:
-        #         version_number = affected_version.find_element(By.XPATH, ".//div/div/span[@class='bg-secondary-subtle bg-opacity-25 p-1 rounded']")
-        #         product_identifier = affected_version.find_element(By.XPATH, ".//div/div[@class='col-md-8 text-secondary']")
-        #         print(version_number.text, product_identifier.text)
-        # except Exception as e:
-        #     # print("Not able to find affected products div")
-        #     continue
-
 
         data = {
             'firefox_versions': versions["firefox"],
