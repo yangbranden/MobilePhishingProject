@@ -32,11 +32,15 @@ def test():
         "safari": set()
     }
     
+    print("Getting versions for edge")
+    
     for entry in cve_results.get("edge", []):
             cve_id = entry["cve_id"] 
             print(f"Getting version for {cve_id}")
             version = get_cve_version(cve_id)
             print(version)
+    
+    print("Getting versions for safari")
     for entry in cve_results.get("safari", []):
             cve_id = entry["cve_id"] 
             print(f"Getting version for {cve_id}")
