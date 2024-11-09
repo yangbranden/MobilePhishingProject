@@ -202,6 +202,21 @@ class CVESearcher:
             yaml.dump(cve_results, f)
         return
     
+    def get_version_from_cve(self, CVE):
+        # https://cveawg.mitre.org/api/cve/CVE-2024-40866
+        url = f"https://cveawg.mitre.org/api/cve/{CVE}"
+        response = requests.get(url)
+        if response.status_code == 200:
+            data = response.json()
+            
+            affected = data["containers"]["cna"]["affected"]
+            for item in affected:
+                versions = item["versions"]
+                for version in versions:
+                    if version.get("lessThan"):
+                        return version["lessThan"]
+        else:
+            return None
     
     # WORK IN PROGRESS
     def parse_browser_versions(self):
@@ -218,50 +233,50 @@ class CVESearcher:
             "safari": set()
         }
 
-        # Parse versions for Firefox; format is "Firefox < ###.#"
+        # Parse versions for Firefox;
         for entry in cve_results.get("firefox", []):
             cve_id = entry["cve_id"] 
-            summary = entry["summary"]
-            # Find the starting index of "Firefox < "
-            start_index = summary.find("Firefox < ")
-            # If the format "Firefox < " is found in the summary
-            if start_index != -1:
-                # Extract the version by slicing the string after "Firefox < "
-                version_part = summary[start_index + len("Firefox < "):]  
-                # Find the end of the version number, which is usually the first space or period afterward
-                end_index = version_part.find(" ")
-                if end_index == -1:  # If no space, take the whole part
-                    end_index = len(version_part)
-                version_str = version_part[:end_index].rstrip(",.")
-                # Add the version to the Firefox set
-                if version_str.isdigit():
-                    versions["firefox"].add(int(version_str))
+            version = self.get_version_from_cve(cve_id)
+            version_str = version.split('.')[0]  # Get the major version only
+            # Add the version to the Firefox set
+            if version_str.isdigit():
+                versions["firefox"].add(int(version_str))
         versions["firefox"] = sorted(versions["firefox"], reverse=True)
         print("Extracted Firefox Versions:", versions["firefox"])
 
 
-        # Parse versions for Google Chrome; format is "Google Chrome prior to ###.#"
+        # Parse versions for Google Chrome;
         for entry in cve_results.get("chrome", []):
             cve_id = entry["cve_id"] 
-            summary = entry["summary"]
-            if "Google Chrome prior to" in summary:
-                # Extract the version substring following "Google Chrome prior to "
-                start_index = summary.index("Google Chrome prior to") + len("Google Chrome prior to ")
-                version_part = summary[start_index:].split('.')[0]  # Get the major version before the first period
-                # Convert it to an integer
-                version_number = int(version_part)
-                # Add it to the set of Chrome versions
-                versions["chrome"].add(version_number)
-        # Convert the set to a sorted list
+            version = self.get_version_from_cve(cve_id)
+            version_str = version.split('.')[0]  # Get the major version only
+            # Add the version to the Chrome set
+            if version_str.isdigit():
+                versions["chrome"].add(int(version_str))
         versions["chrome"] = sorted(versions["chrome"], reverse=True)
         print("Extracted Chrome Versions:", versions["chrome"])
-
-
-        # (Versions for Microsoft Edge must be parsed manually; summary texts do not specify, but it does show on CVEdetails website)
-
-
-        # (Versions for Safari mustbe parsed manually; inconsistent summary text format)
         
+        # Parse versions for Microsoft Edge;
+        for entry in cve_results.get("edge", []):
+            cve_id = entry["cve_id"] 
+            version = self.get_version_from_cve(cve_id)
+            version_str = version.split('.')[0]  # Get the major version only
+            # Add the version to the Edge set
+            if version_str.isdigit():
+                versions["edge"].add(int(version_str))
+        versions["edge"] = sorted(versions["edge"], reverse=True)
+        print("Extracted Edge Versions:", versions["edge"])
+
+        # Parse versions for Safari;
+        for entry in cve_results.get("safari", []):
+            cve_id = entry["cve_id"] 
+            version = self.get_version_from_cve(cve_id)
+            version_str = version.split('.')[0]  # Get the major version only
+            # Add the version to the safari set
+            if version_str.isdigit():
+                versions["safari"].add(int(version_str))
+        versions["safari"] = sorted(versions["safari"], reverse=True)
+        print("Extracted Safari Versions:", versions["safari"])  
         
         # WORK IN PROGRESS; use selenium to grab the exact version from cvedetails
         # driver = webdriver.Chrome(options=ChromeOptions())
@@ -284,8 +299,8 @@ class CVESearcher:
         data = {
             'firefox_versions': versions["firefox"],
             'chrome_versions': versions["chrome"],
-            'edge_versions': [],
-            'safari_versions': [],
+            'edge_versions': versions["edge"],
+            'safari_versions': versions["safari"],
             'opera_versions': [12.16, 12.15] # There are only 2 versions of opera available on BrowserStack lol
         }
 

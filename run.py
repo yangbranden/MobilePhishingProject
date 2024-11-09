@@ -74,6 +74,10 @@ def cve_searcher_browser(args):
     config = OmegaConf.load(CONFIG_FILE)
     x = CVESearcher(config=config)
     x.scrape_browser_cves(args.source)
+def cve_searcher_versions(args):
+    config = OmegaConf.load(CONFIG_FILE)
+    x = CVESearcher(config=config)
+    x.parse_browser_versions()
 # def cve_searcher_os(args):
 #     config = OmegaConf.load(CONFIG_FILE)
 #     x = CVESearcher(config=config)
@@ -140,6 +144,11 @@ def main():
     cve_search_browser.add_argument("-s", "--source", choices=['cvedetails', 'mitre'], default='cvedetails', help="The CVE database to search from")
     cve_search_browser.add_argument("-y", "--year", default=(datetime.now().year-2), help="Get CVEs until [year] ago; default is 2 years old")
     cve_search_browser.set_defaults(func=cve_searcher_browser)
+    
+    cve_parse_version = cve_searcher_subparsers.add_parser("parse_version", help="Parse browser versions from CVEs")
+    cve_parse_version.set_defaults(func=cve_searcher_versions)
+
+    
     # cve_search_os = cve_searcher_subparsers.add_parser("os", help="Searches for phishing-related CVEs for OSs")
     # cve_search_os.add_argument("-s", "--source", choices=['cvedetails', 'mitre'], default='cvedetails', help="The CVE database to search from")
     # cve_search_os.add_argument("-y", "--year", default=(datetime.now().year-2), help="Get CVEs until [year] ago; default is 2 years old")
