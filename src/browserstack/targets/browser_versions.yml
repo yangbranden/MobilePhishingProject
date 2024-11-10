@@ -49,8 +49,7 @@ firefox_versions:
 - 110
 - 109
 opera_versions:
-- 12.16
-- 12.15
+- 
 safari_versions:
 - 17
 - 16
