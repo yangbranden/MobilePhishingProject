@@ -5,7 +5,8 @@ JwIZY1fx    |   10-24-24    |   All_Targets     |   phish-test.py   |   10 lates
 6rVphbHX    |   10-24-24    |   All_Targets     |   visit-only.py   |   10 latest phishtank     |   10 latest versions
 pOKUgP2N    |   10-25-24    |   All_Targets     |   visit-only.py   |   10 latest phishtank     |   10 latest versions 
 xhYQi9NJ    |   10-30-24    |   All_Targets     |   visit-only.py   |   10 latest phishtank     |   CVE-based version scoping
-rJJdSLUJ    |   11-07-24    |   All_Targets     |   visit-only.py   |   10 latest phishtank     |   CVE-based version scoping, by year (2022)
-iHRIMXqv    |   11-07-24    |   All_Targets     |   visit-only.py   |   10 latest phishtank     |   CVE-based version scoping, by year (2022)
-8BIwchFv    |   11-07-24    |   All_Targets     |   visit-only.py   |   10 latest phishtank     |   CVE-based version scoping, by year (2022)
-O2M8irR0    |   11-07-24    |   All_Targets     |   visit-only.py   |   10 latest phishtank     |   CVE-based version scoping, by year (2022)
+rJJdSLUJ    |   11-07-24    |   All_Targets     |   visit-only.py   |   10 latest phishtank     |   CVE-based version scoping, by year (2022) - incorrect
+iHRIMXqv    |   11-07-24    |   All_Targets     |   visit-only.py   |   10 latest phishtank     |   CVE-based version scoping, by year (2022) - incorrect
+8BIwchFv    |   11-07-24    |   All_Targets     |   visit-only.py   |   10 latest phishtank     |   CVE-based version scoping, by year (2022) - incorrect
+O2M8irR0    |   11-07-24    |   All_Targets     |   visit-only.py   |   10 latest phishtank     |   CVE-based version scoping, by year (2022) - incorrect
+YWkkHPgU    |   11-10-24    |   All_Targets     |   visit-only.py   |   10 latest phishtank     |   CVE-based version scoping, by year (2022)
