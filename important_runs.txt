@@ -10,3 +10,4 @@ iHRIMXqv    |   11-07-24    |   All_Targets     |   visit-only.py   |   10 lates
 8BIwchFv    |   11-07-24    |   All_Targets     |   visit-only.py   |   10 latest phishtank     |   CVE-based version scoping, by year (2022) - incorrect
 O2M8irR0    |   11-07-24    |   All_Targets     |   visit-only.py   |   10 latest phishtank     |   CVE-based version scoping, by year (2022) - incorrect
 YWkkHPgU    |   11-10-24    |   All_Targets     |   visit-only.py   |   10 latest phishtank     |   CVE-based version scoping, by year (2022)
+1uAdSmiL    |   11-10-24    |   All_Targets     |   visit-only.py   |   10 latest phishtank     |   CVE-based version scoping, by year (2022)
