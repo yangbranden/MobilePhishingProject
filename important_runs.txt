@@ -15,3 +15,4 @@ Lx1iBz0s    |   11-11-24    |   All_Targets     |   visit-only.py   |   10 lates
 dotQetQG    |   11-11-24    |   All_Targets     |   visit-only.py   |   10 latest phishtank     |   CVE-based version scoping, by year (2022)
 lQqblPgs    |   11-12-24    |   All_Targets     |   visit-only.py   |   10 latest phishtank     |   CVE-based version scoping, by year (2022)
 HtWS2rps    |   11-12-24    |   All_Targets     |   visit-only.py   |   10 latest phishtank     |   CVE-based version scoping, by year (2022)
+ItjDdasT    |   11-14-24    |   All_Targets     |   visit-only.py   |   10 latest phishtank     |   CVE-based version scoping, by year (2022)
