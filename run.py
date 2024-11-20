@@ -83,6 +83,14 @@ def cve_searcher_versions(args):
 #     x = CVESearcher(config=config)
 #     x.scrape_os_cves(args.source)
 
+# for testing new functionality
+def test(args):
+    print("doing nothing rn")
+    # config = OmegaConf.load(CONFIG_FILE)
+    # x = BrowserstackRunner(config=config)
+    # x.save_run_info("JwIZY1fx_All_Targets")
+
+
 def main():
     parser = argparse.ArgumentParser(description="Mobile Phishing framework")
     subparsers = parser.add_subparsers(dest="module", required=True, help="Module to run")
@@ -153,6 +161,11 @@ def main():
     # cve_search_os.add_argument("-s", "--source", choices=['cvedetails', 'mitre'], default='cvedetails', help="The CVE database to search from")
     # cve_search_os.add_argument("-y", "--year", default=(datetime.now().year-2), help="Get CVEs until [year] ago; default is 2 years old")
     # cve_search_os.set_defaults(func=cve_searcher_os)
+    
+    # for testing new functionality
+    test_parser = subparsers.add_parser("test")
+    test_parser.set_defaults(func=test)
+    
 
     # Parse the arguments and call the appropriate function
     args = parser.parse_args()
