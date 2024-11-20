@@ -33,6 +33,7 @@ from src.util import remove_empty_lines
 # - save_outcome_unique_id
 # - save_logs_session_id
 # - save_logs_unique_id
+# - save_run_info
 
 @dataclass
 class BrowserstackRunner:
@@ -111,6 +112,9 @@ class BrowserstackRunner:
 
         # Automatically save logs & outcome (select fields from logs) after running test
         self.save_all_unique_id(unique_id)
+        
+        # Save information about the entire build
+        self.save_run_info(build_name)
     
 
     # Creates the list (or folder) of targets to run the browserstack tests on; scopes by browser_versions.yml if it exists
@@ -415,7 +419,7 @@ class BrowserstackRunner:
 
         with open(f"{output_dir}/session.json", "w") as f:
             json.dump(output, f, indent=4)
-    
+
 
     # Save the page sources from each site visit based on session id
     def save_page_source_session_id(self, session_id):
@@ -656,7 +660,7 @@ class BrowserstackRunner:
         for count, session_id in enumerate(session_ids):
             print(f"({count+1}/{len(session_ids)}) ", end='')
             self.save_logs_session_id(session_id)
-            
+
     
     # Saves all data relating to session id
     def save_all_session_id(self, session_id):
@@ -674,3 +678,73 @@ class BrowserstackRunner:
         self.save_outcome_unique_id(unique_id)
         self.save_page_source_unique_id(unique_id)
         print(f'ALL DATA SAVED FOR UNIQUE ID "{unique_id}"')
+        
+    
+    # Analyzes files present in a build directory (identified by build_name + output_directory specified in config file)
+    # and generates an info.json file containing the following:
+    # - build name
+    # - first session time (start of first session)
+    # - last session time (start of last session)
+    # - urls tested
+    def save_run_info(self, build_name):
+        output_dir = os.path.join(self.config.browserstack_runner.output_analyzer.output_directory, build_name)
+        if not os.path.exists(output_dir):
+            raise Exception(f"Exception (save_run_info): no files for build_name {build_name} found")
+        
+        # Go through all subdirectories in the folder and read information from relevant files
+        earliest_time = None
+        latest_time = None
+        urls = None
+        # Traverse subdirectories to find session.json files
+        for root, dirs, files in os.walk(output_dir):
+            for file_name in files:
+                if file_name == "session.json":
+                    # Read session.json file
+                    session_file_path = os.path.join(root, file_name)
+                    try:
+                        with open(session_file_path, 'r') as session_file:
+                            session_data = json.load(session_file)
+                            created_at = session_data.get("created_at")
+                            
+                            # Convert timestamp to datetime object
+                            if created_at:
+                                created_at_dt = datetime.fromisoformat(created_at.replace("Z", "+00:00"))
+                                
+                                # Update earliest and latest times
+                                if earliest_time is None or created_at_dt < earliest_time:
+                                    earliest_time = created_at_dt
+                                if latest_time is None or created_at_dt > latest_time:
+                                    latest_time = created_at_dt
+                    except Exception as e:
+                        print(f"Error reading session.json at {session_file_path}: {e}")
+                elif file_name == "outcomes.json" and urls is None:
+                    # Read outcomes.json file
+                    outcomes_file_path = os.path.join(root, file_name)
+                    try:
+                        with open(outcomes_file_path, 'r') as outcomes_file:
+                            outcomes_data = json.load(outcomes_file)
+                            urls = list(outcomes_data.keys())
+                    except Exception as e:
+                        print(f"Error reading outcomes.json at {outcomes_file_path}: {e}")
+        
+        # Ensure we have valid timestamps
+        if earliest_time is None or latest_time is None:
+            raise Exception("No valid session.json files found or missing 'created_at' fields.")
+        
+        # Convert timestamps to ISO 8601 strings
+        earliest_time = earliest_time.isoformat()
+        latest_time = latest_time.isoformat()
+        
+        # Create data object containing contents of config and urls_file
+        run_info = {
+            "build_name": build_name,
+            "first_session_time": earliest_time,
+            "last_session_time": latest_time,
+            "urls": urls
+        }
+        
+        # Save data to info.json in the output directory
+        info_file_path = os.path.join(output_dir, "info.json")
+        with open(info_file_path, 'w') as info_file:
+            json.dump(run_info, info_file, indent=4)
+        print(f"Created info.json for {build_name} ({info_file_path})")
