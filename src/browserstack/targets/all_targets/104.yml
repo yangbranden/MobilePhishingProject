@@ -4,6 +4,11 @@
 - os: android
   os_version: '15.0'
   browser: android
+  device: Google Pixel 9 Pro
+  real_mobile: true
+- os: android
+  os_version: '15.0'
+  browser: android
   device: Google Pixel 9
   real_mobile: true
 - os: android
