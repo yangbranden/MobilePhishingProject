@@ -1,6 +1,11 @@
 import os
 import json
 import csv
+import re
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from pandasgui import show
 
 browser_block_messages = {
     "Microsoft Edge (1)": 'This site has been reported as unsafe',
@@ -26,7 +31,16 @@ browser_block_messages = {
 }
 
 not_found_messages = {
-    "Page Not Found": "Not Found"
+    "Generic Not Found (1)": "Page not found",
+    "Generic Not Found (2)": "Not Found</pre></body></html>",
+    "Generic Not Found (3)": "The page you are looking for doesn't exist or has been moved.",
+    "Wix Not Found (1)": "We Looked Everywhere<br>For This Page!",
+    "Wix Not Found (2)": "angular.module('wixErrorPagesApp').constant('errorCode', {code: '404'});",
+    "Cisco Umbrella Blocked": "This site is blocked due to a phishing threat.",
+    "502 Bad Gateway": "502 Bad Gateway",
+    "BrowserStack Unable to Display": "Unable to display the page",
+    "Cloudflare SSL Handshake (1)": "SSL handshake failed",
+    "Cloudflare SSL Handshake (2)": "Visit <a href=\"https://www.cloudflare.com/5xx-error-landing?utm_source=errorcode_525",
 }
 
 def parse_data(base_dir):
@@ -45,6 +59,7 @@ def parse_data(base_dir):
                 # Parse text logs
                 if file == "text_logs.txt":
                     with open(file_path, 'r', encoding='utf-8') as f:
+                        get_url_req_detected = False # This is to prevent multiple entries for consecutive REQUESTs to /source (only look at first; they should be the same, idk why this happens)
                         get_source_req_detected = False
                         url = None
                         
@@ -53,7 +68,7 @@ def parse_data(base_dir):
                             result = None
                             if "REQUEST" in line:
                                 # Detect the REQUEST for /url
-                                if "/url" in line: 
+                                if "/url" in line:
                                     segments = line.split(' ')
                                     json_str = ' '.join(segments[7:])
                                     try:
@@ -62,13 +77,20 @@ def parse_data(base_dir):
                                     except Exception as e:
                                         print(f"Exception getting /url: {e}")
                                         continue
+                                    get_url_req_detected = True
                                 # Detect the REQUEST for /source
-                                elif "/source" in line:
+                                elif "/source" in line and get_url_req_detected:
                                     get_source_req_detected = True # indicates that the next RESPONSE should be interpreted as page source
+                                    get_url_req_detected = False # previous REQUEST is no longer for /url
                             elif "RESPONSE" in line:
                                 # Detect the RESPONSE after the /source request
                                 if get_source_req_detected:
                                     try:
+                                        # First get timestamp
+                                        segments = line.split(' ')
+                                        timestamp = ' '.join(segments[:2])
+                                        
+                                        # Then get json response data
                                         segments = line.split('{"value":')
                                         page_source = '{"value":'.join(segments[1:])[:-1] # get the page source by parsing it out of the "value" json response (remove last '}')
                                         result = 0
@@ -89,14 +111,18 @@ def parse_data(base_dir):
                                                     reasoning = not_found + ": " + not_found_message
                                                     break
                                         
+                                        # if url == "hxxps://evrios.help":
+                                        #     print(page_source, not_found_message) # TODO
+                                        
                                         if result == 0:
                                             reasoning = "Page allowed; not blocked"
                                         
                                         current_entry = dict()
                                         current_entry["url"] = url
-                                        current_entry["page_source"] = page_source
-                                        current_entry["result"] = result
+                                        current_entry["page_source"] = None # page_source # commenting out because otherwise file becomes unreadable (too big)
+                                        current_entry["result"] = result # 0 = allowed through; 1 = blocked by browser; -1 = other reason (blocked by 3rd party/taken down)
                                         current_entry["reasoning"] = reasoning
+                                        current_entry["timestamp"] = timestamp
                                         visit_data.append(current_entry)
                                     except Exception:
                                         print(f"Exception getting page source: {e}")
@@ -133,6 +159,7 @@ def parse_data(base_dir):
                 entry["reasoning"] = visit["reasoning"]
                 entry["public_url"] = session_data["public_url"]
                 entry["page_source"] = visit["page_source"]
+                entry["timestamp"] = visit["timestamp"]
                 data.append(entry)
     return data
 
@@ -146,18 +173,103 @@ def create_csv(file_path, data):
         # Write each dictionary as a row
         writer.writerows(data)
 
-def analysis():
-    # TODO: can put ML/statistics stuff here
-    return
+def analysis(csv_file_path):
+    try:
+        df = pd.read_csv(csv_file_path)
+        df['timestamp'] = pd.to_datetime(df['timestamp'], format='%Y-%m-%d %H:%M:%S:%f') # convert timestamp to datetime object
+
+        # Plot 1: device horizontal bar chart for average result (recall: 0 = allowed through; 1 = blocked by browser; -1 = other reason (blocked by 3rd party/taken down))
+        df = df[df['device'].notna()] # remove null values for device
+        df['result'].groupby(df['device']).mean().sort_values().plot(kind='barh', figsize=(10, 8), color='skyblue')
+        plt.title('Average Result by Device')
+        plt.xlabel('Average Result')
+        plt.ylabel('Device')
+        plt.show()
+        
+        
+        # Observation 1: due to groupings, I think maybe a big factor is the time of testing (more so than the factors of device/os/browser)
+        # df.set_index('timestamp', inplace=True)
+        # resampled_times = df.groupby('device').resample('h').size().reset_index(name='test_count')
+        # tested_times = resampled_times[resampled_times['test_count'] > 0]
+        # show(tested_times[['device', 'timestamp']])
+        # # This is just without resampling (to confirm individual timestamps) 
+        # device_times = df.groupby('device').size().reset_index(name='test_count')
+        # df_reset = df.reset_index()
+        # tested_times = df_reset[df_reset['device'].isin(device_times[device_times['test_count'] > 0]['device'])]
+        # show(tested_times[['device', 'timestamp']])
+        
+        
+        # Plot 2: OS horizontal bar charts
+        # for os in df['os'].unique():
+        #     # Filter the data for the current OS
+        #     os_data = df[df['os'] == os]
+        #     # Calculate the average result (success rate) for each os_version
+        #     avg_results = os_data.groupby('os_version')['result'].mean()
+        #     # Create a horizontal bar plot for the average success rate (no sorting)
+        #     plt.figure(figsize=(12, 6))
+        #     avg_results.plot(kind='barh', color='skyblue')
+        #     # Set x-axis limits from -1 to 1
+        #     plt.xlim(-1, 1)
+        #     plt.title(f'Average Success Rate by OS Version for {os}')
+        #     plt.xlabel('Average Success Rate')
+        #     plt.ylabel('OS Version')
+        #     plt.tight_layout()
+        #     plt.show()
+        
+        
+        # Plot 3: browser horizontal bar charts
+        # for browser in df['browser'].unique():
+        #     # Filter the data for the current browser
+        #     browser_data = df[df['browser'] == browser]
+        #     # Calculate the average result (success rate) for each browser_version
+        #     avg_results = browser_data.groupby('browser_version')['result'].mean()
+        #     # Create a horizontal bar plot for the average success rate (no sorting)
+        #     plt.figure(figsize=(12, 6))
+        #     avg_results.plot(kind='barh', color='skyblue')
+        #     # Set x-axis limits from -1 to 1
+        #     plt.xlim(-1, 1)
+        #     plt.title(f'Average Success Rate by Browser Version for {browser}')
+        #     plt.xlabel('Average Success Rate')
+        #     plt.ylabel('Browser Version')
+        #     plt.tight_layout()
+        #     plt.show()
+        
+        
+        
+        
+        
+        ### IGNORE FOR NOW ###
+        # with open(csv_file_path, mode='r', newline='', encoding='utf-8') as file:
+        #     reader = csv.DictReader(file)
+            
+        #     # Check if required fields exist
+        #     if 'public_url' not in reader.fieldnames or 'result' not in reader.fieldnames:
+        #         raise ValueError("CSV file must contain 'public_url' and 'result' columns.")
+            
+        #     print("Public URLs with result = 0:")
+        #     for row in reader:
+        #         try:
+        #             temp_skip = [
+        #                 "hxxps://keepo.io/goodgood/",
+        #                 "hxxps://bafkreic73cwiszlzfyym5yow4ndbxgkzk5dwtt3aye5u4t63hgoimvf7nu.ipfs.dweb.link/",
+        #             ]
+        #             if int(row['result']) == 0 and row['url'] not in temp_skip and "hxxps://docs.google.com/presentation/d/" not in row['url']:
+        #                 print(row)
+        #         except ValueError:
+        #             print(f"Skipping invalid result value: {row['result']}")
+    except FileNotFoundError:
+        print(f"File not found: {csv_file_path}")
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
 def agnostic_criteria():
     # Replace with directory to analyze
-    base_directory = './output_data/HGWhwxQ6_All_Targets'
+    base_directory = './output_data/UB70Lvvd_All_Targets'
     csv_output = './Evaluation/agnostic_test.csv'
     data = parse_data(base_directory)
     create_csv(csv_output, data)
-    # print(data)
-    # analysis()
 
 if __name__ == "__main__":
-    agnostic_criteria()
+    # agnostic_criteria()
+    csv_file = './Evaluation/agnostic_test.csv'
+    analysis(csv_file)
