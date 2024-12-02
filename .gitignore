@@ -12,3 +12,10 @@ output_data/
 tmp/
 tmp.py
 MachineLearning/local/
+transparent_test.csv
+Evaluation/blocked_page/blocked.csv
+Evaluation/transparent.csv
+Evaluation/transparent.csv
+Evaluation/blocked_page/blocked.csv
+Evaluation/transparent.csv
+transparent_test.csv
