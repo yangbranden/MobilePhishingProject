@@ -43,140 +43,138 @@ not_found_messages = {
     "Cloudflare SSL Handshake (2)": "Visit <a href=\"https://www.cloudflare.com/5xx-error-landing?utm_source=errorcode_525",
 }
 
-def parse_data(base_dir):
-    data = list() # Data to be returned (CSV file contents)
-    # Walk through all files and subdirectories in the base directory
-    for dirpath, dirnames, _ in os.walk(base_dir):
-        for dir in dirnames:
-            # Loop through each session folder
-            session_path = os.path.join(dirpath, dir)
-            session_data = dict() # Keep track of data for current session
-            visit_data = list() # List of dicts for each page visit
-            # print(session_path)
-            for file in os.listdir(session_path):
-                file_path = os.path.join(session_path, file)
-                
-                # Parse text logs
-                if file == "text_logs.txt":
-                    with open(file_path, 'r', encoding='utf-8') as f:
-                        get_url_req_detected = False # This is to prevent multiple entries for consecutive REQUESTs to /source (only look at first; they should be the same, idk why this happens)
-                        get_source_req_detected = False
-                        url = None
-                        
-                        text_logs = f.read().splitlines()
-                        for line in text_logs:
-                            result = None
-                            if "REQUEST" in line:
-                                # Detect the REQUEST for /url
-                                if "/url" in line:
-                                    segments = line.split(' ')
-                                    json_str = ' '.join(segments[7:])
-                                    try:
-                                        json_data = json.loads(json_str)
-                                        url = json_data["url"].replace("http", "hxxp")
-                                    except Exception as e:
-                                        print(f"Exception getting /url: {e}")
-                                        continue
-                                    get_url_req_detected = True
-                                # Detect the REQUEST for /source
-                                elif "/source" in line and get_url_req_detected:
-                                    get_source_req_detected = True # indicates that the next RESPONSE should be interpreted as page source
-                                    get_url_req_detected = False # previous REQUEST is no longer for /url
-                            elif "RESPONSE" in line:
-                                # Detect the RESPONSE after the /source request
-                                if get_source_req_detected:
-                                    try:
-                                        # First get timestamp
-                                        segments = line.split(' ')
-                                        timestamp = ' '.join(segments[:2])
-                                        
-                                        # Then get json response data
-                                        segments = line.split('{"value":')
-                                        page_source = '{"value":'.join(segments[1:])[:-1] # get the page source by parsing it out of the "value" json response (remove last '}')
-                                        result = 0
-                                        
-                                        # Check if browser block message in page source:
-                                        for browser, browser_block_message in browser_block_messages.items():
-                                            if browser_block_message in page_source:
-                                                result = 1
-                                                reasoning = browser + ": " + browser_block_message
-                                                break
-                                        
-                                        # Check for other potential scenarios if result != 1 already
-                                        if result != 1:
-                                            # Check for not found messages
-                                            for not_found, not_found_message in not_found_messages.items():
-                                                if not_found_message in page_source:
-                                                    result = -1
-                                                    reasoning = not_found + ": " + not_found_message
-                                                    break
-                                        
-                                        # if url == "hxxps://evrios.help":
-                                        #     print(page_source, not_found_message) # TODO
-                                        
-                                        if result == 0:
-                                            reasoning = "Page allowed; not blocked"
-                                        
-                                        current_entry = dict()
-                                        current_entry["url"] = url
-                                        current_entry["page_source"] = None # page_source # commenting out because otherwise file becomes unreadable (too big)
-                                        current_entry["result"] = result # 0 = allowed through; 1 = blocked by browser; -1 = other reason (blocked by 3rd party/taken down)
-                                        current_entry["reasoning"] = reasoning
-                                        current_entry["timestamp"] = timestamp
-                                        visit_data.append(current_entry)
-                                    except Exception:
-                                        print(f"Exception getting page source: {e}")
-                                        continue
-                                    get_source_req_detected = False
-                
-                # Parse session.json
-                elif file == "session.json":
-                    try:
-                        with open(file_path, 'r') as f:
-                            json_data = json.load(f)
-                            
-                            session_data["device"] = json_data["device_info"].get("device", "Unknown")
-                            session_data["os"] = json_data["device_info"]["os"]
-                            session_data["os_version"] = json_data["device_info"]["os_version"]
-                            session_data["browser"] = json_data["device_info"]["browser"]
-                            session_data["browser_version"] = json_data["device_info"]["browser_version"]
-                            session_data["public_url"] = json_data["public_url"]
-                            
-                    except json.JSONDecodeError:
-                        print(f"Error decoding JSON in {file_path}")
-            
-            # Go through all visit data and create entries to put into data
-            for visit in visit_data:
-                # Initialize each entry to session_data
-                entry = dict()
-                entry["device"] = session_data.get("device", "Unknown")
-                entry["os"] = session_data["os"]
-                entry["os_version"] = session_data["os_version"]
-                entry["browser"] = session_data["browser"]
-                entry["browser_version"] = session_data["browser_version"]
-                entry["url"] = visit["url"]
-                entry["result"] = visit["result"]
-                entry["reasoning"] = visit["reasoning"]
-                entry["public_url"] = session_data["public_url"]
-                entry["page_source"] = visit["page_source"]
-                entry["timestamp"] = visit["timestamp"]
-                data.append(entry)
-    return data
+def parse_data(data_dirs: list, csv_path: str):
+    # Open CSV file for appending
+    with open(csv_path, mode="w", newline="", encoding="utf-8") as csv_file:
+        writer = None  # Writer object to be initialized after getting fieldnames
+        
+        for data_dir in data_dirs:
+            print(f"Parsing directory '{data_dir}'...")
+            # Walk through all files and subdirectories in the base directory
+            for dirpath, dirnames, _ in os.walk(data_dir):
+                for dir in dirnames:
+                    # Loop through each session folder
+                    session_path = os.path.join(dirpath, dir)
+                    session_data = dict()  # Keep track of data for current session
+                    visit_data = list()  # List of dicts for each page visit
+                    for file in os.listdir(session_path):
+                        file_path = os.path.join(session_path, file)
 
-def create_csv(file_path, data):
-    with open(file_path, mode="w", newline="", encoding="utf-8") as file:
-        # Extract headers from the first dictionary
-        fieldnames = data[0].keys()
-        writer = csv.DictWriter(file, fieldnames=fieldnames)
-        # Write the header row
-        writer.writeheader()
-        # Write each dictionary as a row
-        writer.writerows(data)
+                        # Parse text logs
+                        if file == "text_logs.txt":
+                            with open(file_path, 'r', encoding='utf-8') as f:
+                                get_url_req_detected = False  # Prevent multiple entries for consecutive REQUESTs to /source
+                                get_source_req_detected = False
+                                url = None
 
-def analysis(csv_file_path):
+                                text_logs = f.read().splitlines()
+                                for line in text_logs:
+                                    result = None
+                                    if "REQUEST" in line:
+                                        # Detect the REQUEST for /url
+                                        if "/url" in line:
+                                            segments = line.split(' ')
+                                            json_str = ' '.join(segments[7:])
+                                            try:
+                                                json_data = json.loads(json_str)
+                                                url = json_data["url"].replace("http", "hxxp")
+                                            except Exception as e:
+                                                print(f"Exception getting /url: {e}")
+                                                continue
+                                            get_url_req_detected = True
+                                        # Detect the REQUEST for /source
+                                        elif "/source" in line and get_url_req_detected:
+                                            get_source_req_detected = True  # Indicates that the next RESPONSE should be interpreted as page source
+                                            get_url_req_detected = False  # Previous REQUEST is no longer for /url
+                                    elif "RESPONSE" in line:
+                                        # Detect the RESPONSE after the /source request
+                                        if get_source_req_detected:
+                                            try:
+                                                # First get timestamp
+                                                segments = line.split(' ')
+                                                timestamp = ' '.join(segments[:2])
+
+                                                # Then get json response data
+                                                segments = line.split('{"value":')
+                                                page_source = '{"value":'.join(segments[1:])[:-1]  # Get the page source by parsing it out of the "value" json response (remove last '}')
+                                                result = 0
+
+                                                # Check if browser block message in page source:
+                                                for browser, browser_block_message in browser_block_messages.items():
+                                                    if browser_block_message in page_source:
+                                                        result = 1
+                                                        reasoning = browser + ": " + browser_block_message
+                                                        break
+
+                                                # Check for other potential scenarios if result != 1 already
+                                                if result != 1:
+                                                    # Check for not found messages
+                                                    for not_found, not_found_message in not_found_messages.items():
+                                                        if not_found_message in page_source:
+                                                            result = -1
+                                                            reasoning = not_found + ": " + not_found_message
+                                                            break
+
+                                                if result == 0:
+                                                    reasoning = "Page allowed; not blocked"
+
+                                                current_entry = dict()
+                                                current_entry["url"] = url
+                                                current_entry["page_source"] = None  # commenting out because otherwise file becomes unreadable (too big)
+                                                current_entry["result"] = result  # 0 = allowed through; 1 = blocked by browser; -1 = other reason (blocked by 3rd party/taken down)
+                                                current_entry["reasoning"] = reasoning
+                                                current_entry["timestamp"] = timestamp
+                                                visit_data.append(current_entry)
+                                            except Exception:
+                                                print(f"Exception getting page source: {e}")
+                                                continue
+                                            get_source_req_detected = False
+
+                        # Parse session.json
+                        elif file == "session.json":
+                            try:
+                                with open(file_path, 'r') as f:
+                                    json_data = json.load(f)
+
+                                    session_data["device"] = json_data["device_info"].get("device", "Unknown")
+                                    session_data["os"] = json_data["device_info"]["os"]
+                                    session_data["os_version"] = json_data["device_info"]["os_version"]
+                                    session_data["browser"] = json_data["device_info"]["browser"]
+                                    session_data["browser_version"] = json_data["device_info"]["browser_version"]
+                                    session_data["public_url"] = json_data["public_url"]
+
+                            except json.JSONDecodeError:
+                                print(f"Error decoding JSON in {file_path}")
+
+                    # Go through all visit data and create entries to write into CSV
+                    for visit in visit_data:
+                        # Initialize each entry to session_data
+                        entry = dict()
+                        entry["device"] = session_data.get("device", "Unknown")
+                        entry["os"] = session_data["os"]
+                        entry["os_version"] = session_data["os_version"]
+                        entry["browser"] = session_data["browser"]
+                        entry["browser_version"] = session_data["browser_version"]
+                        entry["url"] = visit["url"]
+                        entry["result"] = visit["result"]
+                        entry["reasoning"] = visit["reasoning"]
+                        entry["public_url"] = session_data["public_url"]
+                        entry["page_source"] = visit["page_source"]
+                        entry["timestamp"] = visit["timestamp"]
+
+                        # Initialize CSV writer once fieldnames are available
+                        if writer is None:
+                            writer = csv.DictWriter(csv_file, fieldnames=entry.keys())
+                            writer.writeheader()
+                        # Write the entry to the CSV file
+                        writer.writerow(entry)
+
+
+def agnostic_criteria(csv_file_path):
     try:
         df = pd.read_csv(csv_file_path)
         df['timestamp'] = pd.to_datetime(df['timestamp'], format='%Y-%m-%d %H:%M:%S:%f') # convert timestamp to datetime object
+        df = df[df['result'] != -1]  # Remove rows where result is -1
 
         # Plot 1: device horizontal bar chart for average result (recall: 0 = allowed through; 1 = blocked by browser; -1 = other reason (blocked by 3rd party/taken down))
         df = df[df['device'].notna()] # remove null values for device
@@ -186,8 +184,7 @@ def analysis(csv_file_path):
         plt.ylabel('Device')
         plt.show()
         
-        
-        # Observation 1: due to groupings, I think maybe a big factor is the time of testing (more so than the factors of device/os/browser)
+        # Observation: due to groupings, I think maybe a big factor is the time of testing (more so than the factors of device/os/browser)
         # df.set_index('timestamp', inplace=True)
         # resampled_times = df.groupby('device').resample('h').size().reset_index(name='test_count')
         # tested_times = resampled_times[resampled_times['test_count'] > 0]
@@ -197,7 +194,6 @@ def analysis(csv_file_path):
         # df_reset = df.reset_index()
         # tested_times = df_reset[df_reset['device'].isin(device_times[device_times['test_count'] > 0]['device'])]
         # show(tested_times[['device', 'timestamp']])
-        
         
         # Plot 2: OS horizontal bar charts
         # for os in df['os'].unique():
@@ -215,7 +211,6 @@ def analysis(csv_file_path):
         #     plt.ylabel('OS Version')
         #     plt.tight_layout()
         #     plt.show()
-        
         
         # Plot 3: browser horizontal bar charts
         # for browser in df['browser'].unique():
@@ -238,7 +233,7 @@ def analysis(csv_file_path):
         
         
         
-        ### IGNORE FOR NOW ###
+        ### IGNORE (was using for testing data cleaning stuff) ###
         # with open(csv_file_path, mode='r', newline='', encoding='utf-8') as file:
         #     reader = csv.DictReader(file)
             
@@ -262,14 +257,29 @@ def analysis(csv_file_path):
     except Exception as e:
         print(f"An error occurred: {e}")
 
-def agnostic_criteria():
-    # Replace with directory to analyze
-    base_directory = './output_data/UB70Lvvd_All_Targets'
-    csv_output = './Evaluation/agnostic_test.csv'
-    data = parse_data(base_directory)
-    create_csv(csv_output, data)
-
 if __name__ == "__main__":
-    # agnostic_criteria()
+    # Replace with directory to analyze
+    data_directories = [
+        # './output_data/HGWhwxQ6_All_Targets',
+        # './output_data/JwIZY1fx_All_Targets',
+        # './output_data/6rVphbHX_All_Targets',
+        # './output_data/pOKUgP2N_All_Targets',
+        # './output_data/xhYQi9NJ_All_Targets',
+        # './output_data/rJJdSLUJ_All_Targets',
+        # './output_data/iHRIMXqv_All_Targets',
+        # './output_data/8BIwchFv_All_Targets',
+        # './output_data/O2M8irR0_All_Targets', # i think the data collection before this is kinda bad :(
+        './output_data/YWkkHPgU_All_Targets',
+        './output_data/1uAdSmiL_All_Targets',
+        './output_data/Lx1iBz0s_All_Targets',
+        './output_data/lQqblPgs_All_Targets',
+        './output_data/HtWS2rps_All_Targets',
+        './output_data/ItjDdasT_All_Targets',
+        './output_data/WVGMx5Y2_All_Targets',
+        './output_data/UB70Lvvd_All_Targets',
+        ]
     csv_file = './Evaluation/agnostic_test.csv'
-    analysis(csv_file)
+    parse_data(data_directories, csv_file)
+    
+    # This is the actual data analysis
+    # agnostic_criteria(csv_file)
