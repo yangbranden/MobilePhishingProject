@@ -18,3 +18,4 @@ ItjDdasT    |   11-14-24    |   All_Targets     |   visit-only.py   |   10 lates
 WVGMx5Y2    |   11-17-24    |   All_Targets     |   phish-test.py   |   10 latest phishtank     |   CVE-based version scoping, by year (2022)
 UB70Lvvd    |   11-18-24    |   All_Targets     |   phish-test.py   |   10 latest phishtank     |   CVE-based version scoping, by year (2022)
 6RXagsDZ    |   12-02-24    |   All_Targets     |   phish-test.py   |   10 latest phishtank     |   CVE-based version scoping, by year (2022)
+VBlGVVF8    |   12-02-24    |   Android         |   phish-test.py   |   10 latest phishtank     |   CVE-based version scoping, by year (2022)
