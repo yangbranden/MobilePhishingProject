@@ -19,3 +19,6 @@ WVGMx5Y2    |   11-17-24    |   All_Targets     |   phish-test.py   |   10 lates
 UB70Lvvd    |   11-18-24    |   All_Targets     |   phish-test.py   |   10 latest phishtank     |   CVE-based version scoping, by year (2022)
 6RXagsDZ    |   12-02-24    |   All_Targets     |   phish-test.py   |   10 latest phishtank     |   CVE-based version scoping, by year (2022)
 VBlGVVF8    |   12-02-24    |   Android         |   phish-test.py   |   10 latest phishtank     |   CVE-based version scoping, by year (2022)
+vr3No8Pv    |   12-03-24    |   Android         |   phish-test.py   |   10 latest phishtank     |   CVE-based version scoping, by year (2022)
+zbSbjZVH    |   12-03-24    |   iOS             |   phish-test.py   |   10 latest phishtank     |   CVE-based version scoping, by year (2022)
+yeH04IHk    |   12-03-24    |   iOS             |   phish-test.py   |   10 latest phishtank     |   CVE-based version scoping, by year (2022)
