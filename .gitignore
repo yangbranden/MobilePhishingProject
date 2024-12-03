@@ -11,7 +11,7 @@ __pycache__/
 output_data/
 tmp/
 tmp.py
-MachineLearning/local/
+Evaluation/*.csv
 transparent_test.csv
 Evaluation/blocked_page/blocked.csv
 Evaluation/transparent.csv
