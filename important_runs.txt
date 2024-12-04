@@ -24,3 +24,5 @@ zbSbjZVH    |   12-03-24    |   iOS             |   phish-test.py   |   10 lates
 yeH04IHk    |   12-03-24    |   iOS             |   phish-test.py   |   10 latest phishtank     |   CVE-based version scoping, by year (2022)
 wLBpgJNn    |   12-03-24    |   Android         |   phish-test.py   |   10 latest phishtank     |   CVE-based version scoping, by year (2022)
 Ahr2slMU    |   12-04-24    |   iOS             |   phish-test.py   |   10 latest phishtank     |   CVE-based version scoping, by year (2022)
+oNXmQznS    |   12-04-24    |   Android         |   phish-test.py   |   10 latest phishtank     |   CVE-based version scoping, by year (2022)
+LVD83eZN    |   12-04-24    |   iOS             |   phish-test.py   |   10 latest phishtank     |   CVE-based version scoping, by year (2022)
