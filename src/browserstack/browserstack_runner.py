@@ -44,7 +44,7 @@ class BrowserstackRunner:
         urls_file = self.config.browserstack_runner.urls_file
         targets_src = self.config.browserstack_runner.targets_src
         # build_name = f"{datetime.now().strftime("%m_%d")}_{self.config.browserstack_runner.build_name}"
-        unique_id = generate_unique_str()
+        unique_id = self.config.browserstack_runner.unique_id if self.config.browserstack_runner.interrupted else generate_unique_str()
         build_name = f"{unique_id}_{self.config.browserstack_runner.build_name}"
 
         # Save the original config to restore later
