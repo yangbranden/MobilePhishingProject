@@ -7,3 +7,8 @@
   browser: samsung
   device: Samsung Galaxy S23 Ultra
   real_mobile: true
+- os: android
+  os_version: '13.0'
+  browser: android
+  device: Samsung Galaxy S23 Ultra
+  real_mobile: true

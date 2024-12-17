@@ -110,6 +110,11 @@ class BrowserstackRunner:
         with open("browserstack.yml", "w") as f:
             yaml.dump(original_config, f)
 
+        # Wait a bit to let logs finish saving on server-side
+        print("Waiting a bit to allow test to wrap up before saving logs...")
+        time.sleep(10)
+        print("Saving logs now...")
+
         # Automatically save logs & outcome (select fields from logs) after running test
         self.save_all_unique_id(unique_id)
         
