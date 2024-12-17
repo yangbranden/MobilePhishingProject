@@ -9,7 +9,7 @@ from get_certificate_chain.download import SSLCertificateChainDownloader
 from dataclasses import dataclass
 from omegaconf import DictConfig, ListConfig
 
-from src.fetch_phishtank import PhishtankFetcher
+from src.phish_scraper.phish_scraper import PhishScraper
 
 @dataclass
 class URLChecker:

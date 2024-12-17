@@ -24,13 +24,12 @@ if access_key == "${BROWSERSTACK_ACCESS_KEY}":
     access_key = os.getenv('BROWSERSTACK_ACCESS_KEY')
 
 phishing_urls = [] # can explicitly specify URLs here as well
-urls_file = './urls/latest.yml' if len(sys.argv) < 2 else sys.argv[1]
+urls_file = './urls/latest.yml' if len(sys.argv) < 1 else sys.argv[0]
 
 # Read our specified set of phishing URLs
 with open(urls_file, 'r', encoding='latin-1') as f:
     data = yaml.safe_load(f)
     phishing_urls = data["urls"]
-    print(phishing_urls)
 
 print("PHISHING URLs:", phishing_urls)
 
