@@ -595,7 +595,8 @@ class BrowserstackRunner:
         # Text logs will occasionally return a 502 error; make sure the request succeeds
         err_count = 0
         while r.status_code != 200:
-            print("UNABLE TO RETRIEVE LOGS (text logs):", r.status_code, session_id)
+            print(f"Unable to retrieve text logs for session '{session_id}'; trying again in 5 seconds...")
+            time.sleep(5)
             r = s.get(text_logs_url)
             if r.status_code == 429:
                 print("TOO MANY REQUESTS (waiting a bit...)")
@@ -614,7 +615,8 @@ class BrowserstackRunner:
         # Ensure request succeeds
         err_count = 0
         while r.status_code != 200:
-            print("UNABLE TO RETRIEVE LOGS (network logs):", r.status_code, session_id)
+            print(f"Unable to retrieve network logs for session '{session_id}'; trying again in 5 seconds...")
+            time.sleep(5)
             r = s.get(network_logs_url)
             if r.status_code == 429:
                 print("TOO MANY REQUESTS (waiting a bit...)")
@@ -633,7 +635,8 @@ class BrowserstackRunner:
         # Ensure request succeeds
         err_count = 0
         while r.status_code != 200:
-            print("UNABLE TO RETRIEVE LOGS (console logs):", r.status_code, session_id)
+            print(f"Unable to retrieve console logs for session '{session_id}'; trying again in 5 seconds...")
+            time.sleep(5)
             r = s.get(console_logs_url)
             if r.status_code == 429:
                 print("TOO MANY REQUESTS (waiting a bit...)")
