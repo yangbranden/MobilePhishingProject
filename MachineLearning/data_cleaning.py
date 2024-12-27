@@ -114,20 +114,31 @@ def get_unique_header_values(data_folders):
 # Create a hot mappings for all header-value pairs from all network_logs.txt files
 def create_hot_mappings(unique_header_values):
     hot_mappings = []
-    for header, values in unique_header_values:
-        for index, value in enumerate(values):
-            # Create a binary vector for the current value
-            mapping = [0] * len(values)
-            mapping[index] = 1
-            # Calculate numerical value of binary mapping
-            mapping_value = int(''.join(map(str, mapping)), 2)
-            # Append the header, value, and its binary mapping to the list
-            hot_mappings.append((header, value, mapping, mapping_value))
-    with open('hot_mappings.csv', mode='w', newline='') as csvfile_hm:
-        csv_writer_hm = csv.writer(csvfile_hm)
-        csv_writer_hm.writerow(['Header', 'Header Value', 'Mapping', 'Mapping Value'])  # Write header row
-        for header, value, mapping, mapping_value in hot_mappings:
-            csv_writer_hm.writerow([header, value, mapping, mapping_value])  # Write data rows
+    # First check if hot mappings exist; if it does then no need to re-create (can take a VERY long time)
+    if os.path.isfile('hot_mappings.csv'):
+        try:
+            with open('hot_mappings.csv', mode='r', newline='') as csvfile_hm:
+                csv_reader_hm = csv.reader(csvfile_hm)
+                next(csv_reader_hm) # Skip header row
+                hot_mappings = [tuple(row) for row in csv_reader_hm]
+        except FileNotFoundError:
+            print(f"'hot_mappings.csv' does not exist.")
+    else:
+        for header, values in unique_header_values:
+            for index, value in enumerate(values):
+                print(f"DEBUG: Progress at ({index}/{len(values)})")
+                # Create a binary vector for the current value
+                mapping = [0] * len(values)
+                mapping[index] = 1
+                # Calculate numerical value of binary mapping
+                mapping_value = int(''.join(map(str, mapping)), 2)
+                # Append the header, value, and its binary mapping to the list
+                hot_mappings.append((header, value, mapping, mapping_value))
+        with open('hot_mappings.csv', mode='w', newline='') as csvfile_hm:
+            csv_writer_hm = csv.writer(csvfile_hm)
+            csv_writer_hm.writerow(['Header', 'Header Value', 'Mapping', 'Mapping Value'])  # Write header row
+            for header, value, mapping, mapping_value in hot_mappings:
+                csv_writer_hm.writerow([header, value, mapping, mapping_value])  # Write data rows
     return hot_mappings
 
 # This is the function to actually check and record the header values
