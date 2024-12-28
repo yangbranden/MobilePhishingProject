@@ -4,11 +4,11 @@
 - os: OS X
   os_version: Ventura
   browser: chrome
-  browser_version: '125.0'
+  browser_version: '124.0'
 - os: OS X
   os_version: Ventura
   browser: chrome
-  browser_version: '126.0'
+  browser_version: '125.0'
 - os: OS X
   os_version: Ventura
   browser: chrome
@@ -23,5 +23,5 @@
   browser_version: '129.0'
 - os: OS X
   os_version: Ventura
-  browser: edge
-  browser_version: '120.0'
+  browser: chrome
+  browser_version: '130.0'

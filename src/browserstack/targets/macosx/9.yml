@@ -3,25 +3,25 @@
 # =======================================
 - os: OS X
   os_version: Big Sur
-  browser: edge
-  browser_version: '127.0'
-- os: OS X
-  os_version: Big Sur
-  browser: edge
-  browser_version: '128.0'
-- os: OS X
-  os_version: Big Sur
-  browser: edge
+  browser: chrome
   browser_version: '129.0'
 - os: OS X
   os_version: Big Sur
-  browser: firefox
-  browser_version: '121.0'
+  browser: chrome
+  browser_version: '130.0'
 - os: OS X
   os_version: Big Sur
-  browser: firefox
-  browser_version: '122.0'
+  browser: edge
+  browser_version: '93.0'
 - os: OS X
   os_version: Big Sur
-  browser: firefox
-  browser_version: '123.0'
+  browser: edge
+  browser_version: '97.0'
+- os: OS X
+  os_version: Big Sur
+  browser: edge
+  browser_version: '114.0'
+- os: OS X
+  os_version: Big Sur
+  browser: edge
+  browser_version: '118.0'

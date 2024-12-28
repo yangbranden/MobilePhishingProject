@@ -4,23 +4,23 @@
 - os: OS X
   os_version: Ventura
   browser: edge
-  browser_version: '121.0'
+  browser_version: '93.0'
 - os: OS X
   os_version: Ventura
   browser: edge
-  browser_version: '122.0'
+  browser_version: '97.0'
+- os: OS X
+  os_version: Ventura
+  browser: edge
+  browser_version: '114.0'
+- os: OS X
+  os_version: Ventura
+  browser: edge
+  browser_version: '118.0'
 - os: OS X
   os_version: Ventura
   browser: edge
   browser_version: '123.0'
-- os: OS X
-  os_version: Ventura
-  browser: edge
-  browser_version: '124.0'
-- os: OS X
-  os_version: Ventura
-  browser: edge
-  browser_version: '125.0'
 - os: OS X
   os_version: Ventura
   browser: edge

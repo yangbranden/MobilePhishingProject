@@ -4,24 +4,8 @@
 - os: OS X
   os_version: Sequoia
   browser: firefox
-  browser_version: '121.0'
+  browser_version: '131.0'
 - os: OS X
   os_version: Sequoia
   browser: firefox
-  browser_version: '122.0'
-- os: OS X
-  os_version: Sequoia
-  browser: firefox
-  browser_version: '123.0'
-- os: OS X
-  os_version: Sequoia
-  browser: firefox
-  browser_version: '124.0'
-- os: OS X
-  os_version: Sequoia
-  browser: firefox
-  browser_version: '125.0'
-- os: OS X
-  os_version: Sequoia
-  browser: firefox
-  browser_version: '126.0'
+  browser_version: '132.0'

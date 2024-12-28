@@ -2,6 +2,23 @@
 
 import string
 import secrets
+from enum import Enum
+
+class Browsers(Enum):
+    ALL = 0
+    FIREFOX = 1
+    CHROME = 2
+    EDGE = 3
+    SAFARI = 4
+    SAMSUNG = 5
+    OPERA = 6
+
+class Platforms(Enum):
+    ALL = 0
+    ANDROID = 1
+    IOS = 2
+    WINDOWS = 3
+    MACOSX = 4
 
 def write_file_source_header(source: str, f=None):
     try:
@@ -10,6 +27,11 @@ def write_file_source_header(source: str, f=None):
         f.write("# =======================================\n")
     except Exception as e:
         print(f"Error in write_file_source_header: {e}")
+
+def remove_empty_lines(content):
+    # Split the content into lines, filter out empty lines, and join them back
+    non_empty_lines = [line for line in content.splitlines() if line.strip()]
+    return "\n".join(non_empty_lines)
 
 def generate_unique_str(length=8):
     alphabet = string.ascii_letters + string.digits  # A-Z, a-z, 0-9

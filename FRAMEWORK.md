@@ -1,33 +1,36 @@
 # Framework for Testing Mobile Phishing
-This is a Python framework aiming to perform automated testing of phishing websites in mobile environments.
+This is a Python framework aiming to perform automated testing of phishing websites, with a particular focus on mobile environments.
 
 ## Running the Framework
-There are currently 2 different modules with which we can run our framework with:
+There are currently 3 different modules with which we can run our framework with:
 1. `browserstack`
 2. `phishtank_fetcher`
+3. `url_checker`
 
 To use the framework, edit the `config.yml` file with wanted configuration options and then run:
 ```
-python -m run [browserstack/phishtank_fetcher] [flags]
+python -m run [browserstack/phishtank_fetcher/url_checker] [flags]
 ```
 
-The basic idea is to first scrape the phishing URLs that we want to test from phishtank using the `phishtank_fetcher` module, then use the `browserstack` module to actually run the tests (currently only supports browserstack, but ideally we would be able to implement support for other IaaS providers so long as they have APIs capable of running selenium scripts). 
+The basic idea is to first scrape the phishing URLs that we want to test from phishtank using the `phishtank_fetcher` module, then use the `browserstack` module to actually run the tests (currently only supports browserstack, but ideally we would implement support for other IaaS providers that have APIs capable of running Python selenium scripts). 
 
 
 
 ### Fetching URLs from PhishTank
+The `phishtank_fetcher` module is to grab a set of known phishing URLs to run on the target platforms and devices. This allows us to see what devices are or are not protected with current phishing prevention mechanisms.
+
 For just basic fetching of URLs from PhishTank, the options in this module shouldn't need to be changed.
 
 To use `phishtank_fetcher`, just run:
 ```
-python -m run phishtank_fetcher [# of URLs (optionally)]
+python -m run phishtank_fetcher [# of URLs (optional)]
 ```
 Number of URLs can also be specified in the `config.yml` file.
 
 
 
 ### Running BrowserStack
-The options for `browserstack` are:
+The `browserstack` module is using the IaaS provider BrowserStack to run automated phishing tests. Options for `browserstack` include:
 
 - `exec`: runs browserstack using the settings specified in the `config.yml` file
     - `build_name`: the title for the build
@@ -46,3 +49,12 @@ The options for `browserstack` are:
 
 - `output_analyzer`: used to view the outcome of a browserstack test; can specify either a single `session_id` or a `unique_id` (randomly generated 8 character string to identify your run)
     - `output_directory`: the base output directory (outcomes will be stored under this directory + `outcomes/`) 
+
+
+
+### Checking URLs
+The `url_checker` module is meant to act as a way of verifying certain URLs as verified phishing websites amongst other 3rd-party sources. So far, we support checking against:
+- Google SafeBrowsing API (v4)
+- PhishTank (which is where we scrape the URLs from)
+- Online Certificate Status Protocol (OCSP)
+- Certificate Revocation List (CRL)

@@ -9,22 +9,22 @@
 - os: android
   os_version: '14.0'
   browser: android
-  device: Google Pixel 9 Pro XL
-  real_mobile: true
-- os: android
-  os_version: '14.0'
-  browser: android
-  device: Google Pixel 9
-  real_mobile: true
-- os: android
-  os_version: '14.0'
-  browser: android
   device: Google Pixel 8 Pro
   real_mobile: true
 - os: android
   os_version: '14.0'
   browser: android
   device: Google Pixel 8
+  real_mobile: true
+- os: android
+  os_version: '14.0'
+  browser: samsung
+  device: Samsung Galaxy Tab S10 Plus
+  real_mobile: true
+- os: android
+  os_version: '14.0'
+  browser: android
+  device: Samsung Galaxy Tab S10 Plus
   real_mobile: true
 - os: android
   os_version: '14.0'

@@ -19,7 +19,8 @@ windows_browsers_xpaths = { # deprecated
 }
 
 browsers_blocked_message = {
-    "Microsoft Edge": 'This site has been reported as unsafe',
+    "Microsoft Edge (1)": 'This site has been reported as unsafe',
+    "Microsoft Edge (2)": "Microsoft recommends you don\'t continue to this site.",
     
     "Mozilla Firefox (1)": 'Firefox blocked this page because it may trick you into doing something dangerous like installing software or revealing personal information like passwords or credit cards.', # Deceptive site ahead
     "Mozilla Firefox (2)": 'The page you are trying to view cannot be shown because the authenticity of the received data could not be verified.', # Secure Connection Failed
@@ -27,6 +28,8 @@ browsers_blocked_message = {
     
     "Google Chrome (1)": 'Attackers might be trying to steal your information from', # Your connection is not private
     "Google Chrome (2)": 'Deceptive site ahead',
+    "Google Chrome (3)": 'Attackers on the site you',
+    "Google Chrome (4)": 'Dangerous site',
     
     # Safari does not loads up any page when site is blocked.
     # driver.page_source remains at the previously visited page. So this method does not work for Safari.
@@ -36,6 +39,8 @@ browsers_blocked_message = {
     "Safari (2)": "Deceptive Website Warning",
 
     "Samsung Browser": "Attackers might be trying to steal your information from" # Your connection is not private
+    
+
 }
 
 def get_text_logs(username, access_key, build_id, session_id):
@@ -76,11 +81,6 @@ with open(urls_file, 'r', encoding='latin-1') as f:
 
 print("PHISHING URLs:", phishing_urls)
 
-# Output will be list of length phishing_urls
-outcomes = {}
-for url in phishing_urls:
-    outcomes[url] = ['TBD'] # WILL EDIT THIS LATER (once we have identified possible outcomes)
-
 # The webdriver management will be handled by the browserstack-sdk
 # so this will be overridden and tests will run browserstack -
 # without any changes to the test files!
@@ -106,9 +106,9 @@ for url in phishing_urls:
         #         break
         # deprecated
         
-        page_source = driver.page_source # accessing driver.page_source takes resource each time
             
         for browser in browsers_blocked_message:
+            page_source = driver.page_source # accessing driver.page_source takes resource each time
             if browsers_blocked_message[browser] in page_source:
                 print(f"{browser} has blocked {url}")
                 driver.execute_script(

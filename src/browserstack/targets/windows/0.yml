@@ -18,10 +18,10 @@
   browser: opera
   browser_version: '12.16'
 - os: Windows
-  os_version: '8'
-  browser: opera
-  browser_version: '12.15'
+  os_version: '7'
+  browser: firefox
+  browser_version: '113.0'
 - os: Windows
-  os_version: '8'
-  browser: opera
-  browser_version: '12.16'
+  os_version: '7'
+  browser: firefox
+  browser_version: '115.0'

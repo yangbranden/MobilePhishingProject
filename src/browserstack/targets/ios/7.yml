@@ -4,30 +4,30 @@
 - os: ios
   os_version: '16'
   browser: chromium
+  device: iPhone 14 Pro Max
+  real_mobile: true
+- os: ios
+  os_version: '16'
+  browser: iphone
+  device: iPhone 14 Pro Max
+  real_mobile: true
+- os: ios
+  os_version: '16'
+  browser: chromium
+  device: iPhone 14 Pro
+  real_mobile: true
+- os: ios
+  os_version: '16'
+  browser: iphone
+  device: iPhone 14 Pro
+  real_mobile: true
+- os: ios
+  os_version: '16'
+  browser: chromium
   device: iPhone 14 Plus
   real_mobile: true
 - os: ios
   os_version: '16'
   browser: iphone
   device: iPhone 14 Plus
-  real_mobile: true
-- os: ios
-  os_version: '16'
-  browser: chromium
-  device: iPhone 14
-  real_mobile: true
-- os: ios
-  os_version: '16'
-  browser: iphone
-  device: iPhone 14
-  real_mobile: true
-- os: ios
-  os_version: '16'
-  browser: chromium
-  device: iPhone 13
-  real_mobile: true
-- os: ios
-  os_version: '16'
-  browser: iphone
-  device: iPhone 13
   real_mobile: true

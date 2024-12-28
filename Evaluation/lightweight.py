@@ -95,7 +95,7 @@ def analysis():
 
 def lightweight_criteria():
     # Replace with directory to analyze
-    base_directory = './output_data/YWkkHPgU_All_Targets'
+    base_directory = './output_data/target_name'
     csv_output = './Evaluation/lightweight_test.csv'
     
     data = parse_data(base_directory)

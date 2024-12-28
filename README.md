@@ -1,52 +1,14 @@
 # MobilePhishingProject
-See the BrowserStack automated testing tutorial: https://automate.browserstack.com/dashboard/v2/quick-start/get-started
+GitHub repository for a project is aimed at testing the phishing prevention mechanisms of mobile device environments, while comparing and contrasting with corresponding versions found in desktop environments.
 
-# Getting BrowserStack (free with GitHub Student Developer Pack)
-https://www.browserstack.com/github-students
+In essence, the majority of the time we are looking at different configurations and combinations of browser versions and devices (operating systems). 
 
-## Prerequisite
-```
-python3 should be installed
-```
+Our framework aims to define several criteria by which to judge the differences between phishing attacks in traditional desktop environments versus phishing attacks in mobile device environments.
 
-## Setup
-* Clone the repo
-```
-git clone -b sdk https://github.com/browserstack/python-selenium-browserstack.git
-``` 
-* Install packages through requirements.txt
-```
-pip3 install -r requirements.txt
-```
+Although the majority of our project utilizes the service "BrowserStack" for performing automated testing, our goal is to include future support for other Infrastructure-as-a-Service providers.
 
-## Set BrowserStack Credentials
-* Add your BrowserStack username and access key in the `browserstack.yml` config file.
-* You can also export them as environment variables, `BROWSERSTACK_USERNAME` and `BROWSERSTACK_ACCESS_KEY`:
+## Setting Up
+For setup instructions, see [SETUP.md](./SETUP.md).
 
-  #### For Linux/MacOS
-    ```
-    export BROWSERSTACK_USERNAME=<browserstack-username>
-    export BROWSERSTACK_ACCESS_KEY=<browserstack-access-key>
-    ```
-  #### For Windows
-    ```
-    setx BROWSERSTACK_USERNAME "<browserstack-username>"
-    setx BROWSERSTACK_ACCESS_KEY "<browserstack-access-key>"
-    ```
-    or
-    ```
-    set BROWSERSTACK_USERNAME=<browserstack-username>
-    set BROWSERSTACK_ACCESS_KEY=<browserstack-access-key>
-    ```
-
-## Running tests
-* Run sample test:
-  - To run the sample test across platforms defined in the `browserstack.yml` file, run:
-    ```
-    browserstack-sdk ./tests/test.py
-    ``` 
-* Run tests on locally hosted website:
-  - To run the local test across platforms defined in the `browserstack.yml` file, run:
-    ```
-    browserstack-sdk ./tests/local-test.py
-    ``` 
+## Using the Framework
+For more detailed information on our code and using the framework, see [FRAMEWORK.md](./FRAMEWORK.md)

@@ -7,25 +7,12 @@ import requests
 import os
 import json
 from user_agents import parse
-from enum import Enum
 
-class Output(Enum):
-    ANDROID = 0
-    IOS = 1
+build_name_uniq_str = "pOKUgP2N"
 
-OUTPUT_MODE = Output.IOS
-
-build_name_uniq_str = "09_26"
-if OUTPUT_MODE == Output.ANDROID:
-    build_name_str_identifier = f"{build_name_uniq_str}_Android_Targets"
-    hash_save_file = "./output_data/tmp/android_session_hashes.txt"
-    headers_save_file = "./output_data/tmp/android_useragent_headers.txt"
-    final_output_file = "./output_data/outcomes/android_browser_versions.txt"
-elif OUTPUT_MODE == Output.IOS:
-    build_name_str_identifier = f"{build_name_uniq_str}_iOS_Targets"
-    hash_save_file = "./output_data/tmp/ios_session_hashes.txt"
-    headers_save_file = "./output_data/tmp/ios_useragent_headers.txt"
-    final_output_file = "./output_data/outcomes/ios_browser_versions.txt"
+hash_save_file = "./output_data/tmp/session_hashes.txt"
+headers_save_file = "./output_data/tmp/useragent_headers.txt"
+final_output_file = "./output_data/browser_versions.txt"
 
 build_ids = []
 session_ids = []
@@ -56,7 +43,7 @@ if not hashes_saved:
         output = json.loads(r.text)
         for entry in output:
             build = entry["automation_build"]
-            if build_name_str_identifier in build["name"]:
+            if build_name_uniq_str in build["name"]:
                 print(build["name"], build["hashed_id"])
                 build_ids.append(build["hashed_id"])
     # print("Total # of build ids:", len(build_ids))
@@ -68,7 +55,8 @@ if not hashes_saved:
         for entry in output:
             session = entry["automation_session"]
             print(len(session_ids), session["hashed_id"])
-            session_ids.append(session["hashed_id"])
+            if session["browser_version"] is None:
+                session_ids.append(session["hashed_id"])
     
     # save to file
     with open(hash_save_file, "w") as f:
@@ -132,4 +120,4 @@ with open(headers_save_file, "r") as user_agents:
 with open(final_output_file, "w") as f:
     for browser_version in browser_versions:
         f.write(browser_version + "\n")
-    print(f"Browser versions for {build_name_str_identifier} saved in {final_output_file}; {len(browser_versions)} unique browser versions detected.")
+    print(f"Browser versions for \"{build_name_uniq_str}\" saved in {final_output_file}; {len(browser_versions)} unique browser versions detected.")
