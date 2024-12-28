@@ -1,0 +1,52 @@
+{
+    "hxxps://madridfol.com/ret_url/0a842000349b32ee96b1f4c3bde4f096/login.php?serID=email_auth&sessionID=KtDXGpIgBcLPIRJrJk&em": {
+        "status": "passed",
+        "reason": "Page loaded successfully.",
+        "screenshot_url": "https://automate.browserstack.com/s3-debug/browserstack-debug-screenshots-prod-usw1/7e2d1185e7874fdc2472f0f6f3a0e2e3de9369d2/screenshot-94b9e71261.jpeg"
+    },
+    "hxxps://docs.google.com/presentation/d/e/2PACX-1vSOIV0OEPL4w4sNk24w7T-9QD9IYJOjE4ccAapt6eYoo7MFJhc0VgtKhswsKbmqc3CB088D_6KQ6zpY/pub?start=false&amp;loop=false&amp;delayms=3000": {
+        "status": "passed",
+        "reason": "Page loaded successfully.",
+        "screenshot_url": "https://automate.browserstack.com/s3-debug/browserstack-debug-screenshots-prod-usw1/7e2d1185e7874fdc2472f0f6f3a0e2e3de9369d2/screenshot-28ca5fae02.jpeg"
+    },
+    "hxxps://trewzorwalleet.webflow.io/": {
+        "status": "passed",
+        "reason": "Page loaded successfully.",
+        "screenshot_url": "https://automate.browserstack.com/s3-debug/browserstack-debug-screenshots-prod-usw1/7e2d1185e7874fdc2472f0f6f3a0e2e3de9369d2/screenshot-a095fe5e34.jpeg"
+    },
+    "hxxp://trewzorwalleet.webflow.io": {
+        "status": "passed",
+        "reason": "Page loaded successfully.",
+        "screenshot_url": "https://automate.browserstack.com/s3-debug/browserstack-debug-screenshots-prod-usw1/7e2d1185e7874fdc2472f0f6f3a0e2e3de9369d2/screenshot-9c3f732391.jpeg"
+    },
+    "hxxps://defiwebconnect.pages.dev/dist/website": {
+        "status": "passed",
+        "reason": "Page loaded successfully.",
+        "screenshot_url": "https://automate.browserstack.com/s3-debug/browserstack-debug-screenshots-prod-usw1/7e2d1185e7874fdc2472f0f6f3a0e2e3de9369d2/screenshot-ad459ee0e8.jpeg"
+    },
+    "hxxps://dlhartmann.com/": {
+        "status": "passed",
+        "reason": "Page loaded successfully.",
+        "screenshot_url": "https://automate.browserstack.com/s3-debug/browserstack-debug-screenshots-prod-usw1/7e2d1185e7874fdc2472f0f6f3a0e2e3de9369d2/screenshot-6794be409f.jpeg"
+    },
+    "hxxp://belpes-m-v-m.serv00.net/": {
+        "status": "passed",
+        "reason": "Page loaded successfully.",
+        "screenshot_url": "https://automate.browserstack.com/s3-debug/browserstack-debug-screenshots-prod-usw1/7e2d1185e7874fdc2472f0f6f3a0e2e3de9369d2/screenshot-b5b0a058ab.jpeg"
+    },
+    "hxxps://belpes-m-v-m.serv00.net/": {
+        "status": "passed",
+        "reason": "Page loaded successfully.",
+        "screenshot_url": "https://automate.browserstack.com/s3-debug/browserstack-debug-screenshots-prod-usw1/7e2d1185e7874fdc2472f0f6f3a0e2e3de9369d2/screenshot-c021434283.jpeg"
+    },
+    "hxxps://mailer.techyusa.com//redirect.php?id=PGRjZGU5ZmExZWU3ZDhhMjlmYzg3MTAyZmY0NWYyNzIwQG1haWxlci50ZWNoeXVzYS5jb20%2B&amp;ref=aHR0cDovL2JlbHBlcy1tLXYtbS5zZXJ2MDAubmV0Lw%3D%3D&amp;e=1": {
+        "status": "passed",
+        "reason": "Page loaded successfully.",
+        "screenshot_url": "https://automate.browserstack.com/s3-debug/browserstack-debug-screenshots-prod-usw1/7e2d1185e7874fdc2472f0f6f3a0e2e3de9369d2/screenshot-0e572d7d85.jpeg"
+    },
+    "hxxp://about-trezurssuit.webflow.io": {
+        "status": "passed",
+        "reason": "Page loaded successfully.",
+        "screenshot_url": "https://automate.browserstack.com/s3-debug/browserstack-debug-screenshots-prod-usw1/7e2d1185e7874fdc2472f0f6f3a0e2e3de9369d2/screenshot-400ee0157c.jpeg"
+    }
+}
