@@ -113,7 +113,7 @@ def create_header_hot_mappings(data_folders):
             with open('request_header_presence_mappings.csv', mode='r', newline='') as csvfile_hm:
                 csv_reader_hm = csv.reader(csvfile_hm)
                 next(csv_reader_hm) # Skip header row
-                all_headers_mapping = [tuple(row) for row in csv_reader_hm]
+                request_headers_mapping = [tuple(row) for row in csv_reader_hm]
         except FileNotFoundError:
             print(f"'request_header_presence_mappings.csv' does not exist.")
     else:
@@ -132,7 +132,7 @@ def create_header_hot_mappings(data_folders):
             with open('response_header_presence_mappings.csv', mode='r', newline='') as csvfile_hm:
                 csv_reader_hm = csv.reader(csvfile_hm)
                 next(csv_reader_hm) # Skip header row
-                all_headers_mapping = [tuple(row) for row in csv_reader_hm]
+                response_headers_mapping = [tuple(row) for row in csv_reader_hm]
         except FileNotFoundError:
             print(f"'response_header_presence_mappings.csv' does not exist.")
     else:
@@ -145,6 +145,8 @@ def create_header_hot_mappings(data_folders):
                 mapping_value = int(''.join(map(str, mapping)), 2)
                 response_headers_mapping.append((header, mapping, mapping_value))
                 csv_writer_hm.writerow([header, mapping, mapping_value])
+    print("AAA", request_headers_mapping)
+    print("BBB", response_headers_mapping)
     return [all_headers_mapping, request_headers_mapping, response_headers_mapping]
 
 # Get relevant unique header-value pairs from network_log.txt files
@@ -223,7 +225,7 @@ def create_header_data_hot_mappings(unique_header_data, load_file):
 # Logic to record what header-value pairs are present for a given log (session)
 def get_header_data(log_file_path, hot_mappings, unique_headers):
     # Mapping dict contains the hot mappings for all header-value pairs
-    mapping_dict = {(header, value): mapping_value for header, value, _, mapping_value in hot_mappings}
+    mapping_dict = {(header, value): int(mapping_value) for header, value, _, mapping_value in hot_mappings}
     # Variable to keep track of what header-value pairs have been seen in this log
     session_header_data = {header: 0 for header, _, _, _ in hot_mappings}
     try:
@@ -251,9 +253,9 @@ def get_header_data(log_file_path, hot_mappings, unique_headers):
 def get_present_headers(log_file_path, hot_mappings):
     # Mapping dicts contain the hot mappings for all headers
     all_headers_mapping, request_headers_mapping, response_headers_mapping = hot_mappings
-    all_headers_mapping_dict = {header: mapping_value for header, _, mapping_value in all_headers_mapping}
-    request_headers_mapping_dict = {header: mapping_value for header, _, mapping_value in request_headers_mapping}
-    response_headers_mapping_dict = {header: mapping_value for header, _, mapping_value in response_headers_mapping}
+    all_headers_mapping_dict = {header: int(mapping_value) for header, _, mapping_value in all_headers_mapping}
+    request_headers_mapping_dict = {header: int(mapping_value) for header, _, mapping_value in request_headers_mapping}
+    response_headers_mapping_dict = {header: int(mapping_value) for header, _, mapping_value in response_headers_mapping}
     # Variables to keep track of what headers have been seen in this log
     all_headers_present = 0
     request_headers_present = 0
@@ -264,19 +266,19 @@ def get_present_headers(log_file_path, hot_mappings):
             for entry in log_data.get('log', {}).get('entries', []):
                 for header in entry.get('request', {}).get('headers', []):
                     name = header.get('name')
-                    if name in all_headers_mapping:
+                    if name in all_headers_mapping_dict:
                         all_headers_present |= all_headers_mapping_dict[name]
-                    if name in request_headers_mapping:
+                    if name in request_headers_mapping_dict:
                         request_headers_present |= request_headers_mapping_dict[name]
                 for header in entry.get('response', {}).get('headers', []):
                     name = header.get('name')
-                    if name in all_headers_mapping:
+                    if name in all_headers_mapping_dict:
                         all_headers_present |= all_headers_mapping_dict[name]
-                    if name in response_headers_mapping:
+                    if name in response_headers_mapping_dict:
                         response_headers_present |= response_headers_mapping_dict[name]
     except (json.JSONDecodeError, UnicodeDecodeError) as e:
         print(f"Error reading {log_file_path}: {e}")
-    return all_headers_present, request_headers_present, response_headers_present
+    return [all_headers_present, request_headers_present, response_headers_present]
 
 # Logic to parse 'url' field
 def get_url(info_json_path):
@@ -410,7 +412,7 @@ def main():
                 session_data.append(parsed_session_json['os'])
                 session_data.append(parsed_session_json['os_version'])
                 session_data.append(parsed_session_json['browser'])
-                session_data.append(parsed_session_json['browser_version'])
+                session_data.append(parsed_session_json['browser_version'] if parsed_session_json['browser_version'] is not None else "None")
                 
                 # Parse network_logs.txt
                 #   - All request headers (bitmap of all values in the network requests associated with a website visit)
