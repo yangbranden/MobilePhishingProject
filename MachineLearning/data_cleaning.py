@@ -27,6 +27,7 @@
 import os
 import csv
 import json
+import sys
 from datetime import datetime
 
 parent_folder = '../output_data'
@@ -55,8 +56,8 @@ benign_data_folders = [
 ]
 data_folders = phishing_data_folders + benign_data_folders
 
-# Get all unique request and response headers from all network_logs.txt files
-def get_unique_headers(data_folders):
+# Create hot mappings for headers present in the HTTP requests/responses
+def create_header_hot_mappings(data_folders):
     request_headers = set()
     response_headers = set()
     for data_folder in data_folders:
@@ -80,11 +81,76 @@ def get_unique_headers(data_folders):
                 # print(f"Error reading {network_logs_path}: {e}")
                 continue
     # return the combined set of headers
-    return sorted(request_headers.union(response_headers))
+    all_headers = sorted(request_headers.union(response_headers))
+    request_headers = sorted(request_headers)
+    response_headers = sorted(response_headers)
+    # Create mappings to return
+    all_headers_mapping = []
+    request_headers_mapping = []
+    response_headers_mapping = []
+    # All headers
+    if os.path.isfile('all_header_presence_mappings.csv'):
+        try:
+            with open('all_header_presence_mappings.csv', mode='r', newline='') as csvfile_hm:
+                csv_reader_hm = csv.reader(csvfile_hm)
+                next(csv_reader_hm) # Skip header row
+                all_headers_mapping = [tuple(row) for row in csv_reader_hm]
+        except FileNotFoundError:
+            print(f"'all_header_presence_mappings.csv' does not exist.")
+    else:
+        with open('all_header_presence_mappings.csv', mode='w', newline='') as csvfile_hm:
+            csv_writer_hm = csv.writer(csvfile_hm)
+            csv_writer_hm.writerow(['Header', 'Mapping', 'Mapping Value'])  # Write header row
+            for index, header in enumerate(all_headers):
+                mapping = [0] * len(all_headers)
+                mapping[index] = 1
+                mapping_value = int(''.join(map(str, mapping)), 2)
+                all_headers_mapping.append((header, mapping, mapping_value))
+                csv_writer_hm.writerow([header, mapping, mapping_value])
+    # Request headers
+    if os.path.isfile('request_header_presence_mappings.csv'):
+        try:
+            with open('request_header_presence_mappings.csv', mode='r', newline='') as csvfile_hm:
+                csv_reader_hm = csv.reader(csvfile_hm)
+                next(csv_reader_hm) # Skip header row
+                all_headers_mapping = [tuple(row) for row in csv_reader_hm]
+        except FileNotFoundError:
+            print(f"'request_header_presence_mappings.csv' does not exist.")
+    else:
+        with open('request_header_presence_mappings.csv', mode='w', newline='') as csvfile_hm:
+            csv_writer_hm = csv.writer(csvfile_hm)
+            csv_writer_hm.writerow(['Header', 'Mapping', 'Mapping Value'])  # Write header row
+            for index, header in enumerate(request_headers):
+                mapping = [0] * len(request_headers)
+                mapping[index] = 1
+                mapping_value = int(''.join(map(str, mapping)), 2)
+                request_headers_mapping.append((header, mapping, mapping_value))
+                csv_writer_hm.writerow([header, mapping, mapping_value])
+    # Response headers
+    if os.path.isfile('response_header_presence_mappings.csv'):
+        try:
+            with open('response_header_presence_mappings.csv', mode='r', newline='') as csvfile_hm:
+                csv_reader_hm = csv.reader(csvfile_hm)
+                next(csv_reader_hm) # Skip header row
+                all_headers_mapping = [tuple(row) for row in csv_reader_hm]
+        except FileNotFoundError:
+            print(f"'response_header_presence_mappings.csv' does not exist.")
+    else:
+        with open('response_header_presence_mappings.csv', mode='w', newline='') as csvfile_hm:
+            csv_writer_hm = csv.writer(csvfile_hm)
+            csv_writer_hm.writerow(['Header', 'Mapping', 'Mapping Value'])  # Write header row
+            for index, header in enumerate(response_headers):
+                mapping = [0] * len(response_headers)
+                mapping[index] = 1
+                mapping_value = int(''.join(map(str, mapping)), 2)
+                response_headers_mapping.append((header, mapping, mapping_value))
+                csv_writer_hm.writerow([header, mapping, mapping_value])
+    return [all_headers_mapping, request_headers_mapping, response_headers_mapping]
 
-# Get all unique header-value pairs from all network_log.txt files
-def get_unique_header_values(data_folders):
-    header_values = {}
+# Get relevant unique header-value pairs from network_log.txt files
+# threshold starts at 0.5, or 50%; if >50% of values are unique for a header, ignore it
+def get_unique_header_data(data_folders, threshold=0.5):
+    header_data = {}
     for data_folder in data_folders:
         curr_folder = os.path.join(parent_folder, data_folder)
         for session_folder in os.listdir(curr_folder):
@@ -94,57 +160,72 @@ def get_unique_header_values(data_folders):
             network_logs_path = os.path.join(session_folder_path, 'network_logs.txt')
             try:
                 with open(network_logs_path, 'r', encoding='utf-8', errors='replace') as f:
-                    # print(f"Parsing {network_logs_path}...")
+                    print(f"Parsing {network_logs_path}...")
                     log_data = json.load(f)
                     for entry in log_data.get('log', {}).get('entries', []):
                         for header in entry.get('request', {}).get('headers', []):
                             name, value = header.get('name'), header.get('value')
-                            if name not in header_values:
-                                header_values[name] = set()
-                            header_values[name].add(value)
+                            if name not in header_data:
+                                header_data[name] = list()
+                            header_data[name].append(value)
                         for header in entry.get('response', {}).get('headers', []):
                             name, value = header.get('name'), header.get('value')
-                            if name not in header_values:
-                                header_values[name] = set()
-                            header_values[name].add(value)
+                            if name not in header_data:
+                                header_data[name] = list()
+                            header_data[name].append(value)
             except (json.JSONDecodeError, UnicodeDecodeError) as e:
                 continue
-    return [(name, sorted(values)) for name, values in header_values.items()]
+    # Filter out headers using threshold value (we want headers that have repeated values 
+    # because that means they have potential significance in determining phishing vs. non-phishing)
+    filtered_header_data = {}
+    for name, values in header_data.items():
+        unique_values = set(values)
+        # Filter based on threshold; i.e. if 50% of values are unique, header likely has no relevance in determining phishing
+        # In cases where the header only appears once, we don't care about it anyways (not significant in determining phishing)
+        if len(unique_values) > int(len(values) * (1 - threshold)):
+            continue
+        filtered_header_data[name] = unique_values
+    # However, this does not take into consideration the actual presence of the headers themselves;
+    # we will additionally track for this by creating a hot mapping for the presence of headers themselves (see below)
+    return [(name, sorted(values)) for name, values in filtered_header_data.items()]
 
-# Create a hot mappings for all header-value pairs from all network_logs.txt files
-def create_hot_mappings(unique_header_values):
+# Create a hot mappings for relevant header-value pairs from all network_logs.txt files
+def create_header_data_hot_mappings(unique_header_data, load_file):
     hot_mappings = []
     # First check if hot mappings exist; if it does then no need to re-create (can take a VERY long time)
-    if os.path.isfile('hot_mappings.csv'):
+    if os.path.isfile(load_file):
         try:
-            with open('hot_mappings.csv', mode='r', newline='') as csvfile_hm:
+            with open(load_file, mode='r', newline='') as csvfile_hm:
                 csv_reader_hm = csv.reader(csvfile_hm)
                 next(csv_reader_hm) # Skip header row
                 hot_mappings = [tuple(row) for row in csv_reader_hm]
         except FileNotFoundError:
-            print(f"'hot_mappings.csv' does not exist.")
+            print(f"'{load_file}' does not exist.")
     else:
-        for header, values in unique_header_values:
-            for index, value in enumerate(values):
-                print(f"DEBUG: Progress at ({index}/{len(values)})")
-                # Create a binary vector for the current value
-                mapping = [0] * len(values)
-                mapping[index] = 1
-                # Calculate numerical value of binary mapping
-                mapping_value = int(''.join(map(str, mapping)), 2)
-                # Append the header, value, and its binary mapping to the list
-                hot_mappings.append((header, value, mapping, mapping_value))
-        with open('hot_mappings.csv', mode='w', newline='') as csvfile_hm:
+        with open(load_file, mode='w', newline='') as csvfile_hm:
             csv_writer_hm = csv.writer(csvfile_hm)
             csv_writer_hm.writerow(['Header', 'Header Value', 'Mapping', 'Mapping Value'])  # Write header row
-            for header, value, mapping, mapping_value in hot_mappings:
-                csv_writer_hm.writerow([header, value, mapping, mapping_value])  # Write data rows
+            idx = 0 # DEBUG
+            for header, values in unique_header_data:
+                for index, value in enumerate(values):
+                    print(f"DEBUG: Creating hot mapping for header {header} (Progress: {idx}/{len(unique_header_data)}, {index}/{len(values)})")
+                    # Create a binary vector for the current value
+                    mapping = [0] * len(values)
+                    mapping[index] = 1
+                    # Calculate numerical value of binary mapping
+                    mapping_value = int(''.join(map(str, mapping)), 2)
+                    # Append the header, value, and its binary mapping to the list
+                    hot_mappings.append((header, value, mapping, mapping_value))
+                    csv_writer_hm.writerow([header, value, mapping, mapping_value])  # Write data rows
+                idx += 1 # DEBUG
     return hot_mappings
 
-# This is the function to actually check and record the header values
-def get_header_values(log_file_path, hot_mappings, unique_headers):
+# Logic to record what header-value pairs are present for a given log (session)
+def get_header_data(log_file_path, hot_mappings, unique_headers):
+    # Mapping dict contains the hot mappings for all header-value pairs
     mapping_dict = {(header, value): mapping_value for header, value, _, mapping_value in hot_mappings}
-    session_header_values = {header: 0 for header, _, _, _ in hot_mappings}
+    # Variable to keep track of what header-value pairs have been seen in this log
+    session_header_data = {header: 0 for header, _, _, _ in hot_mappings}
     try:
         with open(log_file_path, 'r', encoding='utf-8', errors='replace') as f:
             log_data = json.load(f)
@@ -152,19 +233,50 @@ def get_header_values(log_file_path, hot_mappings, unique_headers):
                 for header in entry.get('request', {}).get('headers', []):
                     name, value = header.get('name'), header.get('value')
                     if (name, value) in mapping_dict:
-                        if name not in session_header_values:
-                            session_header_values[name] = 0
-                        session_header_values[name] |= mapping_dict[(name, value)]
+                        if name not in session_header_data:
+                            session_header_data[name] = 0
+                        session_header_data[name] |= mapping_dict[(name, value)]
                 for header in entry.get('response', {}).get('headers', []):
                     name, value = header.get('name'), header.get('value')
                     if (name, value) in mapping_dict:
-                        if name not in session_header_values:
-                            session_header_values[name] = 0
-                        session_header_values[name] |= mapping_dict[(name, value)]
+                        if name not in session_header_data:
+                            session_header_data[name] = 0
+                        session_header_data[name] |= mapping_dict[(name, value)]
     except (json.JSONDecodeError, UnicodeDecodeError) as e:
         print(f"Error reading {log_file_path}: {e}")
-    oredered_values = [session_header_values[header] for header in unique_headers]
-    return oredered_values
+    oredered_data = [session_header_data[header] for header in unique_headers] # Return ordered (so format matches with CSV)
+    return oredered_data
+
+# Logic to record what headers are present for a given log (session)
+def get_present_headers(log_file_path, hot_mappings):
+    # Mapping dicts contain the hot mappings for all headers
+    all_headers_mapping, request_headers_mapping, response_headers_mapping = hot_mappings
+    all_headers_mapping_dict = {header: mapping_value for header, _, mapping_value in all_headers_mapping}
+    request_headers_mapping_dict = {header: mapping_value for header, _, mapping_value in request_headers_mapping}
+    response_headers_mapping_dict = {header: mapping_value for header, _, mapping_value in response_headers_mapping}
+    # Variables to keep track of what headers have been seen in this log
+    all_headers_present = 0
+    request_headers_present = 0
+    response_headers_present = 0
+    try:
+        with open(log_file_path, 'r', encoding='utf-8', errors='replace') as f:
+            log_data = json.load(f)
+            for entry in log_data.get('log', {}).get('entries', []):
+                for header in entry.get('request', {}).get('headers', []):
+                    name = header.get('name')
+                    if name in all_headers_mapping:
+                        all_headers_present |= all_headers_mapping_dict[name]
+                    if name in request_headers_mapping:
+                        request_headers_present |= request_headers_mapping_dict[name]
+                for header in entry.get('response', {}).get('headers', []):
+                    name = header.get('name')
+                    if name in all_headers_mapping:
+                        all_headers_present |= all_headers_mapping_dict[name]
+                    if name in response_headers_mapping:
+                        response_headers_present |= response_headers_mapping_dict[name]
+    except (json.JSONDecodeError, UnicodeDecodeError) as e:
+        print(f"Error reading {log_file_path}: {e}")
+    return all_headers_present, request_headers_present, response_headers_present
 
 # Logic to parse 'url' field
 def get_url(info_json_path):
@@ -220,11 +332,16 @@ def parse_session_json(session_json_path):
         return None
 
 def main():
+    sys.set_int_max_str_digits(0) # Allow for larger integer conversion
+    
     print("DEBUG: getting unique header-value pairs...")
-    unique_header_values = get_unique_header_values(data_folders)
+    unique_header_data = get_unique_header_data(data_folders, threshold=0.9)
     print("DEBUG: DONE.")
     print("DEBUG: creating hot mappings...")
-    hot_mappings = create_hot_mappings(unique_header_values)
+    header_data_mappings = create_header_data_hot_mappings(unique_header_data, '90percent_header_data_mappings.csv')
+    print("DEBUG: DONE.")
+    print("DEBUG: creating header hot mappings...")
+    header_mappings = create_header_hot_mappings(data_folders)
     print("DEBUG: DONE.")
 
     # Create output CSV file first
@@ -241,9 +358,12 @@ def main():
             'os', 
             'os_version', 
             'browser', 
-            'browser_version', 
+            'browser_version',
+            'all_headers',
+            'request_headers',
+            'response_headers',
         ]
-        http_headers = get_unique_headers(data_folders)
+        http_headers = [header_name for header_name, _ in unique_header_data]
         for header in http_headers:
             header_row.append(header)
         # header_row.append('page_source') # optional for now
@@ -296,8 +416,12 @@ def main():
                 #   - All request headers (bitmap of all values in the network requests associated with a website visit)
                 #   - All response headers (bitmap of all values in the network responses associated with a website visit)
                 network_logs_path = os.path.join(session_folder_path, 'network_logs.txt')
-                header_values = get_header_values(network_logs_path, hot_mappings, http_headers)
-                for header_value in header_values:
+                all_headers, request_headers, response_headers = get_present_headers(network_logs_path, header_mappings)
+                session_data.append(all_headers)
+                session_data.append(request_headers)
+                session_data.append(response_headers)
+                header_data = get_header_data(network_logs_path, header_data_mappings, http_headers)
+                for header_value in header_data:
                     session_data.append(header_value)
                 
                 # Parse page_sources.json
