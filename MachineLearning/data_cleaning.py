@@ -145,8 +145,6 @@ def create_header_hot_mappings(data_folders):
                 mapping_value = int(''.join(map(str, mapping)), 2)
                 response_headers_mapping.append((header, mapping, mapping_value))
                 csv_writer_hm.writerow([header, mapping, mapping_value])
-    print("AAA", request_headers_mapping)
-    print("BBB", response_headers_mapping)
     return [all_headers_mapping, request_headers_mapping, response_headers_mapping]
 
 # Get relevant unique header-value pairs from network_log.txt files
@@ -432,7 +430,6 @@ def main():
                 # After all processsing, append data to CSV
                 # print("Adding data:", session_data)
                 csv_writer.writerow(session_data)
-
 
 
 if __name__ == "__main__":
