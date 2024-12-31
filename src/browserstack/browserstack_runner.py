@@ -577,7 +577,7 @@ class BrowserstackRunner:
     
     
     # Save all logs based on session id
-    def save_logs_session_id(self, session_id):
+    def save_logs_session_id(self, session_id, retries=2):
         build_dir = self.get_build_dir(session_id)
 
         # Add basic session info if we haven't already
@@ -607,7 +607,7 @@ class BrowserstackRunner:
                 print("TOO MANY REQUESTS (waiting a bit...)")
                 time.sleep(5)
                 continue
-            if err_count > 5:
+            if err_count >= retries:
                 self.save_error(session_id, f"Unable to get text logs for session {session_id}")
                 break
             err_count += 1
@@ -627,7 +627,7 @@ class BrowserstackRunner:
                 print("TOO MANY REQUESTS (waiting a bit...)")
                 time.sleep(5)
                 continue
-            if err_count > 5:
+            if err_count >= retries:
                 self.save_error(session_id, f"Unable to get network logs for session {session_id}")
                 break
             err_count += 1
@@ -647,7 +647,7 @@ class BrowserstackRunner:
                 print("TOO MANY REQUESTS (waiting a bit...)")
                 time.sleep(5)
                 continue
-            if err_count > 5:
+            if err_count >= retries:
                 self.save_error(session_id, f"Unable to get console logs for session {session_id}")
                 break
             err_count += 1
