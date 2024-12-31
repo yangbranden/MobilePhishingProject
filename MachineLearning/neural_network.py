@@ -5,6 +5,7 @@ import torch.nn as nn
 import torch.optim as optim
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
+from sklearn.preprocessing import LabelEncoder
 
 # Define RNN-based Model
 class RNNBinaryClassifier(nn.Module):
@@ -52,7 +53,21 @@ def compute_feature_importance(model, X_test, y_test):
 # Main function
 def main():
     # Load and process data
-    data = pd.read_csv('processed_data_12_30_2024.csv')
+    data = pd.read_csv('processed_data_12_30_2024.csv', low_memory=False)
+    
+    # Leave out certain columns we are only keeping in for debugging/looking at the data manually
+    data = data.drop(columns=['url'])
+    data = data.drop(columns=['public_url'])
+    
+    # Convert all non-numeric columns into numeric values;
+    # Essentially like hot mapping that we did manually in our data_cleaning.py script
+    label_encoder = LabelEncoder()
+    for col in data.select_dtypes(include=['object']).columns:
+        try:
+            data[col] = label_encoder.fit_transform(data[col])
+        except ValueError as e:
+            print(f"Could not convert column {col}: {e}")
+    
     X = data.drop(columns=['phishing']).values
     y = data['phishing'].values
 
@@ -61,6 +76,7 @@ def main():
 
     # Convert to PyTorch tensors
     X_train_tensor = torch.tensor(X_train, dtype=torch.float32)
+    print("Made it here")
     y_train_tensor = torch.tensor(y_train, dtype=torch.float32).view(-1, 1)
     X_test_tensor = torch.tensor(X_test, dtype=torch.float32)
     y_test_tensor = torch.tensor(y_test, dtype=torch.float32).view(-1, 1)

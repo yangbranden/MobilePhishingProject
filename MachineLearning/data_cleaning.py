@@ -109,7 +109,7 @@ def create_header_hot_mappings(data_folders):
             network_logs_path = os.path.join(session_folder_path, 'network_logs.txt')
             try:
                 with open(network_logs_path, 'r', encoding='utf-8', errors='replace') as f:
-                    log_data = json.load(f)  # Parse the JSON file
+                    log_data = json.load(f, strict=False)  # Parse the JSON file
                     for entry in log_data.get('log', {}).get('entries', []):
                         # Extract request headers
                         for header in entry.get('request', {}).get('headers', []):
@@ -228,7 +228,7 @@ def filter_header_data(data_folders, threshold=0.5):
                 with open(network_logs_path, 'r', encoding='utf-8', errors='replace') as f:
                     if DEBUG:
                         print(f"(filter_header_data) Parsing '{network_logs_path}'...")
-                    log_data = json.load(f)
+                    log_data = json.load(f, strict=False)
                     for entry in log_data.get('log', {}).get('entries', []):
                         for header in entry.get('request', {}).get('headers', []):
                             name, value = header.get('name'), header.get('value')
@@ -245,13 +245,13 @@ def filter_header_data(data_folders, threshold=0.5):
     # Filter out headers using threshold value (we want headers that have repeated values 
     # because that means they have potential significance in determining phishing vs. non-phishing)
     if DEBUG:
-        print(f"DEBUG: Filtering header data based on threshold of {threshold} (ignore headers with {round(1 - 0.9, 1) * 100}% values unique)...")
+        print(f"DEBUG: Filtering header data based on threshold of {threshold} (ignore headers where {threshold * 100}% of values are unique)...")
     filtered_header_data = {}
     for name, values in header_data.items():
         unique_values = set(values)
         # Filter based on threshold; i.e. if 50% of values are unique, header likely has no relevance in determining phishing
         # In cases where the header only appears once, we don't care about it anyways (not significant in determining phishing)
-        if len(unique_values) > int(len(values) * round(1 - 0.9, 1)):
+        if len(unique_values) > int(len(values) * round(1 - threshold, 1)): # maximum num of unique values allowed is 50% of total num of values 
             continue
         filtered_header_data[name] = unique_values
     # However, this does not take into consideration the actual presence of the headers themselves;
@@ -308,7 +308,7 @@ def get_header_data(log_file_path, hot_mappings, unique_headers):
     session_header_data = {header: 0 for header, _, _, _ in hot_mappings}
     try:
         with open(log_file_path, 'r', encoding='utf-8', errors='replace') as f:
-            log_data = json.load(f)
+            log_data = json.load(f, strict=False)
             for entry in log_data.get('log', {}).get('entries', []):
                 for header in entry.get('request', {}).get('headers', []):
                     name, value = header.get('name'), header.get('value')
@@ -340,7 +340,7 @@ def get_present_headers(log_file_path, hot_mappings):
     response_headers_present = 0
     try:
         with open(log_file_path, 'r', encoding='utf-8', errors='replace') as f:
-            log_data = json.load(f)
+            log_data = json.load(f, strict=False)
             for entry in log_data.get('log', {}).get('entries', []):
                 for header in entry.get('request', {}).get('headers', []):
                     name = header.get('name')
@@ -362,7 +362,7 @@ def get_present_headers(log_file_path, hot_mappings):
 def get_url(info_json_path):
     try:
         with open(info_json_path, 'r') as f:
-            build_data = json.load(f)
+            build_data = json.load(f, strict=False)
         url = build_data.get("urls", [])[0]
         return url
     except Exception as e:
@@ -373,7 +373,7 @@ def get_url(info_json_path):
 def get_phishing(info_json_path):
     try:
         with open(info_json_path, 'r') as f:
-            build_data = json.load(f)
+            build_data = json.load(f, strict=False)
         build_name = build_data.get("build_name", None)
         phishing_status = None
         if build_name in phishing_data_folders:
@@ -396,7 +396,7 @@ def get_phishing(info_json_path):
 def parse_session_json(session_json_path):
     try:
         with open(session_json_path, 'r') as file:
-            session_data = json.load(file)
+            session_data = json.load(file, strict=False)
         session_info = {
             "start_time": session_data.get("created_at"),
             "duration": session_data.get("duration"),
@@ -415,7 +415,7 @@ def parse_session_json(session_json_path):
 def get_public_url(session_json_path):
     try:
         with open(session_json_path, 'r') as file:
-            session_data = json.load(file)
+            session_data = json.load(file, strict=False)
         public_url = session_data.get("public_url")
         if '?auth_token=' in public_url: # auth_token expires so I will just remove (sorry, I know you guys can't see the browserstack URL)
             public_url = public_url.split('?auth_token=')[0]
@@ -427,7 +427,7 @@ def get_public_url(session_json_path):
 # Logic to parse result from page_sources.json
 def get_result(page_sources_path):
     with open(page_sources_path, 'r') as file:
-        data = json.load(file)
+        data = json.load(file, strict=False)
     page_sources = [entry['text'] for entry in data]
     if len(page_sources) != 1:
         print("ERROR: Incorrect number of page sources; there should only be one for this data collection")
@@ -481,7 +481,7 @@ def verify_data_folders(data_folders):
                 invalid_log = False
                 try:
                     with open(network_logs_path, 'r', encoding='utf-8', errors='replace') as f:
-                        json.load(f)
+                        json.load(f, strict=False)
                 except json.JSONDecodeError as e:
                     if "Expecting value" in e.msg:
                         invalid_log = True
@@ -492,7 +492,7 @@ def verify_data_folders(data_folders):
                     print("Attempting to retrieve log again...")
                     try:
                         with open(network_logs_path, 'r', encoding='utf-8', errors='replace') as f:
-                            json.load(f)
+                            json.load(f, strict=False)
                             print("Log successfully loaded.")
                     except json.JSONDecodeError as e:
                         if "Expecting value" in e.msg:
@@ -505,7 +505,7 @@ def verify_data_folders(data_folders):
                 invalid_log = False
                 try:
                     with open(page_sources_path, 'r', encoding='utf-8', errors='replace') as f:
-                        data = json.load(f)
+                        data = json.load(f, strict=False)
                         page_sources = [entry['text'] for entry in data]
                         page_sources[0]
                 except (json.JSONDecodeError, UnicodeDecodeError, IndexError) as e:
@@ -517,7 +517,7 @@ def verify_data_folders(data_folders):
                     print("Attempting to retrieve log again...")
                     try:
                         with open(page_sources_path, 'r', encoding='utf-8', errors='replace') as f:
-                            data = json.load(f)
+                            data = json.load(f, strict=False)
                             page_sources = [entry['text'] for entry in data]
                             page_sources[0]
                             print("Log successfully loaded.")
@@ -594,9 +594,6 @@ def main():
                 if not os.path.isdir(session_folder_path):
                     # print("ERROR: Not directory;", session_folder_path)
                     continue
-                
-                if DEBUG:
-                    print(f"DEBUG: Parsing {curr_folder}/{session_folder}...")
                 
                 # Parse info.json from parent build folder (data_folder) 
                 #   - url
