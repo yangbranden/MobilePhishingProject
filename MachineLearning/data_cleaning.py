@@ -33,7 +33,7 @@ import yaml
 from datetime import datetime
 
 # SETTINGS (these are mostly for debugging but we can also tailor the output CSV)
-OUTPUT_FILE = 'data_all_1_14_2024.csv'
+OUTPUT_FILE = 'data_all_1_14_2025.csv'
 DEBUG = True # Show debug prints
 INCLUDE_BLOCKED_RESULT = True # Determine whether or not page was blocked
 INCLUDE_HEADER_PRESENCE = True # Hot mappings for headers present in request/response/all network logs
