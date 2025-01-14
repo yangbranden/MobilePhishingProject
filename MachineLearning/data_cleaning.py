@@ -33,7 +33,7 @@ import yaml
 from datetime import datetime
 
 # SETTINGS (these are mostly for debugging but we can also tailor the output CSV)
-OUTPUT_FILE = 'data_all_12_30_2024.csv'
+OUTPUT_FILE = 'data_all_1_14_2024.csv'
 DEBUG = True # Show debug prints
 INCLUDE_BLOCKED_RESULT = True # Determine whether or not page was blocked
 INCLUDE_HEADER_PRESENCE = True # Hot mappings for headers present in request/response/all network logs
@@ -42,7 +42,7 @@ INCLUDE_HEADER_VALUES = True # Hot mappings for header-value pairs
 # Specify data location here:
 parent_folder = '../output_data'
 phishing_data_folders = [
-    'gLwfQlpM_All_Targets',
+    # 'gLwfQlpM_All_Targets',
     'JaaSewzb_All_Targets',
     'ANhNsXsI_All_Targets',
     '2dM2kv9h_All_Targets',
@@ -52,9 +52,10 @@ phishing_data_folders = [
     'lec5bU7X_All_Targets',
     'uFzxSpgX_All_Targets',
     '702pzIp8_All_Targets',
+    'htwojJit_All_Targets',
 ]
 benign_data_folders = [
-    'vkeuKXd9_All_Targets',
+    # 'vkeuKXd9_All_Targets',
     'K9hlM3Rf_All_Targets',
     'VQYZtSiN_All_Targets',
     't5tZGTlL_All_Targets',
@@ -63,6 +64,7 @@ benign_data_folders = [
     'dNdnnX9R_All_Targets',
     'TrDkscAZ_All_Targets',
     'aAFRZWmq_All_Targets',
+    '4n6VBfUx_All_Targets',
 ]
 data_folders = phishing_data_folders + benign_data_folders
 
