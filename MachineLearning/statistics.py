@@ -3,7 +3,8 @@ import pandas as pd
 # Load the data
 data = pd.read_csv("data_all_1_14_2025.csv", low_memory=False)
 
-# FILTER DATA FOR SPECIFIC URL (these are our phishing URLs)
+# FILTER DATA FOR SPECIFIC URLs (these are our phishing URLs)
+data = data[data['phishing'] == True] # filter for visits to phishing sites
 # data = data[data['url'] == 'hxxps://sedduok.github.io/test/']
 # data = data[data['url'] == 'hxxp://sameerschool.org/ionos/iindex.html']
 # data = data[data['url'] == 'hxxp://fysmganhfa.duckdns.org/ja/main']
