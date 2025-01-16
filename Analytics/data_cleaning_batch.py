@@ -3,7 +3,7 @@
 #   - info.json
 #   - session.json
 #   - network_logs.txt
-#   - page_sources.json
+#   - text_logs.txt
 #
 # Output (fields of CSV file):
 #   (from info.json):
@@ -20,7 +20,7 @@
 #   - All headers presence (bitmap of all values in the network requests/responses associated with a website visit)
 #   - All request headers presence (bitmap of all values in the network requests associated with a website visit)
 #   - All response headers presence (bitmap of all values in the network responses associated with a website visit)
-#   (from page_sources.json):
+#   (from text_logs.txt):
 #   - result
 
 import os
@@ -42,7 +42,7 @@ while True:
 sys.set_int_max_str_digits(0) # Allow for larger integer conversion
 
 # SETTINGS (these are mostly for debugging but we can also tailor the output CSV)
-OUTPUT_FILE = 'batch_data_noheaders_1_15_2025.csv'
+OUTPUT_FILE = 'batch_data_all_1_16_2025.csv'
 APPIUM_IS_BLOCK = True # Edge case for Safari visits to phishing sites; if True, consider page sources with Appium documentation as detected phishing by Safari; otherwise -1
 UNIQUE_HEADER_DATA_THRESHOLD = 0.8 # Headers with unique values in more than (this specified percentage) of their total values are ignored (e.g. 0.5 = 50%; if 50% of values are unique, ignore the header)
 HEADER_VALUE_MAPPING_FILE = 'mappingfile_batch_data_80percent_header_data.csv' # File to save the mappings for the header-value pair encodings in
@@ -51,8 +51,8 @@ REQUEST_HEADER_MAPPING_FILE = 'mappingfile_batch_data_request_header_presence.cs
 RESPONSE_HEADER_MAPPING_FILE = 'mappingfile_batch_data_response_header_presence.csv' # File to save the mappings for response header presence encodings in
 DEBUG = True # Show debug prints
 INCLUDE_BLOCKED_RESULT = True # Determine whether or not page was blocked
-INCLUDE_HEADER_PRESENCE = False # Hot mappings for headers present in request/response/all network logs
-INCLUDE_HEADER_VALUES = False # Hot mappings for header-value pairs
+INCLUDE_HEADER_PRESENCE = True # Hot mappings for headers present in request/response/all network logs
+INCLUDE_HEADER_VALUES = True # Hot mappings for header-value pairs
 INVALID_SESSIONS_FILE = 'invalid_sessions_batch_data.yml'
 
 # Specify data location here:
@@ -478,15 +478,39 @@ def get_public_url(session_json_path):
         print(f"Error parsing session.json: {e}")
         return None
 
-# Logic to parse result from page_sources.json
-def get_result(page_sources_path, is_phishing):
-    with open(page_sources_path, 'r') as file:
-        data = json.load(file, strict=False)
-    page_sources = [entry['text'] for entry in data]
-    if len(page_sources) != 1:
-        print("ERROR: Incorrect number of page sources; there should only be one for this data collection")
+# Logic to parse result from text_logs.txt
+def get_result(text_logs_path, is_phishing, url):
+    with open(text_logs_path, 'r', encoding='utf-8') as f:
+        data = f.read().splitlines()
+    get_url_req_detected = False  # Prevent multiple entries for consecutive REQUESTs to /source
+    get_source_req_detected = False
+    url = url.replace("hxxp", "http")
+    page_source = None
+    for line in data:
+        if "REQUEST" in line:
+            # Detect the REQUEST for /url
+            if "/url" in line and url in line:
+                get_url_req_detected = True
+            # Detect the REQUEST for /source
+            elif "/source" in line and get_url_req_detected:
+                get_source_req_detected = True  # Indicates that the next RESPONSE should be interpreted as page source
+                get_url_req_detected = False  # Previous REQUEST is no longer for /url
+        elif "RESPONSE" in line:
+            # Detect the RESPONSE after the /source request
+            if get_source_req_detected:
+                try:
+                    # Parse for page source
+                    segments = line.split('{"value":')
+                    page_source = '{"value":'.join(segments[1:])[:-1]  # Get the page source by parsing it out of the "value" json response (remove last '}')
+                    break
+                except Exception as e:
+                    print(f"Exception getting page source: {e}")
+                    continue
+    if page_source is None:
+        print(f"ERROR: Page source not found for url {url}")
+        print(text_logs_path)
         return -2, "ERROR"
-    page_source = page_sources[0]
+
     # Default is page is allowed through
     result = 0
     reasoning = "Page allowed; not blocked"
@@ -597,7 +621,7 @@ def main():
         header_mappings = create_header_hot_mappings(data_folders)
 
     # Create output CSV file first
-    with open(OUTPUT_FILE, mode='w', newline='') as csvfile:
+    with open(OUTPUT_FILE, mode='w', encoding='utf-8', newline='') as csvfile:
         csv_writer = csv.writer(csvfile)
         
         # Write the header row
@@ -650,10 +674,11 @@ def main():
                 #   - phishing
                 info_json_path = os.path.join(curr_folder, 'info.json')
                 session_urls = get_urls(info_json_path)
-                for url in session_urls:    
+                for url in session_urls:
                     # Object to hold data for current entry of CSV row
                     session_data = []
 
+                    # 
                     session_data.append(url)
                     phishing = get_phishing()
                     session_data.append(phishing)
@@ -674,11 +699,11 @@ def main():
                     session_data.append(parsed_session_json['browser'])
                     session_data.append(parsed_session_json['browser_version'] if parsed_session_json['browser_version'] is not None else "None")
                 
-                    # Parse page_sources.json
+                    # Parse text_logs.txt
                     #   - result (0=unblocked, 1=blocked by browser, -1=blocked by other)
-                    page_sources_path = os.path.join(session_folder_path, 'page_sources.json')
+                    text_logs_path = os.path.join(session_folder_path, 'text_logs.txt')
                     if INCLUDE_BLOCKED_RESULT:
-                        blocked, reasoning = get_result(page_sources_path, phishing)
+                        blocked, reasoning = get_result(text_logs_path, phishing, url)
                         session_data.append(blocked)
                         session_data.append(reasoning)
                 
@@ -700,7 +725,7 @@ def main():
                             session_data.append(header_value)
                     
                     # After all processsing, append data to CSV
-                    # print("Adding data:", session_data)
+                    print("Adding data:", session_data)
                     csv_writer.writerow(session_data)
 
 

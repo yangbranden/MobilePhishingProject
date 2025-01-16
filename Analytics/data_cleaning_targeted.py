@@ -613,7 +613,7 @@ def main():
         header_mappings = create_header_hot_mappings(data_folders)
 
     # Create output CSV file first
-    with open(OUTPUT_FILE, mode='w', newline='') as csvfile:
+    with open(OUTPUT_FILE, mode='w', encoding='utf-8', newline='') as csvfile:
         csv_writer = csv.writer(csvfile)
         
         # Write the header row
