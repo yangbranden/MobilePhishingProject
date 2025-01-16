@@ -42,7 +42,7 @@ while True:
 sys.set_int_max_str_digits(0) # Allow for larger integer conversion
 
 # SETTINGS (these are mostly for debugging but we can also tailor the output CSV)
-OUTPUT_FILE = 'batch_data_noheaders_1_15_2025.csv'
+OUTPUT_FILE = 'iongetit.csv'
 APPIUM_IS_BLOCK = True # Edge case for Safari visits to phishing sites; if True, consider page sources with Appium documentation as detected phishing by Safari; otherwise -1
 UNIQUE_HEADER_DATA_THRESHOLD = 0.8 # Headers with unique values in more than (this specified percentage) of their total values are ignored (e.g. 0.5 = 50%; if 50% of values are unique, ignore the header)
 HEADER_VALUE_MAPPING_FILE = 'mappingfile_batch_data_80percent_header_data.csv' # File to save the mappings for the header-value pair encodings in
@@ -621,7 +621,7 @@ def main():
         header_mappings = create_header_hot_mappings(data_folders)
 
     # Create output CSV file first
-    with open(OUTPUT_FILE, mode='w', newline='') as csvfile:
+    with open(OUTPUT_FILE, mode='w', encoding='utf-8', newline='') as csvfile:
         csv_writer = csv.writer(csvfile)
         
         # Write the header row
@@ -678,6 +678,7 @@ def main():
                     # Object to hold data for current entry of CSV row
                     session_data = []
 
+                    # 
                     session_data.append(url)
                     phishing = get_phishing()
                     session_data.append(phishing)
@@ -724,7 +725,7 @@ def main():
                             session_data.append(header_value)
                     
                     # After all processsing, append data to CSV
-                    # print("Adding data:", session_data)
+                    print("Adding data:", session_data)
                     csv_writer.writerow(session_data)
 
 
