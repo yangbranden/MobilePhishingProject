@@ -4,7 +4,8 @@ import pandas as pd
 data = pd.read_csv("targeted_data_all_1_15_2025.csv", low_memory=False)
 
 # Clean data
-data = data[data['blocked'] != -1]
+data = data[data['blocked'] != -1] # Remove blocks by 3rd party sources (we are only observing browser behavior)
+data = data[data['blocked'] != -2] # Remove errors (entries where page source was unable to be processed properly)
 
 # FILTER DATA FOR SPECIFIC URLs (these are our phishing URLs)
 data = data[data['phishing'] == True] # filter for visits to phishing sites
@@ -149,8 +150,9 @@ data['device_type'] = data['device_type'].fillna('Other')
 # other_devices = data[data['device_type'] == 'Other']['device'].unique()
 # print("OTHER:", other_devices)
 
-# Basic information
-# Summary statistics
+
+
+######## OVERALL STATISTICS ########
 print("Basic data summary information:\n", data.describe(include='all'))
 # Check for missing values
 print("Checking null values:\n", data.isnull().sum())
@@ -160,21 +162,36 @@ print("\nDistribution by Device type:\n",data['device_type'].value_counts())
 print("\nDistribution by Browser:\n",data['browser'].value_counts())
 print()
 
-# Block rate by OS
-os_susceptibility = data.groupby('os')['blocked'].mean().sort_values(ascending=False)
+
+
+######## OS STATISTICS ########
+# OS only
+# os_susceptibility = data.groupby('os')['blocked'].mean().sort_values(ascending=False)
+# OS + OS version
+os_susceptibility = data.groupby(['os', 'os_version'])['blocked'].mean().sort_values(ascending=False)
 print("\nOS STATISTICS", os_susceptibility)
 
 
-# Block rate by devices
-# Basic device-by-device
+
+######## DEVICE STATISTICS ########
+# Device only
 # device_susceptibility = data.groupby('device')['blocked'].mean().sort_values(ascending=False)
-# Device category only
+# Device type only
 # device_susceptibility = data.groupby('device_type')['blocked'].mean().sort_values(ascending=False)
-# Device category AND device
+# Device type + device
 device_susceptibility = data.groupby(['device_type', 'device'])['blocked'].mean().sort_values(ascending=False)
 print("\nDEVICE STATISTICS", device_susceptibility)
 
 
-# Block rate by browser
-browser_susceptibility = data.groupby('browser')['blocked'].mean().sort_values(ascending=False)
+
+######## BROWSER STATISTICS ########
+# Browser only
+# browser_susceptibility = data.groupby('browser')['blocked'].mean().sort_values(ascending=False)
+# Browser + browser version
+browser_susceptibility = data.groupby(['browser', 'browser_version'])['blocked'].mean().sort_values(ascending=False)
 print("\nBROWSER STATISTICS", browser_susceptibility)
+
+
+
+# Output to CSV file for creating table visuals
+# os_susceptibility.to_csv('./statistics/targeted_data/browser+browser_version.csv')
