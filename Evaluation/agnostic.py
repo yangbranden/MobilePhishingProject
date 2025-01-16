@@ -125,7 +125,7 @@ def parse_data(data_dirs: list, csv_path: str):
                                                 current_entry["reasoning"] = reasoning
                                                 current_entry["timestamp"] = timestamp
                                                 visit_data.append(current_entry)
-                                            except Exception:
+                                            except Exception as e:
                                                 print(f"Exception getting page source: {e}")
                                                 continue
                                             get_source_req_detected = False
