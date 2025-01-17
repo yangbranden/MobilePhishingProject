@@ -457,14 +457,17 @@ class BrowserstackRunner:
                 # Detect the RESPONSE after the /source request
                 if get_source_req_detected:
                     try:
-                        segments = line.split('{"value":')
-                        page_source = '{"value":'.join(segments[1:])[:-1] # get the page source by parsing it out of the "value" json response (remove last '}')
+                        segments = line.split('{')
+                        json_str = '{' + '{'.join(segments[1:])
+                        json_data = json.loads(json_str)
+                        page_source = json_data["value"] # page source is given in "value" field from RESPONSE log
                         current_entry = {
                             "text": page_source,
                             "label": 1 # 1 = phishing; TODO: IF WE ARE COLLECTING BENIGN SITES, THIS NEEDS TO BE CHANGED
                         }
                         output.append(current_entry)
-                    except Exception:
+                    except Exception as e:
+                        print(f"Exception in parsing (save_page_source_session_id): {e}")
                         continue
                     get_source_req_detected = False
 
