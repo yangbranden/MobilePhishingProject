@@ -514,14 +514,18 @@ def get_result(text_logs_path, is_phishing, url):
     # Default is page is allowed through
     result = 0
     reasoning = "Page allowed; not blocked"
-    # Check if browser block message in page source:
-    for browser, browser_block_message in browser_block_messages.items():
-        if browser_block_message in page_source:
-            result = 1
-            reasoning = browser + ": " + browser_block_message
-            break
-    # Check for other potential scenarios if result != 1 already
+    # Detect if page source was not collected properly (VERY IMPORTANT)
+    if len(page_source) == 0:
+        result = -1
+        reasoning = "Page source not found; invalid data"
+    # Check for actual results if we have page source content
     if result != 1:
+        # Check if browser block message in page source:
+        for browser, browser_block_message in browser_block_messages.items():
+            if browser_block_message in page_source:
+                result = 1
+                reasoning = browser + ": " + browser_block_message
+                break
         # Check for not found messages
         for not_found, not_found_message in not_found_messages.items():
             if not_found_message in page_source:
