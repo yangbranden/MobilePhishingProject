@@ -43,8 +43,8 @@ while True:
         maxInt = int(maxInt/10)
 sys.set_int_max_str_digits(0) # Allow for larger integer conversion
 
-# SETTINGS (these are mostly for debugging but we can also tailor the output CSV)
-OUTPUT_FILE = 'targeted_data_noheaders_1_15_2025.csv'
+# SETTINGS
+OUTPUT_FILE = 'targeted_data_1_17_2025.csv'
 APPIUM_IS_BLOCK = True # Edge case for Safari visits to phishing sites; if True, consider page sources with Appium documentation as detected phishing by Safari; otherwise -1
 UNIQUE_HEADER_DATA_THRESHOLD = 0.5 # Headers with unique values in more than (this specified percentage) of their total values are ignored (e.g. 0.5 = 50%; if 50% of values are unique, ignore the header)
 HEADER_VALUE_MAPPING_FILE = 'mappingfile_targeted_data_50percent_header_data.csv' # File to save the mappings for the header-value pair encodings in
