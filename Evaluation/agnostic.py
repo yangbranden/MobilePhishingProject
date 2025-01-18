@@ -95,8 +95,10 @@ def parse_data(data_dirs: list, csv_path: str):
                                                 timestamp = ' '.join(segments[:2])
 
                                                 # Then get json response data
-                                                segments = line.split('{"value":')
-                                                page_source = '{"value":'.join(segments[1:])[:-1]  # Get the page source by parsing it out of the "value" json response (remove last '}')
+                                                segments = line.split('{')
+                                                json_str = '{' + '{'.join(segments[1:])
+                                                json_data = json.loads(json_str)
+                                                page_source = json_data["value"] # page source is given in "value" field from RESPONSE log
                                                 result = 0
 
                                                 # Check if browser block message in page source:

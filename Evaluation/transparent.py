@@ -70,8 +70,10 @@ def parse_data(base_dir):
                                 # Detect the RESPONSE after the /source request
                                 if get_source_req_detected:
                                     try:
-                                        segments = line.split('{"value":')
-                                        page_source = '{"value":'.join(segments[1:])[:-1] # get the page source by parsing it out of the "value" json response (remove last '}')
+                                        segments = line.split('{')
+                                        json_str = '{' + '{'.join(segments[1:])
+                                        json_data = json.loads(json_str)
+                                        page_source = json_data["value"] # page source is given in "value" field from RESPONSE log
                                         result = 0
                                         
                                         # Check if browser block message in page source:
