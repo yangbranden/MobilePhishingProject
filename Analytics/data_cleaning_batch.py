@@ -41,8 +41,8 @@ while True:
         maxInt = int(maxInt/10)
 sys.set_int_max_str_digits(0) # Allow for larger integer conversion
 
-# SETTINGS (these are mostly for debugging but we can also tailor the output CSV)
-OUTPUT_FILE = 'batch_data_all_1_16_2025.csv'
+# SETTINGS
+OUTPUT_FILE = 'batch_data_1_17_2025.csv'
 APPIUM_IS_BLOCK = True # Edge case for Safari visits to phishing sites; if True, consider page sources with Appium documentation as detected phishing by Safari; otherwise -1
 UNIQUE_HEADER_DATA_THRESHOLD = 0.8 # Headers with unique values in more than (this specified percentage) of their total values are ignored (e.g. 0.5 = 50%; if 50% of values are unique, ignore the header)
 HEADER_VALUE_MAPPING_FILE = 'mappingfile_batch_data_80percent_header_data.csv' # File to save the mappings for the header-value pair encodings in
@@ -51,8 +51,8 @@ REQUEST_HEADER_MAPPING_FILE = 'mappingfile_batch_data_request_header_presence.cs
 RESPONSE_HEADER_MAPPING_FILE = 'mappingfile_batch_data_response_header_presence.csv' # File to save the mappings for response header presence encodings in
 DEBUG = True # Show debug prints
 INCLUDE_BLOCKED_RESULT = True # Determine whether or not page was blocked
-INCLUDE_HEADER_PRESENCE = True # Hot mappings for headers present in request/response/all network logs
-INCLUDE_HEADER_VALUES = True # Hot mappings for header-value pairs
+INCLUDE_HEADER_PRESENCE = False # Hot mappings for headers present in request/response/all network logs
+INCLUDE_HEADER_VALUES = False # Hot mappings for header-value pairs
 INVALID_SESSIONS_FILE = 'invalid_sessions_batch_data.yml'
 
 # Specify data location here:
@@ -514,14 +514,18 @@ def get_result(text_logs_path, is_phishing, url):
     # Default is page is allowed through
     result = 0
     reasoning = "Page allowed; not blocked"
-    # Check if browser block message in page source:
-    for browser, browser_block_message in browser_block_messages.items():
-        if browser_block_message in page_source:
-            result = 1
-            reasoning = browser + ": " + browser_block_message
-            break
-    # Check for other potential scenarios if result != 1 already
+    # Detect if page source was not collected properly (VERY IMPORTANT)
+    if len(page_source) == 0:
+        result = -1
+        reasoning = "Page source not found; invalid data"
+    # Check for actual results if we have page source content
     if result != 1:
+        # Check if browser block message in page source:
+        for browser, browser_block_message in browser_block_messages.items():
+            if browser_block_message in page_source:
+                result = 1
+                reasoning = browser + ": " + browser_block_message
+                break
         # Check for not found messages
         for not_found, not_found_message in not_found_messages.items():
             if not_found_message in page_source:
@@ -725,7 +729,7 @@ def main():
                             session_data.append(header_value)
                     
                     # After all processsing, append data to CSV
-                    print("Adding data:", session_data)
+                    # print("Adding data:", session_data)
                     csv_writer.writerow(session_data)
 
 
