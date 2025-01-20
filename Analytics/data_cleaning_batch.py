@@ -500,8 +500,10 @@ def get_result(text_logs_path, is_phishing, url):
             if get_source_req_detected:
                 try:
                     # Parse for page source
-                    segments = line.split('{"value":')
-                    page_source = '{"value":'.join(segments[1:])[:-1]  # Get the page source by parsing it out of the "value" json response (remove last '}')
+                    segments = line.split('{')
+                    json_str = '{' + '{'.join(segments[1:])
+                    json_data = json.loads(json_str)
+                    page_source = json_data["value"] # page source is given in "value" field from RESPONSE log
                     break
                 except Exception as e:
                     print(f"Exception getting page source: {e}")

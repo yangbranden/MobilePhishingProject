@@ -1,0 +1,324 @@
+\begin{longtable}{llllll}
+\toprule
+device & os & os\_version & browser & browser\_version & blocked \\
+\midrule
+\endfirsthead
+\toprule
+device & os & os\_version & browser & browser\_version & blocked \\
+\midrule
+\endhead
+\midrule
+\multicolumn{6}{r}{Continued on next page} \\
+\midrule
+\endfoot
+\bottomrule
+\endlastfoot
+Samsung Galaxy Note 9 & android & 8.1 & samsung & Chrome Mobile 128.0.0 & 1.0000 \\
+Samsung Galaxy S21 & android & 11.0 & samsung & Chrome Mobile 128.0.0 & 1.0000 \\
+Samsung Galaxy A52 & android & 11.0 & samsung & Chrome 60.0.3112 & 1.0000 \\
+Samsung Galaxy A51 & android & 10.0 & samsung & Chrome Mobile 128.0.0 & 1.0000 \\
+Samsung Galaxy S21 Plus & android & 11.0 & samsung & Chrome 60.0.3112 & 1.0000 \\
+Samsung Galaxy S21 & android & 11.0 & samsung & Chrome 60.0.3112 & 1.0000 \\
+Samsung Galaxy Tab S7 & android & 11.0 & samsung & Chrome 128.0.0 & 1.0000 \\
+Samsung Galaxy S20 Plus & android & 10.0 & samsung & Chrome Mobile 128.0.0 & 1.0000 \\
+Samsung Galaxy S10 & android & 9.0 & samsung & Chrome Mobile 128.0.0 & 1.0000 \\
+Samsung Galaxy S20 & android & 10.0 & samsung & Chrome 60.0.3112 & 1.0000 \\
+Samsung Galaxy S20 Plus & android & 10.0 & samsung & Chrome 60.0.3112 & 1.0000 \\
+Samsung Galaxy Note 20 Ultra & android & 10.0 & samsung & Chrome 60.0.3112 & 0.9600 \\
+Samsung Galaxy Tab S6 & android & 9.0 & samsung & Samsung Internet 25.0 & 0.9531 \\
+Samsung Galaxy S21 & android & 12.0 & samsung & Samsung Internet 25.0 & 0.9490 \\
+Samsung Galaxy Note 20 & android & 10.0 & samsung & Chrome 60.0.3112 & 0.9474 \\
+Samsung Galaxy M52 & android & 11.0 & samsung & Samsung Internet 25.0 & 0.9444 \\
+Samsung Galaxy Tab S7 & android & 11.0 & samsung & Samsung Internet 25.0 & 0.9444 \\
+Samsung Galaxy A51 & android & 10.0 & samsung & Samsung Internet 25.0 & 0.9394 \\
+Samsung Galaxy S10 Plus & android & 9.0 & samsung & Samsung Internet 25.0 & 0.9388 \\
+Samsung Galaxy A10 & android & 9.0 & samsung & Samsung Internet 25.0 & 0.9388 \\
+Samsung Galaxy S10 & android & 9.0 & samsung & Samsung Internet 25.0 & 0.9388 \\
+Samsung Galaxy S21 & android & 11.0 & samsung & Samsung Internet 25.0 & 0.9375 \\
+Samsung Galaxy S20 Ultra & android & 10.0 & samsung & Chrome 60.0.3112 & 0.9375 \\
+Samsung Galaxy S21 Plus & android & 11.0 & samsung & Samsung Internet 25.0 & 0.9359 \\
+Samsung Galaxy A52 & android & 11.0 & samsung & Samsung Internet 25.0 & 0.9326 \\
+Samsung Galaxy Tab S7 & android & 10.0 & samsung & Samsung Internet 25.0 & 0.9318 \\
+Samsung Galaxy Note 9 & android & 8.1 & samsung & Samsung Internet 25.0 & 0.9318 \\
+Samsung Galaxy S21 Ultra & android & 11.0 & samsung & Samsung Internet 25.0 & 0.9241 \\
+Samsung Galaxy S21 Plus & android & 11.0 & samsung & Chrome Mobile 128.0.0 & 0.9000 \\
+Samsung Galaxy Note 20 & android & 10.0 & samsung & Samsung Internet 25.0 & 0.9000 \\
+Samsung Galaxy S20 & android & 10.0 & samsung & Samsung Internet 25.0 & 0.8800 \\
+Samsung Galaxy S20 Plus & android & 10.0 & samsung & Samsung Internet 25.0 & 0.8750 \\
+Samsung Galaxy Note 20 Ultra & android & 10.0 & samsung & Samsung Internet 25.0 & 0.8621 \\
+Samsung Galaxy S20 Ultra & android & 10.0 & samsung & Samsung Internet 25.0 & 0.8500 \\
+Samsung Galaxy S9 & android & 8.0 & samsung & Samsung Internet 25.0 & 0.8469 \\
+Samsung Galaxy S23 Ultra & android & 13.0 & samsung & Chrome 60.0.3112 & 0.7000 \\
+iPhone 13 Pro Max & ios & 18.0 & chromium\_iphone & Chrome Mobile iOS 125.0.6422 & 0.6000 \\
+Oppo Reno 3 Pro & android & 10.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.5294 \\
+iPad Pro 11 2021 & ios & 18.0 & ipad & Safari 18.0.1 & 0.4960 \\
+iPhone XS & ios & 12.1 & iphone & Mobile Safari 12.0 & 0.4762 \\
+Oppo Reno 6 & android & 11.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.4674 \\
+Motorola Moto G9 Play & android & 10.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.4512 \\
+Samsung Galaxy S8 & android & 7.0 & samsung & Samsung Internet 21.0 & 0.4507 \\
+iPhone 13 Pro Max & ios & 18.0 & iphone & Mobile Safari 18.0.1 & 0.4500 \\
+iPad Pro 12.9 2018 & ios & 12.1 & ipad & Mobile Safari 12.0 & 0.4483 \\
+Motorola Moto G71 5G & android & 11.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.4471 \\
+Huawei P30 & android & 9.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.4444 \\
+Google Pixel 3 & android & 9.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.4375 \\
+iPhone 8 & ios & 11.4 & iphone & Mobile Safari 11.0 & 0.4253 \\
+Vivo Y50 & android & 10.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.4141 \\
+Oppo A96 & android & 11.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.4128 \\
+Vivo Y21 & android & 11.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.4125 \\
+Vivo V21 & android & 11.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.4059 \\
+Samsung Galaxy S23 Ultra & android & 13.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.4040 \\
+iPad 6th & ios & 11.3 & ipad & Mobile Safari 11.0 & 0.3922 \\
+Samsung Galaxy M32 & android & 11.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.3797 \\
+Samsung Galaxy A10 & android & 9.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.3678 \\
+iPhone 7 & ios & 10.3 & iphone & Mobile Safari 10.0 & 0.3649 \\
+Google Pixel 9 Pro XL & android & 15.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.3647 \\
+Google Pixel 6 Pro & android & 15.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.3626 \\
+iPhone X & ios & 11.2 & iphone & Mobile Safari 11.0 & 0.3623 \\
+Xiaomi Redmi Note 8 & android & 9.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.3614 \\
+Google Pixel 7 & android & 13.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.3613 \\
+Samsung Galaxy A51 & android & 10.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.3605 \\
+OnePlus 7T & android & 10.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.3580 \\
+Samsung Galaxy Tab S7 & android & 10.0 & chrome\_android & Chrome 128.0.0 & 0.3580 \\
+Xiaomi Redmi Note 9 & android & 10.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.3564 \\
+Samsung Galaxy S10 & android & 9.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.3529 \\
+OnePlus 9 & android & 11.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.3505 \\
+Samsung Galaxy S10 Plus & android & 9.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.3500 \\
+Google Pixel 5 & android & 11.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.3494 \\
+Samsung Galaxy S22 & android & 12.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.3462 \\
+Samsung Galaxy Note 9 & android & 8.1 & chrome\_android & Chrome Mobile 128.0.0 & 0.3457 \\
+Samsung Galaxy Tab S6 & android & 9.0 & chrome\_android & Chrome 128.0.0 & 0.3452 \\
+Samsung Galaxy S20 Plus & android & 10.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.3444 \\
+Samsung Galaxy A11 & android & 10.0 & chrome\_android & Chrome Mobile 108.0.0 & 0.3418 \\
+Samsung Galaxy Tab S7 & android & 11.0 & chrome\_android & Chrome 128.0.0 & 0.3409 \\
+Samsung Galaxy S20 Ultra & android & 10.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.3400 \\
+OnePlus 7 & android & 9.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.3373 \\
+Samsung Galaxy Tab S10 Plus & android & 14.0 & chrome\_android & Chrome 128.0.0 & 0.3367 \\
+Samsung Galaxy S22 Ultra & android & 12.0 & chrome\_android & Chrome Mobile 114.0.0 & 0.3333 \\
+Google Pixel 4 & android & 10.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.3302 \\
+Google Pixel 6 Pro & android & 12.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.3297 \\
+Samsung Galaxy S21 & android & 11.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.3295 \\
+Samsung Galaxy M52 & android & 11.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.3295 \\
+Xiaomi Redmi Note 11 & android & 11.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.3294 \\
+Samsung Galaxy Note 20 Ultra & android & 10.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.3265 \\
+Samsung Galaxy S22 Plus & android & 12.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.3258 \\
+Samsung Galaxy Tab S9 & android & 13.0 & chrome\_android & Chrome 128.0.0 & 0.3258 \\
+Samsung Galaxy Tab A9 Plus & android & 14.0 & chrome\_android & Chrome 128.0.0 & 0.3256 \\
+Samsung Galaxy S24 Ultra & android & 14.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.3247 \\
+Samsung Galaxy S9 & android & 8.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.3232 \\
+Samsung Galaxy Note 20 & android & 10.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.3218 \\
+Samsung Galaxy A52 & android & 11.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.3218 \\
+Samsung Galaxy S21 & android & 12.0 & chrome\_android & Chrome Mobile 114.0.0 & 0.3208 \\
+Samsung Galaxy S23 & android & 13.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.3200 \\
+Samsung Galaxy S8 & android & 7.0 & chrome\_android & Chrome Mobile 117.0.0 & 0.3196 \\
+OnePlus 8 & android & 10.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.3187 \\
+OnePlus 11R & android & 13.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.3187 \\
+Samsung Galaxy S21 Plus & android & 11.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.3186 \\
+Google Pixel 4 & android & 11.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.3163 \\
+Google Pixel 4 XL & android & 10.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.3163 \\
+Google Pixel 9 Pro & android & 15.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.3158 \\
+Samsung Galaxy S24 & android & 14.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.3152 \\
+Samsung Galaxy S20 & android & 10.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.3148 \\
+Google Pixel 5 & android & 12.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.3140 \\
+Samsung Galaxy Tab S8 & android & 12.0 & chrome\_android & Chrome 128.0.0 & 0.3119 \\
+Motorola Moto G7 Play & android & 9.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.3061 \\
+Google Pixel 6 & android & 12.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.3034 \\
+Samsung Galaxy S21 Ultra & android & 11.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.3019 \\
+Google Pixel 7 Pro & android & 13.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.2797 \\
+Google Pixel 9 & android & 15.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.2609 \\
+Google Pixel 6 Pro & android & 13.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.2603 \\
+Google Pixel 8 & android & 14.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.2410 \\
+iPad Pro 12.9 2020 & ios & 16.2 & ipad & Safari 16.2 & 0.2273 \\
+iPhone 12 Mini & ios & 14.6 & iphone & Mobile Safari 14.1.1 & 0.2222 \\
+iPad Pro 11 2021 & ios & 18.0 & chromium\_ipad & Chrome Mobile iOS 125.0.6422 & 0.2198 \\
+Google Pixel 8 Pro & android & 14.0 & chrome\_android & Chrome Mobile 128.0.0 & 0.2143 \\
+iPad Pro 11 2021 & ios & 14.5 & ipad & Safari 14.1 & 0.2128 \\
+iPhone 13 Mini & ios & 15.4 & iphone & Mobile Safari 15.4 & 0.2105 \\
+Samsung Galaxy S24 & android & 14.0 & samsung & Samsung Internet 25.0 & 0.2105 \\
+iPhone 13 & ios & 15.2 & iphone & Mobile Safari 15.2 & 0.2078 \\
+iPhone 15 Plus & ios & 17.1 & iphone & Mobile Safari 17.1.1 & 0.2063 \\
+Samsung Galaxy Tab S9 & android & 13.0 & samsung & Samsung Internet 25.0 & 0.2029 \\
+iPhone XR & ios & 15.6 & iphone & Mobile Safari 15.6 & 0.2000 \\
+iPhone 13 Pro Max & ios & 15.4 & iphone & Mobile Safari 15.4 & 0.2000 \\
+Samsung Galaxy S22 Ultra & android & 12.0 & samsung & Samsung Internet 25.0 & 0.1951 \\
+Samsung Galaxy S24 Ultra & android & 14.0 & samsung & Samsung Internet 25.0 & 0.1932 \\
+iPhone 12 & ios & 14.7 & iphone & Mobile Safari 14.1.2 & 0.1842 \\
+iPad Pro 12.9 2020 & ios & 14.0 & ipad & Safari 14.0 & 0.1827 \\
+iPad 9th & ios & 15.5 & ipad & Safari 15.5 & 0.1827 \\
+Samsung Galaxy S22 & android & 12.0 & samsung & Samsung Internet 25.0 & 0.1789 \\
+iPhone SE 2020 & ios & 13.4 & iphone & Mobile Safari 13.1 & 0.1782 \\
+Samsung Galaxy Tab S8 & android & 12.0 & samsung & Samsung Internet 25.0 & 0.1688 \\
+iPad Pro 12.9 2021 & ios & 17.2 & ipad & Safari 17.2 & 0.1667 \\
+iPad Mini 2021 & ios & 15.5 & ipad & Mobile Safari 15.5 & 0.1613 \\
+Samsung Galaxy S23 & android & 13.0 & samsung & Samsung Internet 25.0 & 0.1609 \\
+iPad Air 5 & ios & 15.4 & ipad & Safari 15.4 & 0.1600 \\
+iPhone 12 Mini & ios & 14.2 & iphone & Mobile Safari 14.0.1 & 0.1593 \\
+iPhone 13 & ios & 16.3 & iphone & Mobile Safari 16.3 & 0.1558 \\
+iPad Pro 12.9 2021 & ios & 17.1 & ipad & Safari 17.1 & 0.1519 \\
+iPhone 12 Pro Max & ios & 14.3 & iphone & Mobile Safari 14.0.2 & 0.1507 \\
+Samsung Galaxy M32 & android & 11.0 & samsung & Samsung Internet 25.0 & 0.1500 \\
+iPhone 12 Pro & ios & 14.4 & iphone & Mobile Safari 14.0.3 & 0.1475 \\
+iPad Pro 11 2020 & ios & 13.4 & ipad & Safari 13.1 & 0.1471 \\
+iPhone 14 Pro & ios & 16.3 & iphone & Mobile Safari 16.3 & 0.1447 \\
+iPad Mini 2019 & ios & 13.4 & ipad & Mobile Safari 13.1 & 0.1410 \\
+iPad 9th & ios & 18.0 & chromium\_ipad & Chrome Mobile iOS 125.0.6422 & 0.1406 \\
+iPad Pro 12.9 2020 & ios & 13.4 & ipad & Safari 13.1 & 0.1389 \\
+iPhone XS & ios & 15.3 & iphone & Mobile Safari 15.3 & 0.1359 \\
+iPhone XR & ios & 15.4 & iphone & Mobile Safari 15.4 & 0.1311 \\
+iPad 8th & ios & 14.0 & ipad & Safari 14.0 & 0.1310 \\
+iPad Pro 12.9 2022 & ios & 16.0 & ipad & Safari 16.0 & 0.1286 \\
+Samsung Galaxy S23 Ultra & android & 13.0 & samsung & Samsung Internet 25.0 & 0.1250 \\
+iPhone 11 & ios & 14.0 & iphone & Mobile Safari 14.0 & 0.1222 \\
+Samsung Galaxy Tab A9 Plus & android & 14.0 & samsung & Samsung Internet 25.0 & 0.1207 \\
+iPad Pro 12.9 2021 & ios & 14.5 & ipad & Safari 14.1 & 0.1190 \\
+iPhone SE 2020 & ios & 16.4 & iphone & Mobile Safari 16.4 & 0.1163 \\
+iPhone 14 & ios & 18.0 & chromium\_iphone & Chrome Mobile iOS 125.0.6422 & 0.1125 \\
+iPhone 16 Pro & ios & 18.0 & iphone & Mobile Safari 18.0 & 0.1124 \\
+iPhone SE 2022 & ios & 15.4 & iphone & Mobile Safari 15.4 & 0.1122 \\
+Samsung Galaxy S22 Plus & android & 12.0 & samsung & Samsung Internet 25.0 & 0.1111 \\
+iPhone 13 Pro & ios & 15.6 & iphone & Mobile Safari 15.6 & 0.1075 \\
+iPad Air 4 & ios & 14.1 & ipad & Safari 14.0 & 0.1058 \\
+iPhone 12 & ios & 17.0 & iphone & Mobile Safari 17.0 & 0.1053 \\
+iPhone 13 & ios & 18.0 & chromium\_iphone & Chrome Mobile iOS 125.0.6422 & 0.1011 \\
+iPhone 15 Pro Max & ios & 17.3 & iphone & Mobile Safari 17.3.1 & 0.0909 \\
+Samsung Galaxy Tab S10 Plus & android & 14.0 & samsung & Samsung Internet 25.0 & 0.0851 \\
+iPhone 12 Pro & ios & 14.3 & iphone & Mobile Safari 14.0.2 & 0.0769 \\
+iPhone 12 Pro & ios & 17.0 & iphone & Mobile Safari 17.0 & 0.0753 \\
+iPhone 14 Plus & ios & 16.0 & iphone & Mobile Safari 16.0 & 0.0673 \\
+iPhone 12 Pro Max & ios & 14.2 & iphone & Mobile Safari 14.0.1 & 0.0625 \\
+iPhone 16 & ios & 18.0 & iphone & Mobile Safari 18.0 & 0.0588 \\
+iPhone 15 Pro & ios & 17.5 & iphone & Mobile Safari 17.5 & 0.0571 \\
+iPad 8th & ios & 16.3 & ipad & Safari 16.3 & 0.0571 \\
+iPad Pro 12.9 2022 & ios & 16.1 & ipad & Safari 16.1 & 0.0556 \\
+iPhone 13 & ios & 17.5 & iphone & Mobile Safari 17.5 & 0.0543 \\
+iPhone 12 Pro & ios & 18.0 & iphone & Mobile Safari 18.0 & 0.0513 \\
+iPhone 15 Pro Max & ios & 17.5 & iphone & Mobile Safari 17.5 & 0.0500 \\
+iPad 10th & ios & 16.0 & ipad & Safari 16.0 & 0.0465 \\
+iPad Pro 13 2024 & ios & 17.5 & ipad & Safari 17.5 & 0.0460 \\
+iPad Pro 11 2024 & ios & 17.5 & ipad & Safari 17.5 & 0.0455 \\
+iPhone 15 Pro Max & ios & 17.1 & iphone & Mobile Safari 17.1.1 & 0.0435 \\
+iPhone 16 Pro Max & ios & 18.0 & iphone & Mobile Safari 18.0 & 0.0435 \\
+iPhone 15 & ios & 17.4 & iphone & Mobile Safari 17.4 & 0.0417 \\
+iPhone 14 & ios & 18.0 & iphone & Mobile Safari 18.0 & 0.0412 \\
+iPhone XR & ios & 15.6 & iphone & Mobile Safari 15.6.1 & 0.0400 \\
+iPhone 13 & ios & 15.5 & iphone & Mobile Safari 15.5 & 0.0400 \\
+iPad 8th & ios & 16.2 & ipad & Safari 16.2 & 0.0400 \\
+iPad Air 6 & ios & 17.5 & ipad & Safari 17.5 & 0.0381 \\
+iPad Pro 11 2020 & ios & 16.3 & ipad & Safari 16.3 & 0.0370 \\
+iPhone 14 Pro Max & ios & 16.0 & iphone & Mobile Safari 16.0 & 0.0353 \\
+iPhone 13 & ios & 18.0 & iphone & Mobile Safari 18.0 & 0.0345 \\
+iPad 9th & ios & 18.0 & ipad & Safari 18.0 & 0.0323 \\
+iPad Pro 11 2022 & ios & 16.0 & ipad & Safari 16.0 & 0.0319 \\
+iPhone 14 & ios & 16.4 & iphone & Mobile Safari 16.4 & 0.0312 \\
+iPhone 12 Pro & ios & 16.0 & iphone & Mobile Safari 16.0 & 0.0274 \\
+iPhone 12 Mini & ios & 16.0 & iphone & Mobile Safari 16.0 & 0.0263 \\
+iPhone 14 & ios & 16.5 & iphone & Mobile Safari 16.5 & 0.0200 \\
+iPhone 16 Plus & ios & 18.0 & iphone & Mobile Safari 18.0 & 0.0192 \\
+iPad Mini 2019 & ios & 12.2 & ipad & Mobile Safari 12.1 & 0.0152 \\
+iPhone 15 & ios & 17.3 & iphone & Mobile Safari 17.3 & 0.0127 \\
+iPhone 12 Pro Max & ios & 16.0 & iphone & Mobile Safari 16.0 & 0.0118 \\
+iPhone SE 2020 & ios & 16.4 & chromium\_iphone & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPhone XR & ios & 15.4 & chromium\_iphone & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPhone SE 2022 & ios & 15.4 & chromium\_iphone & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPhone 16 Pro Max & ios & 18.0 & chromium\_iphone & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPhone XR & ios & 15.6 & chromium\_iphone & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPad 8th & ios & 14.0 & chromium\_ipad & Chrome Mobile iOS 111.0.5563 & 0.0000 \\
+iPad 8th & ios & 16.1 & chromium\_ipad & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPad 8th & ios & 16.1 & ipad & Safari 16.1 & 0.0000 \\
+iPad 8th & ios & 16.2 & chromium\_ipad & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+Samsung Galaxy Tab S10 Plus & android & 14.0 & samsung & Chrome 60.0.3112 & 0.0000 \\
+iPad Pro 11 2021 & ios & 14.5 & chromium\_ipad & Chrome Mobile iOS 111.0.5563 & 0.0000 \\
+iPad Pro 11 2022 & ios & 16.0 & chromium\_ipad & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+Samsung Galaxy S24 Ultra & android & 14.0 & samsung & Chrome Mobile 128.0.0 & 0.0000 \\
+iPad Mini 2021 & ios & 15.5 & chromium\_ipad & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPad Air 6 & ios & 17.5 & chromium\_ipad & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPad Pro 11 2020 & ios & 16.3 & chromium\_ipad & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPad Air 5 & ios & 15.4 & chromium\_ipad & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPad 9th & ios & 18.1 & ipad & Safari 18.1 & 0.0000 \\
+iPad 9th & ios & 18.1 & chromium\_ipad & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPad 8th & ios & 16.3 & chromium\_ipad & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPad 9th & ios & 15.5 & chromium\_ipad & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+Samsung Galaxy Tab S9 & android & 13.0 & samsung & Chrome 128.0.0 & 0.0000 \\
+iPad Air 4 & ios & 14.1 & chromium\_ipad & Chrome Mobile iOS 111.0.5563 & 0.0000 \\
+iPad 10th & ios & 16.0 & chromium\_ipad & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPad Pro 12.9 2022 & ios & 16.3 & ipad & Safari 16.3 & 0.0000 \\
+iPhone 12 & ios & 17.0 & chromium\_iphone & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPhone 12 & ios & 14.7 & chromium\_iphone & Chrome Mobile iOS 111.0.5563 & 0.0000 \\
+iPhone 12 & ios & 14.2 & iphone & Mobile Safari 14.0.1 & 0.0000 \\
+iPhone 12 & ios & 14.2 & chromium\_iphone & Chrome Mobile iOS 111.0.5563 & 0.0000 \\
+iPhone 11 & ios & 13.3 & iphone & Mobile Safari 13.0.5 & 0.0000 \\
+iPhone 11 & ios & 14.0 & chromium\_iphone & Chrome Mobile iOS 111.0.5563 & 0.0000 \\
+iPad Pro 12.9 2020 & ios & 16.4 & chromium\_ipad & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPad Pro 12.9 2021 & ios & 14.5 & chromium\_ipad & Chrome Mobile iOS 111.0.5563 & 0.0000 \\
+iPad Pro 12.9 2021 & ios & 17.2 & chromium\_ipad & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPad Pro 12.9 2021 & ios & 17.1 & chromium\_ipad & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPad Pro 12.9 2020 & ios & 16.1 & ipad & Safari 16.1 & 0.0000 \\
+iPad Pro 12.9 2020 & ios & 16.2 & chromium\_ipad & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPad Pro 12.9 2020 & ios & 16.3 & chromium\_ipad & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPad Pro 12.9 2020 & ios & 16.1 & chromium\_ipad & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPad Pro 11 2024 & ios & 17.5 & chromium\_ipad & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPad Pro 12.9 2020 & ios & 14.0 & chromium\_ipad & Chrome Mobile iOS 111.0.5563 & 0.0000 \\
+iPhone 13 & ios & 17.5 & chromium\_iphone & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPhone 13 & ios & 16.3 & chromium\_iphone & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPhone 13 & ios & 15.4 & iphone & Mobile Safari 15.4 & 0.0000 \\
+iPhone 13 & ios & 15.5 & chromium\_iphone & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPhone 13 & ios & 15.4 & chromium\_iphone & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPhone 13 & ios & 15.2 & chromium\_iphone & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPhone 12 Pro Max & ios & 14.4 & chromium\_iphone & Chrome Mobile iOS 111.0.5563 & 0.0000 \\
+iPhone 12 Pro Max & ios & 16.0 & chromium\_iphone & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPhone 12 Pro Max & ios & 14.2 & chromium\_iphone & Chrome Mobile iOS 111.0.5563 & 0.0000 \\
+iPhone 12 Pro Max & ios & 14.3 & chromium\_iphone & Chrome Mobile iOS 111.0.5563 & 0.0000 \\
+iPhone 12 Mini & ios & 14.6 & chromium\_iphone & Chrome Mobile iOS 111.0.5563 & 0.0000 \\
+iPhone 12 Pro & ios & 16.0 & chromium\_iphone & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPhone 12 Pro & ios & 16.2 & chromium\_iphone & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPhone 12 Pro & ios & 16.2 & iphone & Mobile Safari 16.2 & 0.0000 \\
+iPhone 12 Pro & ios & 17.0 & chromium\_iphone & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPhone 12 Pro & ios & 18.0 & chromium\_iphone & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPhone 12 Mini & ios & 14.2 & chromium\_iphone & Chrome Mobile iOS 111.0.5563 & 0.0000 \\
+iPhone 12 Mini & ios & 16.0 & chromium\_iphone & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPhone 12 Pro & ios & 14.3 & chromium\_iphone & Chrome Mobile iOS 111.0.5563 & 0.0000 \\
+iPhone 12 Pro & ios & 14.4 & chromium\_iphone & Chrome Mobile iOS 111.0.5563 & 0.0000 \\
+iPad Pro 12.9 2020 & ios & 16.3 & ipad & Safari 16.3 & 0.0000 \\
+iPad Pro 12.9 2022 & ios & 16.3 & chromium\_ipad & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPad Pro 12.9 2022 & ios & 16.1 & chromium\_ipad & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPad Pro 12.9 2022 & ios & 16.0 & chromium\_ipad & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPad Pro 13 2024 & ios & 17.5 & chromium\_ipad & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+Samsung Galaxy S24 & android & 14.0 & samsung & Chrome Mobile 128.0.0 & 0.0000 \\
+iPhone 14 & ios & 16.2 & chromium\_iphone & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+Samsung Galaxy S23 & android & 13.0 & samsung & Chrome Mobile 128.0.0 & 0.0000 \\
+Samsung Galaxy S22 Ultra & android & 12.0 & samsung & Chrome 60.0.3112 & 0.0000 \\
+iPhone 13 Pro & ios & 15.6 & chromium\_iphone & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+Samsung Galaxy S23 Ultra & android & 13.0 & samsung & Chrome Mobile 128.0.0 & 0.0000 \\
+iPhone 13 Mini & ios & 15.4 & chromium\_iphone & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPhone 15 & ios & 17.3 & chromium\_iphone & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPhone 14 Pro Max & ios & 16.0 & chromium\_iphone & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPhone 14 Pro & ios & 16.5 & chromium\_iphone & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPhone 14 Pro & ios & 16.5 & iphone & Mobile Safari 16.5 & 0.0000 \\
+iPhone 14 Pro & ios & 16.3 & chromium\_iphone & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPhone 14 & ios & 16.4 & chromium\_iphone & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPhone 14 & ios & 16.5 & chromium\_iphone & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPhone 14 Plus & ios & 16.0 & chromium\_iphone & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPhone 13 Pro Max & ios & 15.4 & chromium\_iphone & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPhone 13 Pro Max & ios & 15.2 & iphone & Mobile Safari 15.2 & 0.0000 \\
+iPhone 15 Plus & ios & 17.1 & chromium\_iphone & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPhone 15 Plus & ios & 17.0 & iphone & Mobile Safari 17.0 & 0.0000 \\
+iPhone 15 & ios & 17.5 & iphone & Mobile Safari 17.5 & 0.0000 \\
+iPhone 15 Plus & ios & 17.0 & chromium\_iphone & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPhone 15 & ios & 17.4 & chromium\_iphone & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPhone 15 & ios & 17.5 & chromium\_iphone & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPhone 15 Pro Max & ios & 17.2 & chromium\_iphone & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPhone 15 Pro Max & ios & 17.1 & chromium\_iphone & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPhone 15 Pro & ios & 17.2 & iphone & Mobile Safari 17.2 & 0.0000 \\
+iPhone 15 Pro & ios & 17.5 & chromium\_iphone & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPhone 15 Pro & ios & 17.2 & chromium\_iphone & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPhone 15 Pro & ios & 17.1 & chromium\_iphone & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPhone 15 Pro Max & ios & 17.2 & iphone & Mobile Safari 17.2 & 0.0000 \\
+iPhone 15 Pro Max & ios & 17.3 & chromium\_iphone & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPhone 16 & ios & 18.1 & iphone & Mobile Safari 18.1 & 0.0000 \\
+iPhone 16 & ios & 18.1 & chromium\_iphone & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPhone 16 & ios & 18.0 & chromium\_iphone & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPhone 16 Plus & ios & 18.0 & chromium\_iphone & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPhone 16 Pro & ios & 18.0 & chromium\_iphone & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPhone XS & ios & 12.3 & iphone & Mobile Safari 12.1.1 & 0.0000 \\
+iPhone XS & ios & 15.1 & chromium\_iphone & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+iPhone XS & ios & 15.3 & chromium\_iphone & Chrome Mobile iOS 125.0.6422 & 0.0000 \\
+\end{longtable}
