@@ -1,8 +1,8 @@
 import pandas as pd
 
 ######## SETTINGS ########
-data_file = 'targeted_data_1_17_2025.csv'
-output_dir = './statistics/targeted_data'
+data_file = 'batch_data_1_17_2025.csv'
+output_dir = './statistics/batch_data'
 
 
 # Load the data
@@ -202,3 +202,8 @@ browser_only.to_csv(f'{output_dir}/browser.csv')
 browser_and_browser_version = data.groupby(['browser', 'browser_version'])['blocked'].mean().sort_values(ascending=False)
 print("\nBROWSER + BROWSER VERSION", browser_and_browser_version)
 browser_and_browser_version.to_csv(f'{output_dir}/browser+browser_version.csv')
+
+
+######## ALL CONFIGURATIONS STATISTICS ########
+all_configs = data.groupby(['device','os','os_version','browser','browser_version'])['blocked'].mean().sort_values(ascending=False)
+all_configs.to_csv(f'{output_dir}/all_configs.csv')
