@@ -2,10 +2,11 @@
 This is a Python framework aiming to perform automated testing of phishing websites, with a particular focus on mobile environments.
 
 ## Running the Framework
-There are currently 3 different modules with which we can run our framework with:
+There are currently 4 different modules with which we can run our framework with:
 1. `browserstack`
 2. `phishtank_fetcher`
 3. `url_checker`
+4. `cve_searcher`
 
 To use the framework, edit the `config.yml` file with wanted configuration options and then run:
 ```
@@ -58,3 +59,19 @@ The `url_checker` module is meant to act as a way of verifying certain URLs as v
 - PhishTank (which is where we scrape the URLs from)
 - Online Certificate Status Protocol (OCSP)
 - Certificate Revocation List (CRL)
+
+
+
+### CVE Searcher
+The `cve_searcher` module searches various sources for relevant CVEs, filtering out those that are unrelated to phishing and spoofing attacks. 
+
+It is comprised of 2 simple scripts, which scrape various pieces of information. The `cve_searcher.py` script compiles a list of relevant CVEs, which are decided based on a set of criteria.
+
+Currently, it is hard-coded to filter for CVEs since 2022 that contain the following keywords:
+- "spoof", 
+- "spoofing", 
+- "fake", 
+- "phishing"
+
+The `parse_version.py` script determines a list of affected browser versions based upon the compiled list of CVEs.
+
