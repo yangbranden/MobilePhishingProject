@@ -3,6 +3,7 @@ browserstack_runner:
   test_script: "./src/browserstack/tests/visit-only.py" # Test script to run
   urls_file: "./urls/manual.yml" # Phishing URLs to test on the devices 
   targets_src: "./src/browserstack/targets/all_targets" # Either the single file or directory of files containing the list of devices/configurations to test on
+  randomize_order: True # Randomize the order of the environments to ensure a fair test
   interrupted: False
   continue_point: "0.yml" # If the test was interrupted (specify in above boolean), can continue from a specific file
   unique_id: "" # If test was interrupted, also need to get the 8-character unique ID that was generated so it can just continue

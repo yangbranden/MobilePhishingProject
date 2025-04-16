@@ -13,7 +13,7 @@ accessKey: ${BROWSERSTACK_ACCESS_KEY}
 # Set 'projectName' to the name of your project. Example, Marketing Website
 projectName: Mobile Phishing Project
 # Set `buildName` as the name of the job / testsuite being run
-buildName: Example
+buildName: PpfQ5CyT_All_Targets
 # `buildIdentifier` is a unique id to differentiate every execution that gets appended to
 # buildName. Choose your buildIdentifier format from the available expressions:
 # ${BUILD_NUMBER} (Default): Generates an incremental counter with every execution
@@ -29,23 +29,30 @@ buildIdentifier: '#${BUILD_NUMBER} (${DATE_TIME})' # Supports strings along with
 # NOTE: We have saved various combinations of browsers and devices in the targets/ folder; simply copy-paste to here
 platforms:
 - os: OS X
-  osVersion: Big Sur
-  browserName: Chrome
-  browserVersion: latest
+  os_version: Big Sur
+  browser: firefox
+  browser_version: '113.0'
+- os: ios
+  os_version: '14'
+  browser: ipad
+  device: iPad 8th
+  real_mobile: true
+- os: OS X
+  os_version: Catalina
+  browser: firefox
+  browser_version: '111.0'
 - os: Windows
-  osVersion: 10
-  browserName: Edge
-  browserVersion: latest
-- deviceName: Samsung Galaxy S22 Ultra
-  browserName: chrome   # Try 'samsung' for Samsung browser
-  osVersion: 12.0
-
-# ==========================================
-# BrowserStack Local
-# (For localhost, staging/private websites)
-# ==========================================
-# Set browserStackLocal to true if your website under test is not accessible publicly over the internet
-# Learn more about how BrowserStack Local works here -> https://www.browserstack.com/docs/automate/selenium/local-testing-introduction
+  os_version: '8.1'
+  browser: firefox
+  browser_version: '112.0'
+- os: OS X
+  os_version: Mojave
+  browser: firefox
+  browser_version: '113.0'
+- os: Windows
+  os_version: '11'
+  browser: chrome
+  browser_version: '123.0'
 browserstackLocal: true # <boolean> (Default false)
 # browserStackLocalOptions:
 # Options to be passed to BrowserStack local in-case of advanced configurations

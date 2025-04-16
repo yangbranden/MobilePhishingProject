@@ -3,6 +3,7 @@ import time
 import os
 import requests
 import json
+import random
 from datetime import datetime
 from user_agents import parse
 from selenium import webdriver
@@ -43,67 +44,68 @@ class BrowserstackRunner:
         test_script = self.config.browserstack_runner.test_script
         urls_file = self.config.browserstack_runner.urls_file
         targets_src = self.config.browserstack_runner.targets_src
-        # build_name = f"{datetime.now().strftime("%m_%d")}_{self.config.browserstack_runner.build_name}"
         unique_id = self.config.browserstack_runner.unique_id if self.config.browserstack_runner.interrupted else generate_unique_str()
         build_name = f"{unique_id}_{self.config.browserstack_runner.build_name}"
 
         # Save the original config to restore later
-        with open("browserstack.yml", "r") as f:
-            original_config = yaml.load(f)
-
-        found = False
-        current_config = None
+        original_config = yaml.load(open("browserstack.yml", "r"))
         
+        # Check if targets_src is a directory or a file
         if os.path.isdir(targets_src):
             files = os.listdir(targets_src)
             files = sorted(files, key=lambda x: int(x.split('.')[0]))
         else:
             files = [targets_src]
 
-        # Iterate through each file in the target directory
+        # Generate list of environments to run tests on
+        environments = []
+        found = False
         for file in files:
             if self.config.browserstack_runner.interrupted:
                 if found is False and file != self.config.browserstack_runner.continue_point:
                     print("skipping...")
-                    continue 
-                
-                print("Continuing from", file)
+                    continue
+                print(f"Generating list of environments starting from {file}...")
                 found = True
-            
-            # Get the current config
-            with open("browserstack.yml", "r") as f:
-                current_config = yaml.load(f)
 
-            # Open the file that contains the platforms we want to test on
             if os.path.isdir(targets_src):
                 target_file = os.path.join(targets_src, file)
             else:
                 target_file = targets_src
             with open(target_file, "r") as target_set:
                 platforms = yaml.load(target_set)
-            
-            # edit the config to have the target set we want
-            current_config["buildName"] = build_name
-            current_config["platforms"] = platforms
+                environments += platforms
+        
+        # Randomize order of environments
+        if self.config.browserstack_runner.randomize_order:
+            random.shuffle(environments)
 
-            # overwrite the current config
+        # Run tests in batches of 6 (because BrowserStack free plan allows 1 thread + 5 queued)
+        for i in range(0, len(environments), 6):
+            batch = environments[i:i+6]
+            print(f"({i}/{len(environments)}) Running data collection...")
+            # Create a temporary config file for this batch
+            temp_config = original_config.copy()
+            temp_config["buildName"] = build_name
+            temp_config["platforms"] = batch
+
+            # Write the temporary config to a file
             with open("browserstack.yml", "w") as f:
-                yaml.dump(current_config, f)
+                yaml.dump(temp_config, f)
 
-            # if parallel_sessions_running == 0 then we can continue testing
+            # Check API to see if parallel_sessions_running == 0 so we can continue testing
             # https://api.browserstack.com/automate/plan.json
             s = requests.Session()
             s.auth = (os.environ.get("BROWSERSTACK_USERNAME"), os.environ.get("BROWSERSTACK_ACCESS_KEY"))
             r = s.get("https://api.browserstack.com/automate/plan.json")
             response = json.loads(r.text)
-
             sleep_counter = 0
             while response["parallel_sessions_running"] != 0:
                 print(f"Waiting for parallel session to finish ({sleep_counter})...")
                 time.sleep(1)
                 sleep_counter += 1
 
-            # run the test
+            # Run the test
             os.system(f"browserstack-sdk {test_script} {urls_file}")
 
         # Reset back to the original config
@@ -120,7 +122,7 @@ class BrowserstackRunner:
         
         # Save information about the entire build
         self.save_run_info(build_name)
-    
+
 
     # Creates the list (or folder) of targets to run the browserstack tests on; scopes by browser_versions.yml if it exists
     # (You can create the browser_versions.yml file using the cve_searcher module)
