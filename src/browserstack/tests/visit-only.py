@@ -10,6 +10,9 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException, WebDriverException
 from selenium.webdriver.chrome.options import Options as ChromeOptions
+from selenium.webdriver.firefox.options import Options as FirefoxOptions
+from browserstack_sdk import BrowserStackSdk
+
 
 # get the username and access key from the browserstack.yml file
 with open('./browserstack.yml', 'r') as file:
@@ -38,6 +41,29 @@ print("PHISHING URLs:", phishing_urls)
 # without any changes to the test files!
 options = ChromeOptions()
 driver = webdriver.Chrome(options=options)
+
+# Detect what browser we are using and add the safe browsing flags accordingly
+# platform_caps = BrowserStackSdk.get_current_platform()
+browser = driver.capabilities.get("browserName", "").lower()
+
+print("DID IT WORK:", browser)
+
+if browser == "firefox":
+    options = webdriver.FirefoxOptions()
+    options.set_preference("browser.safebrowsing.malware.enabled", True)
+    options.set_preference("browser.safebrowsing.phishing.enabled", True)
+    options.set_preference("browser.safebrowsing.downloads.enabled", True)
+    driver = webdriver.Chrome(options=options)
+elif browser == "chrome":
+    options = webdriver.ChromeOptions()
+    chrome_prefs = {
+        "safebrowsing.enabled": True,
+        "safebrowsing.malware.enabled": True,
+        "safebrowsing.downloads.enabled": True,
+    }
+    options.add_experimental_option("prefs", chrome_prefs)
+    driver = webdriver.Firefox(options=options)
+
 
 for count, url in enumerate(phishing_urls):
     print(f"Testing {url}...")
