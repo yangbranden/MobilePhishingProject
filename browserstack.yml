@@ -13,7 +13,7 @@ accessKey: ${BROWSERSTACK_ACCESS_KEY}
 # Set 'projectName' to the name of your project. Example, Marketing Website
 projectName: Mobile Phishing Project
 # Set `buildName` as the name of the job / testsuite being run
-buildName: 27Douf7W_All_Targets
+buildName: iooYm9AP_All_Targets
 # `buildIdentifier` is a unique id to differentiate every execution that gets appended to
 # buildName. Choose your buildIdentifier format from the available expressions:
 # ${BUILD_NUMBER} (Default): Generates an incremental counter with every execution

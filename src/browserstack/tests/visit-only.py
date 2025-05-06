@@ -53,16 +53,16 @@ if browser == "firefox":
     options.set_preference("browser.safebrowsing.malware.enabled", True)
     options.set_preference("browser.safebrowsing.phishing.enabled", True)
     options.set_preference("browser.safebrowsing.downloads.enabled", True)
+    options.set_preference("browser.safebrowsing.blockedURIs.enabled", True)
     driver = webdriver.Chrome(options=options)
 elif browser == "chrome":
     options = webdriver.ChromeOptions()
-    chrome_prefs = {
-        "safebrowsing.enabled": True,
-        "safebrowsing.malware.enabled": True,
-        "safebrowsing.downloads.enabled": True,
-    }
-    options.add_experimental_option("prefs", chrome_prefs)
-    driver = webdriver.Firefox(options=options)
+    options.add_experimental_option("prefs", {
+    "safebrowsing.enabled": True,
+    "safebrowsing.extended_reporting_opt_in_allowed": True,
+    "safebrowsing.enhanced": True
+    })
+    driver = webdriver.Chrome(options=options)
 
 
 for count, url in enumerate(phishing_urls):
