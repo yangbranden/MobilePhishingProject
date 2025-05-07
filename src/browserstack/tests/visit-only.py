@@ -74,6 +74,14 @@ for count, url in enumerate(phishing_urls):
         # Save page source
         page_source = driver.page_source
         
+        # THIS DOES NOT WORK; IT IS A BROWSERSTACK ISSUE
+        # Edge case for Safari
+        # if browser == "safari":
+        #     while "Appium" in page_source:
+        #         print("Appium documentation page detected, waiting for page to load...")
+        #         time.sleep(1)
+        #         page_source = driver.page_source
+
         driver.execute_script(
                 'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"passed", "reason": "Page loaded successfully."}}')
     except NoSuchElementException as err:
