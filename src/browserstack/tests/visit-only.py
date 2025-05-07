@@ -54,7 +54,7 @@ if browser == "firefox":
     options.set_preference("browser.safebrowsing.phishing.enabled", True)
     options.set_preference("browser.safebrowsing.downloads.enabled", True)
     options.set_preference("browser.safebrowsing.blockedURIs.enabled", True)
-    driver = webdriver.Chrome(options=options)
+    driver = webdriver.Firefox(options=options)
 elif browser == "chrome":
     options = webdriver.ChromeOptions()
     options.add_experimental_option("prefs", {
