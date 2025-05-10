@@ -39,6 +39,47 @@ print("PHISHING URLs:", phishing_urls)
 options = ChromeOptions()
 driver = webdriver.Chrome(options=options)
 
+<<<<<<< Updated upstream
+=======
+# Detect what browser we are using and add the safe browsing flags accordingly
+# platform_caps = BrowserStackSdk.get_current_platform()
+browser = driver.capabilities.get("browserName", "").lower()
+
+print("DID IT WORK:", browser)
+
+if browser == "firefox":
+    options = webdriver.FirefoxOptions()
+    options.set_preference("browser.safebrowsing.malware.enabled", True)
+    options.set_preference("browser.safebrowsing.phishing.enabled", True)
+    options.set_preference("browser.safebrowsing.downloads.enabled", True)
+    options.set_preference("browser.safebrowsing.blockedURIs.enabled", True)
+    driver = webdriver.Chrome(options=options)
+elif browser == "chrome":
+    options = webdriver.ChromeOptions()
+   
+    # Set path to your Chrome user data (adjust this path!)
+    options.add_argument(r'--user-data-dir=C:\Users\hello\AppData\Local\Google\Chrome\User Data')
+    # Set specific profile within the user data directory (e.g., 'Default', 'Profile 1', etc.)
+    options.add_argument('--profile-directory=Default')
+
+    # Optional: to avoid automation detection
+    # options.add_experimental_option("excludeSwitches", ["enable-automation"])
+    # options.add_experimental_option('useAutomationExtension', False)
+
+
+    options.add_experimental_option("prefs", {
+    "safebrowsing.enabled": True,
+    "safebrowsing.extended_reporting_opt_in_allowed": True,
+    "safebrowsing.enhanced": True
+    })
+
+
+    driver = webdriver.Chrome(options=options)
+
+
+
+
+>>>>>>> Stashed changes
 for count, url in enumerate(phishing_urls):
     print(f"Testing {url}...")
     try:
@@ -68,3 +109,4 @@ for count, url in enumerate(phishing_urls):
 
 # Stop the driver
 driver.quit()
+# https://v1.kpejai7.za.com/
